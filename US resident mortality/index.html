@@ -18,10 +18,10 @@ a{color:var(--link);cursor:pointer;text-decoration:none}a:hover{text-decoration:
 :focus-visible{outline:2px solid #93c5fd;outline-offset:1px}
 .skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;z-index:9;background:#fff;padding:6px}
 header{position:sticky;top:0;z-index:8;background:#fff;border-bottom:1px solid var(--line);padding:calc(6px + env(safe-area-inset-top)) 12px 0}
-.top,.wrap,nav{max-width:1200px;margin:0 auto;width:100%}
+.top,.wrap,nav{max-width:1100px;margin:0 auto;width:100%}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .top strong{font-size:14px;letter-spacing:-.02em}.top small{color:var(--mute);font-size:11px}
-.langs{display:flex;gap:2px}
+.langs{display:flex;flex-wrap:wrap;gap:2px}
 .langs button{border:1px solid var(--line);background:#fff;border-radius:5px;padding:3px 7px;font:11px system-ui;cursor:pointer;color:#374151}
 .langs button.on{background:#111827;color:#fff;border-color:#111827}
 nav{display:flex;flex-wrap:wrap;margin-top:4px}
@@ -29,28 +29,28 @@ nav a{padding:6px 8px;color:#4b5563;border-bottom:2px solid transparent;font-siz
 nav a.on{color:var(--ink);border-color:var(--ink);font-weight:600}
 #q{margin:0 0 4px 8px;width:4.8rem;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:16px/1.2 system-ui}
 .wrap{display:flex;align-items:flex-start}
-#side{width:108px;flex-shrink:0;padding:8px 6px 24px;border-right:1px solid var(--line);position:sticky;top:var(--hdr);max-height:calc(100dvh - var(--hdr));overflow-x:hidden;overflow-y:auto;overscroll-behavior:auto;-webkit-overflow-scrolling:touch}
+#side{width:100px;flex-shrink:0;padding:8px 6px 24px;border-right:1px solid var(--line);position:sticky;top:var(--hdr);max-height:calc(100dvh - var(--hdr));overflow:auto;overscroll-behavior:auto;-webkit-overflow-scrolling:touch}
 #side:empty{display:none}
 #side h4{margin:0 4px 4px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 #side button{display:block;width:100%;text-align:left;border:0;background:0;padding:3px 6px;font:12px system-ui;color:var(--link);border-radius:5px;cursor:pointer}
 #side button:hover{background:var(--soft);color:var(--ink)}
 #pane{flex:1;padding:12px 16px 28px;min-width:0}
-h1{font:650 1.22rem/1.2 system-ui;letter-spacing:-.03em;margin:0 0 6px}
+h1{font:650 1.2rem/1.2 system-ui;letter-spacing:-.03em;margin:0 0 6px}
 h2{font:650 13px/1.3 system-ui;margin:14px 0 4px;color:#374151}
 p,ul{margin:6px 0}ul{padding-left:1.15rem}
 .note,.warn{margin:6px 0;padding:7px 9px;background:var(--soft);border-radius:7px;color:#374151}.warn{background:#fff7ed}
 .eq{font:12px/1.45 ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
-.scroll{overflow-x:auto;overflow-y:visible;margin:6px 0;border:1px solid var(--line);border-radius:8px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;min-width:420px;font-size:12px;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto;margin:6px 0;border:1px solid var(--line);border-radius:8px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:380px;font-size:12px;font-variant-numeric:tabular-nums}
 th,td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:right}
 th{background:var(--soft);text-align:center;font-weight:600}
 td:first-child,th:first-child,td.l,th.l{text-align:left}
 .hi{background:var(--hi)}.pk{background:var(--pk)}.lo{background:var(--lo)}.br{background:var(--br)}
-canvas{width:100%;max-width:980px;height:210px;background:#fff;border:1px solid var(--line);border-radius:8px;display:block;margin:4px 0 6px;pointer-events:none;touch-action:none}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:6px;margin:8px 0}
+canvas{width:100%;max-width:980px;height:200px;background:#fff;border:1px solid var(--line);border-radius:8px;display:block;margin:4px 0 6px;pointer-events:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:6px;margin:8px 0}
 .card{border:1px solid var(--line);border-radius:8px;padding:7px 9px}
 .card small,.card span{color:var(--mute);font-size:11px;display:block}
-.card em{display:block;font:650 1.18rem/1.15 system-ui;font-style:normal;margin:1px 0}
+.card em{display:block;font:650 1.15rem/1.15 system-ui;font-style:normal;margin:1px 0}
 .legend{display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--mute);font-size:12px;margin:2px 0 6px}
 .legend i{display:inline-block;width:8px;height:8px;border-radius:99px;margin-right:4px;vertical-align:middle}
 footer{border-top:1px solid var(--line);padding:8px 12px calc(16px + env(safe-area-inset-bottom));color:var(--mute);font-size:11px}
@@ -58,14 +58,13 @@ footer{border-top:1px solid var(--line);padding:8px 12px calc(16px + env(safe-ar
   :root{--hdr:0px}
   header{position:static;padding:calc(8px + env(safe-area-inset-top)) 10px 0}
   .wrap{flex-direction:column}
-  nav{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x;gap:0;margin:4px -10px 0;padding:0 10px 2px;scrollbar-width:none}
+  nav{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x;margin:4px -10px 0;padding:0 10px 2px;scrollbar-width:none}
   nav::-webkit-scrollbar{display:none}
   nav a{flex:0 0 auto;white-space:nowrap}
-  #q{flex:0 0 auto;font-size:16px;min-height:40px;width:4.8rem;margin:0 0 2px 8px}
-  #side{width:100%;max-height:none;position:static;display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:8px 0;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x}
-  #side h4{flex:0 0 auto;margin:0 6px 0 0;width:auto}
-  #side button{width:auto;flex:0 0 auto;padding:8px 10px}
-  #pane{padding:10px 10px 28px}.top small{display:none}table{min-width:560px}
+  #q{flex:0 0 auto;min-height:40px;margin:0 0 2px 8px}
+  #side{width:100%;max-height:none;position:static;display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:8px 0;border:0;border-bottom:1px solid var(--line);overflow-x:auto;touch-action:pan-x}
+  #side h4{margin:0 6px 0 0}#side button{width:auto;padding:8px 10px}
+  #pane{padding:10px} .top small{display:none} table{min-width:420px}
 }
 @media(pointer:coarse){nav a,#side button,.langs button{min-height:40px}}
 @media print{header,#side,footer,#q,.langs{position:static!important}#side,footer,#q{display:none}.scroll{overflow:visible}table{min-width:0}}
@@ -87,8 +86,8 @@ footer{border-top:1px solid var(--line);padding:8px 12px calc(16px + env(safe-ar
 </div>
 <footer id="foot"></footer>
 <script>
-const M=[[1960,5.1,9145],[1961,4.8,8740],[1962,4.6,8530],[1963,4.6,8640],[1964,4.9,9360],[1965,5.1,9960],[1966,5.6,11040],[1967,6.2,12240],[1968,6.9,13800],[1969,7.3,14760],[1970,7.9,16000],[1971,8.6,17780],[1972,9.0,18670],[1973,9.4,19640],[1974,9.8,20710],[1975,9.6,20510],[1976,8.8,18780],[1977,8.8,19120],[1978,9.0,19560],[1979,9.8,21460],[1980,10.2,23040],[1981,9.8,22520],[1982,9.1,21010],[1983,8.3,19310],[1984,7.9,18690],[1985,8.0,18980],[1986,8.6,20610],[1987,8.3,20096],[1988,8.4,20680],[1989,8.7,21500],[1990,9.4,23440],[1991,9.8,24700],[1992,9.3,23760],[1993,9.5,24526],[1994,9.0,23326],[1995,8.2,21606],[1996,7.4,19645],[1997,6.8,18208],[1998,6.3,16914],[1999,5.7,15522],[2000,5.5,15586],[2001,5.6,16037],[2002,5.6,16229],[2003,5.7,16528],[2004,5.5,16148],[2005,5.6,16740],[2006,5.7,17030],[2007,5.6,16929],[2008,5.4,16442],[2009,5.0,15399],[2010,4.8,14748],[2011,4.7,14661],[2012,4.7,14856],[2013,4.5,14319],[2014,4.4,14164],[2015,4.9,15883],[2016,5.4,17413],[2017,5.3,17294],[2018,5.0,16374],[2019,5.0,16425],[2020,6.5,21570],[2021,6.8,22600],[2022,6.3,21600],[2023,5.7,20210],[2024,5.0,17200],[2025,4.1,14085],[2026,null,null]];
-const OD=[[1968,5033],[1969,6006],[1970,7101],[1971,6771],[1972,6622],[1973,6413],[1974,6449],[1975,7145],[1976,6765],[1977,6130],[1978,5506],[1979,2544],[1980,2492],[1981,2668],[1982,2862],[1983,2866],[1984,3266],[1985,3612],[1986,4187],[1987,3907],[1988,4865],[1989,5035],[1990,4506],[1991,5215],[1992,5951],[1993,7382],[1994,7828],[1995,8000],[1996,8431],[1997,9099],[1998,9838],[1999,16849],[2000,17415],[2001,19394],[2002,23518],[2003,25785],[2004,27424],[2005,29813],[2006,34425],[2007,36010],[2008,36450],[2009,37004],[2010,38329],[2011,41340],[2012,41502],[2013,43982],[2014,47055],[2015,52404],[2016,63632],[2017,70237],[2018,67367],[2019,70630],[2020,91799],[2021,106699],[2022,107941],[2023,105007],[2024,79384],[2025,69973],[2026,68641]];
+const M=[[1960,5.1,9145],[1961,4.8,8740],[1962,4.6,8530],[1963,4.6,8640],[1964,4.9,9360],[1965,5.1,9960],[1966,5.6,11040],[1967,6.2,12240],[1968,6.9,13800],[1969,7.3,14760],[1970,7.9,16000],[1971,8.6,17780],[1972,9.0,18670],[1973,9.4,19640],[1974,9.8,20710],[1975,9.6,20510],[1976,8.8,18780],[1977,8.8,19120],[1978,9.0,19560],[1979,9.8,21460],[1980,10.2,23040],[1981,9.8,22520],[1982,9.1,21010],[1983,8.3,19310],[1984,7.9,18690],[1985,8.0,18980],[1986,8.6,20610],[1987,8.3,20096],[1988,8.4,20680],[1989,8.7,21500],[1990,9.4,23440],[1991,9.8,24700],[1992,9.3,23760],[1993,9.5,24526],[1994,9.0,23326],[1995,8.2,21606],[1996,7.4,19645],[1997,6.8,18208],[1998,6.3,16914],[1999,5.7,15522],[2000,5.5,15586],[2001,5.6,16037],[2002,5.6,16229],[2003,5.7,16528],[2004,5.5,16148],[2005,5.6,16740],[2006,5.7,17030],[2007,5.6,16929],[2008,5.4,16442],[2009,5.0,15399],[2010,4.8,14748],[2011,4.7,14661],[2012,4.7,14856],[2013,4.5,14319],[2014,4.4,14164],[2015,4.9,15883],[2016,5.4,17413],[2017,5.3,17294],[2018,5.0,16374],[2019,5.0,16425],[2020,6.5,21570],[2021,6.8,22600],[2022,6.3,21600],[2023,5.7,20210],[2024,5.0,17200],[2025,4.1,14085]];
+const OD=[[1968,5033],[1969,6006],[1970,7101],[1971,6771],[1972,6622],[1973,6413],[1974,6449],[1975,7145],[1976,6765],[1977,6130],[1978,5506],[1979,2544],[1980,2492],[1981,2668],[1982,2862],[1983,2866],[1984,3266],[1985,3612],[1986,4187],[1987,3907],[1988,4865],[1989,5035],[1990,4506],[1991,5215],[1992,5951],[1993,7382],[1994,7828],[1995,8000],[1996,8431],[1997,9099],[1998,9838],[1999,16849],[2000,17415],[2001,19394],[2002,23518],[2003,25785],[2004,27424],[2005,29813],[2006,34425],[2007,36010],[2008,36450],[2009,37004],[2010,38329],[2011,41340],[2012,41502],[2013,43982],[2014,47055],[2015,52404],[2016,63632],[2017,70237],[2018,67367],[2019,70630],[2020,91799],[2021,106699],[2022,107941],[2023,105007],[2024,79384],[2025,69973]];
 const SYN={1999:730,2000:782,2005:1742,2010:3007,2013:3105,2014:5544,2015:9580,2016:19413,2017:28466,2018:31335,2019:36359,2020:56516,2021:70601,2022:73798,2023:72500,2024:48913,2025:38084};
 const COVID={2020:350831,2021:416893,2022:245614,2023:76446};
 const COVu={2022:186552,2023:49932,2024:31426};
@@ -110,121 +109,110 @@ const NOTES={
   2010:'Heroin wave 2 accelerating.',
   2013:'Illicit fentanyl (T40.4) takeoff — wave 3.',
   2014:'UCR murder local minimum (4.4).',
-  2020:'U07.1-involving 350,831. XA ≈480k. D = 3,383,729. UCR rate rose.',
+  2020:'U07.1-involving 350,831. XA ≈480k. D = 3,383,729.',
   2021:'UCR local maximum of the 2020–21 spike (6.8). Poisoning >100k.',
   2022:'Poisoning series maximum (107,941). Murder already declining.',
-  2023:'D final 3,090,964. Poisoning and murder both down. U07.1 involving 76,446; underlying 49,932.',
-  2024:'D final 3,072,666; AA 722.1. U07.1 underlying 31,426. XA ≈12,300 (RGA 0.4%). OD final 79,384 (not the 81,313 provisional).',
-  2025:'UCR 4.1 / 14,085. D provisional 3,094,593; AA 689.2 (lowest recorded AA). Not a CDC “0 excess” count.',
-  2026:'Incomplete year. No UCR or NVSS annual total. Poisoning = 12 months ending Feb 2026 (68,641), not calendar YTD.'
+  2023:'D final 3,090,964. U07.1 involving 76,446; underlying 49,932.',
+  2024:'D final 3,072,666; AA 722.1. U07.1 underlying 31,426. XA ≈12,300. OD final 79,384.',
+  2025:'UCR 4.1 / 14,085. D provisional 3,094,593; AA 689.2 (lowest recorded AA). Not a CDC “0 excess” count.'
 };
-const LANGS=[['en','EN'],['hu','HU'],['ro','RO'],['de','DE'],['es','ES']];
+const LANGS=[['en','EN'],['fr','FR'],['hu','HU'],['ro','RO'],['de','DE'],['es','ES']];
 const I={
-brand:{en:'US resident mortality',hu:'USA-lakossági halálozás',ro:'Mortalitate rezidenți SUA',de:'US-Wohnbevölkerungssterblichkeit',es:'Mortalidad de residentes EE.UU.'},
-sub:{en:'Unofficial compilation · 18 Aug 2026 · not FBI/CDC/NCHS',hu:'Nem hivatalos · 2026. aug. 18. · nem FBI/CDC/NCHS',ro:'Neoficial · 18 aug. 2026 · nu FBI/CDC/NCHS',de:'Inoffiziell · 18. Aug. 2026 · nicht FBI/CDC/NCHS',es:'No oficial · 18 ago 2026 · no FBI/CDC/NCHS'},
-foot:{en:'UCR murder through 2025 · NVSS poisoning to Feb 2026 · all-cause 1900–2025 · 2026 open',hu:'UCR-gyilkosság 2025-ig · NVSS-mérgezés 2026. febr.-ig · minden ok 1900–2025 · 2026 nyitott',ro:'Omor UCR până în 2025 · intoxicații NVSS până feb. 2026 · toate cauzele 1900–2025 · 2026 deschis',de:'UCR-Mord bis 2025 · NVSS-Vergiftung bis Feb. 2026 · alle Ursachen 1900–2025 · 2026 offen',es:'Asesinato UCR hasta 2025 · intoxicación NVSS hasta feb. 2026 · todas las causas 1900–2025 · 2026 abierto'},
-nHome:{en:'Home',hu:'Kezdőlap',ro:'Acasă',de:'Start',es:'Inicio'},
-nCharts:{en:'Charts',hu:'Ábrák',ro:'Grafice',de:'Diagramme',es:'Gráficos'},
-nMurder:{en:'Murder',hu:'Gyilkosság',ro:'Omor',de:'Mord',es:'Homicidio'},
-nOd:{en:'Poisoning',hu:'Mérgezés',ro:'Intoxicații',de:'Vergiftung',es:'Intoxicación'},
-nYears:{en:'Years',hu:'Évek',ro:'Ani',de:'Jahre',es:'Años'},
-nCmp:{en:'Compare',hu:'Összevetés',ro:'Comparație',de:'Vergleich',es:'Comparar'},
-nMet:{en:'Methods',hu:'Módszer',ro:'Metode',de:'Methoden',es:'Métodos'},
-nSrc:{en:'Sources',hu:'Források',ro:'Surse',de:'Quellen',es:'Fuentes'},
-yr:{en:'Year',hu:'Év',ro:'An',de:'Jahr',es:'Año'},
-h1:{en:'U.S. resident mortality',hu:'USA-beli lakossági halálozás',ro:'Mortalitatea rezidenților SUA',de:'Sterblichkeit der US-Wohnbevölkerung',es:'Mortalidad de residentes de EE.UU.'},
-warn:{en:'Unofficial transcription. Constructs are not interchangeable: UCR murder ≠ NVSS homicide; U07.1 involving ≠ underlying; CDR ≠ year-2000 AA; excess is a residual; XA ≠ XB. Do not add series.',hu:'Nem hivatalos átírás. A konstruktumok nem cserélhetők: UCR-gyilkosság ≠ NVSS-emberölés; U07.1 involving ≠ alapok; CDR ≠ AA; a többlet maradék; XA ≠ XB. Ne adjuk össze.',ro:'Transcriere neoficială. Constructele nu sunt interșanjabile: omor UCR ≠ omicid NVSS; U07.1 involving ≠ cauză de bază; CDR ≠ AA; excesul e un reziduu; XA ≠ XB. Nu însumați.',de:'Inoffizielle Abschrift. Konstrukte nicht austauschbar: UCR-Mord ≠ NVSS-Tötung; U07.1 involving ≠ Grundleiden; CDR ≠ AA; Übersterblichkeit = Residual; XA ≠ XB. Nicht addieren.',es:'Transcripción no oficial. Constructos no intercambiables: asesinato UCR ≠ homicidio NVSS; U07.1 involving ≠ causa básica; CDR ≠ AA; exceso = residual; XA ≠ XB. No sumar.'},
-hCrude:{en:'CDR · all-cause · 1900–2025',hu:'CDR · minden ok · 1900–2025',ro:'CDR · toate cauzele · 1900–2025',de:'CDR · alle Ursachen · 1900–2025',es:'CDR · todas las causas · 1900–2025'},
-legCrude:{en:'CDR = D / P × 10⁵ · not year-2000 AA · 1900–32 national estimates (DRA incomplete)',hu:'CDR = D / P × 10⁵ · nem 2000-es AA · 1900–32 nemzeti becslés (DRA hiányos)',ro:'CDR = D / P × 10⁵ · nu AA 2000 · 1900–32 estimări naționale (DRA incomplet)',de:'CDR = D / P × 10⁵ · nicht AA 2000 · 1900–32 nationale Schätzungen (DRA unvollständig)',es:'CDR = D / P × 10⁵ · no AA 2000 · 1900–32 estimaciones nacionales (DRA incompleta)'},
-hMur:{en:'UCR murder rate /100,000 · 1960–2025',hu:'UCR-gyilkossági arány /100 000 · 1960–2025',ro:'Rată omor UCR /100.000 · 1960–2025',de:'UCR-Mordziffer /100.000 · 1960–2025',es:'Tasa de asesinato UCR /100.000 · 1960–2025'},
-hOd:{en:'Drug-poisoning CDR /100,000 · 1968–2025',hu:'Drogmérgezési CDR /100 000 · 1968–2025',ro:'CDR intoxicație /100.000 · 1968–2025',de:'Drogenvergiftungs-CDR /100.000 · 1968–2025',es:'CDR por intoxicación /100.000 · 1968–2025'},
-legMO:{en:'murder',hu:'gyilkosság',ro:'omor',de:'Mord',es:'asesinato'},
-legOD:{en:'poisoning',hu:'mérgezés',ro:'intoxicație',de:'Vergiftung',es:'intoxicación'},
-fig:{en:'Figures',hu:'Ábrák',ro:'Figuri',de:'Abbildungen',es:'Figuras'},
-uMur:{en:'UCR murder /100k',hu:'UCR-gyilkosság /100e',ro:'Omor UCR /100k',de:'UCR-Mord /100k',es:'Asesinato UCR /100k'},
-uOd:{en:'Poisoning CDR /100k',hu:'Mérgezés CDR /100e',ro:'Intoxicație CDR /100k',de:'Vergiftung CDR /100k',es:'Intoxicación CDR /100k'},
-uAc:{en:'All-cause CDR /100k',hu:'Minden ok CDR /100e',ro:'Toate cauzele CDR /100k',de:'Alle Ursachen CDR /100k',es:'Todas las causas CDR /100k'},
-uInc:{en:'Thousands · incommensurable series · do not compare levels',hu:'Ezer · össze nem mérhető sorozatok · szinteket ne vessük össze',ro:'Mii · serii incomparabile · nu comparați nivelurile',de:'Tausend · inkommensurable Reihen · Niveaus nicht vergleichen',es:'Miles · series inconmensurables · no compare niveles'},
-uCov:{en:'U07.1 involving, thousands',hu:'U07.1 involving, ezer',ro:'U07.1 involving, mii',de:'U07.1 involving, Tausend',es:'U07.1 involving, miles'},
-uEx:{en:'XA excess vs U.S. expected, thousands',hu:'XA többlet a USA-várthoz, ezer',ro:'XA exces față de așteptatul SUA, mii',de:'XA Übersterblichkeit vs. US-Erwartung, Tausend',es:'XA exceso frente a lo esperado en EE.UU., miles'},
-uPeer:{en:'XB excess vs HIC peers, thousands',hu:'XB többlet a HIC-ekhez, ezer',ro:'XB exces față de HIC, mii',de:'XB Übersterblichkeit vs. HIC, Tausend',es:'XB exceso frente a pares HIC, miles'},
-u18:{en:'1918 influenza XA, thousands',hu:'1918-as influenza XA, ezer',ro:'XA gripă 1918, mii',de:'XA Grippe 1918, Tausend',es:'XA gripe 1918, miles'},
-cUcr:{en:'UCR murder 2025',hu:'UCR-gyilkosság 2025',ro:'Omor UCR 2025',de:'UCR-Mord 2025',es:'Asesinato UCR 2025'},
-cOd:{en:'NVSS poisoning 2025',hu:'NVSS-mérgezés 2025',ro:'Intoxicații NVSS 2025',de:'NVSS-Vergiftung 2025',es:'Intoxicación NVSS 2025'},
-cWin:{en:'Poisoning → Feb 2026',hu:'Mérgezés → 2026. febr.',ro:'Intoxicații → feb. 2026',de:'Vergiftung → Feb. 2026',es:'Intoxicación → feb. 2026'},
-cAc:{en:'NVSS deaths 2025',hu:'NVSS-halálozás 2025',ro:'Decese NVSS 2025',de:'NVSS-Todesfälle 2025',es:'Defunciones NVSS 2025'},
-cCov:{en:'U07.1 involving 2020–23',hu:'U07.1 involving 2020–23',ro:'U07.1 involving 2020–23',de:'U07.1 involving 2020–23',es:'U07.1 involving 2020–23'},
-open:{en:'open',hu:'nyitott',ro:'deschis',de:'offen',es:'abierto'},
-noYear:{en:'no annual UCR / NVSS total',hu:'nincs éves UCR/NVSS-összeg',ro:'fără total anual UCR/NVSS',de:'kein Jahreswert UCR/NVSS',es:'sin total anual UCR/NVSS'},
-win12:{en:'12-month window, not YTD',hu:'12 hónapos ablak, nem évközi',ro:'fereastră de 12 luni, nu YTD',de:'12-Monatsfenster, nicht YTD',es:'ventana de 12 meses, no YTD'},
-aaLow:{en:'AA 689.2 · lowest recorded AA · not CDR',hu:'AA 689,2 · legalacsonyabb AA · nem CDR',ro:'AA 689,2 · cel mai mic AA · nu CDR',de:'AA 689,2 · niedrigstes AA · nicht CDR',es:'AA 689,2 · AA mínimo registrado · no CDR'},
-fromPeak:{en:'from 107,941 (2022) · provisional',hu:'107 941-ről (2022) · előzetes',ro:'de la 107.941 (2022) · provizoriu',de:'von 107.941 (2022) · vorläufig',es:'desde 107.941 (2022) · provisional'},
-ties:{en:'14,085 · rate ties 1955–56',hu:'14 085 · arány mint 1955–56',ro:'14.085 · rata egală 1955–56',de:'14.085 · Ziffer wie 1955–56',es:'14.085 · tasa igual a 1955–56'},
-und:{en:'2024 underlying 31,426',hu:'2024 alapok 31 426',ro:'2024 cauză de bază 31.426',de:'2024 Grundleiden 31.426',es:'2024 causa básica 31.426'},
-hUcr:{en:'UCR murder / nonnegligent manslaughter',hu:'UCR-gyilkosság / nem gondatlan emberölés',ro:'Omor UCR / omor prin imprudență exclus',de:'UCR-Mord / nicht fahrlässige Tötung',es:'Asesinato UCR / homicidio no imprudente'},
-wUcr:{en:'Police-reported offense. NVSS homicide is a different construct (2024 = 20,162; crude 5.9). 2021 NIBRS transition: treat counts as less comparable across the break.',hu:'Rendőrségi bejelentés. Az NVSS-emberölés más konstruktum (2024: 20 162; nyers 5,9). 2021 NIBRS: a szám kevésbé összevethető.',ro:'Infracțiune raportată de poliție. Omicidul NVSS e alt construct (2024: 20.162; brut 5,9). Tranziția NIBRS 2021: comparabilitate redusă.',de:'Polizeilich gemeldet. NVSS-Tötung ist ein anderes Konstrukt (2024: 20.162; roh 5,9). NIBRS 2021: eingeschränkte Vergleichbarkeit.',es:'Delito denunciado. El homicidio NVSS es otro constructo (2024: 20.162; bruta 5,9). Transición NIBRS 2021: menos comparable.'},
-thRate:{en:'Rate',hu:'Arány',ro:'Rată',de:'Ziffer',es:'Tasa'},
-thCnt:{en:'Count',hu:'Szám',ro:'Număr',de:'Zahl',es:'Recuento'},
-thD:{en:'Δ rate',hu:'Δ arány',ro:'Δ rată',de:'Δ Ziffer',es:'Δ tasa'},
-thNote:{en:'Note',hu:'Megj.',ro:'Notă',de:'Hinweis',es:'Nota'},
-hPois:{en:'NVSS drug-poisoning (overdose)',hu:'NVSS-drogmérgezés (túladagolás)',ro:'Intoxicație NVSS (supradoză)',de:'NVSS-Drogenvergiftung (Überdosis)',es:'Intoxicación NVSS (sobredosis)'},
-wPois:{en:'Underlying ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violet rows are revision breaks (ICD-9 1979; ICD-10 1999), not biological discontinuities. T40.4 is a multiple-cause mention. CDR here is crude, not NCHS AA (2024 AA = 23.1).',hu:'Alapok BNO-10 X40–X44, X60–X64, X85, Y10–Y14. Lila: kódváltás (1979, 1999). T40.4 többszörös említés. Itt CDR nyers, nem NCHS AA (2024 AA = 23,1).',ro:'Cauză de bază CIM-10 X40–X44, X60–X64, X85, Y10–Y14. Violet: rupturi de clasificare (1979, 1999). T40.4 e mențiune multiplă. CDR aici e brut, nu AA NCHS (2024 AA = 23,1).',de:'Grundleiden ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violett: Revisionsbrüche (1979, 1999). T40.4 ist Mehrfachnennung. CDR hier roh, nicht NCHS-AA (2024 AA = 23,1).',es:'Causa básica CIE-10 X40–X44, X60–X64, X85, Y10–Y14. Violeta: cortes de revisión (1979, 1999). T40.4 es mención múltiple. CDR aquí es bruta, no AA NCHS (2024 AA = 23,1).'},
-thDth:{en:'Deaths',hu:'Halálozás',ro:'Decese',de:'Todesfälle',es:'Defunciones'},
-p26:{en:'2026 calendar year is unpublished (≈4-month lag). Window ending Feb 2026 = 68,641 (predicted provisional).',hu:'A 2026-os naptári év még nincs közzétéve (≈4 hónap késés). Ablak 2026. febr.-ig = 68 641.',ro:'Anul calendaristic 2026 nu e publicat (≈4 luni întârziere). Fereastra până feb. 2026 = 68.641.',de:'Kalenderjahr 2026 unveröffentlicht (≈4 Monate Verzug). Fenster bis Feb. 2026 = 68.641.',es:'El año 2026 no está publicado (≈4 meses de retraso). Ventana hasta feb. 2026 = 68.641.'},
-hAnn:{en:'Annual file',hu:'Éves fájl',ro:'Fișier anual',de:'Jahresdatei',es:'Archivo anual'},
-nAnn:{en:'All-cause only, 1900–2025. CDR = D/P×10⁵, not year-2000 AA. 1900–32 national estimates (DRA incomplete). 1933–2024 NVSS registered. 2025 provisional. Murder, poisoning, U07.1 and excess are on their own pages — they are not defined for every year.',hu:'Csak minden ok, 1900–2025. CDR = D/P×10⁵, nem 2000-es AA. 1900–32 becslés (DRA hiányos). 1933–2024 NVSS. 2025 előzetes. Gyilkosság, mérgezés, U07.1 és többlet külön lapokon.',ro:'Doar toate cauzele, 1900–2025. CDR = D/P×10⁵, nu AA 2000. 1900–32 estimări (DRA incomplet). 1933–2024 NVSS. 2025 provizoriu. Omor, intoxicație, U07.1 și exces pe pagini separate.',de:'Nur alle Ursachen, 1900–2025. CDR = D/P×10⁵, nicht AA 2000. 1900–32 Schätzungen (DRA unvollständig). 1933–2024 NVSS. 2025 vorläufig. Mord, Vergiftung, U07.1 und Übersterblichkeit auf eigenen Seiten.',es:'Solo todas las causas, 1900–2025. CDR = D/P×10⁵, no AA 2000. 1900–32 estimaciones (DRA incompleta). 1933–2024 NVSS. 2025 provisional. Asesinato, intoxicación, U07.1 y exceso en sus páginas.'},
-hCmp:{en:'Murder versus drug-poisoning',hu:'Gyilkosság és drogmérgezés',ro:'Omor versus intoxicație',de:'Mord versus Drogenvergiftung',es:'Asesinato frente a intoxicación'},
-nCmp2:{en:'Different units of observation. Ratio is descriptive only. Do not sum. 1980 poisoning is post–ICD-9.',hu:'Külön megfigyelési egységek. Az arány csak leíró. Ne adjuk össze. Az 1980-as mérgezés ICD-9 utáni.',ro:'Unități de observație diferite. Raportul e doar descriptiv. Nu însumați. 1980 e post-CIM-9.',de:'Andere Beobachtungseinheiten. Verhältnis nur deskriptiv. Nicht addieren. 1980 nach ICD-9.',es:'Unidades distintas. La razón es solo descriptiva. No sumar. 1980 es post-CIE-9.'},
-hT:{en:'Synthetic opioids other than methadone (T40.4)',hu:'Szintetikus opioidok metadon nélkül (T40.4)',ro:'Opioide sintetice fără metadonă (T40.4)',de:'Synthetische Opioide außer Methadon (T40.4)',es:'Opioides sintéticos salvo metadona (T40.4)'},
-pT:{en:'Mostly illicit fentanyl. Multiple-cause mention; overlaps the all-drug total. Share = T40.4 ÷ all-drug. 2024–25 paired to the May 2026 NCHS provisional release (2024 all-drug later revised to 79,384).',hu:'Főleg tiltott fentanil. Többszörös említés; átfed a teljes drogsorral. Arány = T40.4 ÷ összes. 2024–25 a 2026. májusi NCHS-előzeteshez igazodik.',ro:'Mai ales fentanil ilicit. Mențiune multiplă; se suprapune. Pondere = T40.4 ÷ toate drogurile. 2024–25 din comunicatul NCHS din mai 2026.',de:'Überwiegend illegales Fentanyl. Mehrfachnennung; überlappt. Anteil = T40.4 ÷ alle Drogen. 2024–25 gemäß NCHS Mai 2026.',es:'Sobre todo fentanilo ilícito. Mención múltiple; se solapa. Cuota = T40.4 ÷ todas las drogas. 2024–25 según NCHS mayo 2026.'},
-thSh:{en:'Share of all poisoning',hu:'Részesedés az összes mérgezésből',ro:'Pondere din toate intoxicațiile',de:'Anteil aller Vergiftungen',es:'Cuota de toda intoxicación'},
-hCov:{en:'COVID-19 and excess · 2020–2025',hu:'COVID-19 és többlet · 2020–2025',ro:'COVID-19 și exces · 2020–2025',de:'COVID-19 und Übersterblichkeit · 2020–2025',es:'COVID-19 y exceso · 2020–2025'},
-w0:{en:'U07.1 exists from 2020. XA is a U.S.-expected residual (OWID/RGA), 2020–24 only. XB is U.S. vs other high-income countries (Bor et al. 2025), 2019–23; 2019 is a pre-pandemic baseline, not COVID. Do not add U07.1 + XA + XB. 2025 has no CDC “0 excess” year-total; AA 689.2 < 2019 715.2 is not a count of zero. 1918 influenza is all-cause, not this page.',hu:'U07.1 2020-tól. XA csak 2020–24. XB 2019–23 (2019 a járvány előtti alap). Ne adjuk össze. Az 1918-as influenza nem ez a lap.',ro:'U07.1 din 2020. XA doar 2020–24. XB 2019–23 (2019 e baza pre-pandemică). Nu însumați. Gripa 1918 nu e această pagină.',de:'U07.1 ab 2020. XA nur 2020–24. XB 2019–23 (2019 ist Vor-Pandemie). Nicht addieren. Grippe 1918 ist nicht diese Seite.',es:'U07.1 desde 2020. XA solo 2020–24. XB 2019–23 (2019 es la base prepandémica). No sume. La gripe de 1918 no es esta página.'},
-hCert:{en:'Certificate COVID (NVSS)',hu:'Anyakönyvi COVID (NVSS)',ro:'COVID pe certificat (NVSS)',de:'COVID auf der Sterbeurkunde (NVSS)',es:'COVID en el certificado (NVSS)'},
-hA:{en:'Estimator A (XA) — excess versus U.S. expected',hu:'A becslő (XA) — többlet a USA-várthoz',ro:'Estimator A (XA) — exces față de așteptatul SUA',de:'Schätzer A (XA) — Übersterblichkeit vs. US-Erwartung',es:'Estimador A (XA) — exceso frente a lo esperado en EE.UU.'},
-hB:{en:'Estimator B (XB) — versus other high-income countries',hu:'B becslő (XB) — más magas jövedelmű országok',ro:'Estimator B (XB) — față de alte țări cu venit ridicat',de:'Schätzer B (XB) — andere HIC',es:'Estimador B (XB) — otros países de altos ingresos'},
-h18:{en:'1918 influenza versus COVID-19',hu:'1918-as influenza és COVID-19',ro:'Gripa 1918 versus COVID-19',de:'Grippe 1918 versus COVID-19',es:'Gripe de 1918 frente a COVID-19'},
-hMet:{en:'Methods',hu:'Módszer',ro:'Metode',de:'Methoden',es:'Métodos'},
-mUni:{en:'Universe. U.S. resident deaths occurring in the United States. Territorial and foreign-resident deaths excluded (VSRR 44).',hu:'Sokaság. USA-beli lakosok, az Egyesült Államokban bekövetkezett halálozás. Területi és külföldi lakosok kizárva (VSRR 44).',ro:'Univers. Decese ale rezidenților SUA în Statele Unite. Teritorii și rezidenți străini excluși (VSRR 44).',de:'Grundgesamtheit. Todesfälle von US-Wohnbevölkerung in den USA. Territorien und Auslandsresidenten ausgeschlossen (VSRR 44).',es:'Universo. Defunciones de residentes de EE.UU. ocurridas en Estados Unidos. Territorios y residentes extranjeros excluidos (VSRR 44).'},
-mPop:{en:'Population (P). Midyear Census estimates, thousands. CDR = D / P × 10⁵. Not the NCHS year-2000 age-adjusted rate (AA). Vintage 2025 denominators use the 2020 census MARC file and are not strictly comparable to vintage 2024 (VSRR 44).',hu:'Népesség (P). Évközi népszámlálás, ezer. CDR = D / P × 10⁵. Nem a 2000-es NCHS-AA. A 2025-ös nevezők a 2020-as MARC-en alapulnak (VSRR 44).',ro:'Populație (P). Recensământ la mijloc de an, mii. CDR = D / P × 10⁵. Nu AA NCHS 2000. Numitorii 2025 folosesc fișierul MARC 2020 (VSRR 44).',de:'Bevölkerung (P). Jahresmitte, Tausend. CDR = D / P × 10⁵. Nicht NCHS-AA 2000. Nenner 2025: MARC-Akte 2020 (VSRR 44).',es:'Población (P). Censo a mitad de año, miles. CDR = D / P × 10⁵. No AA NCHS 2000. Denominadores 2025: archivo MARC 2020 (VSRR 44).'},
-mAc:{en:'All-cause (D). 1900–32 published national estimates (Death Registration Area incomplete). 1933–2024 NVSS registered resident deaths. 2019 final 2,854,838. 2023 final 3,090,964. 2024 final 3,072,666. 2025 provisional 3,094,593 (99.9% of records as of 10 May 2026; VSRR 44). 2026 unpublished. Not UN WPP.',hu:'Minden ok (D). 1900–32 nemzeti becslés (DRA hiányos). 1933–2024 NVSS. 2019 végleges 2 854 838. 2023 3 090 964. 2024 3 072 666. 2025 előzetes 3 094 593 (VSRR 44). 2026 nincs. Nem UN WPP.',ro:'Toate cauzele (D). 1900–32 estimări naționale (DRA incomplet). 1933–2024 NVSS. 2019 final 2.854.838. 2023 3.090.964. 2024 3.072.666. 2025 provizoriu 3.094.593 (VSRR 44). 2026 nepublicat. Nu UN WPP.',de:'Alle Ursachen (D). 1900–32 nationale Schätzungen (DRA unvollständig). 1933–2024 NVSS. 2019 endgültig 2.854.838. 2023 3.090.964. 2024 3.072.666. 2025 vorläufig 3.094.593 (VSRR 44). 2026 unveröffentlicht. Nicht UN WPP.',es:'Todas las causas (D). 1900–32 estimaciones nacionales (DRA incompleta). 1933–2024 NVSS. 2019 final 2.854.838. 2023 3.090.964. 2024 3.072.666. 2025 provisional 3.094.593 (VSRR 44). 2026 inédito. No UN WPP.'},
-mAa:{en:'Age-adjusted (AA). Year-2000 U.S. standard million. Separate construct from CDR. 2019 = 715.2; 2023 = 750.5; 2024 = 722.1; 2025 = 689.2 (lowest recorded; provisional). A falling AA with a rising D is consistent with population growth and aging.',hu:'Korszerűsített (AA). 2000-es USA-standard. Külön konstruktum a CDR-től. 2019 = 715,2; 2023 = 750,5; 2024 = 722,1; 2025 = 689,2 (rekordalacsony; előzetes).',ro:'Standardizat pe vârstă (AA). Standard SUA 2000. Construct separat de CDR. 2019 = 715,2; 2023 = 750,5; 2024 = 722,1; 2025 = 689,2 (minim record; provizoriu).',de:'Altersstandardisiert (AA). US-Standard 2000. Anderes Konstrukt als CDR. 2019 = 715,2; 2023 = 750,5; 2024 = 722,1; 2025 = 689,2 (Rekordtief; vorläufig).',es:'Ajustada por edad (AA). Estándar EE.UU. 2000. Constructo distinto de CDR. 2019 = 715,2; 2023 = 750,5; 2024 = 722,1; 2025 = 689,2 (mínimo registrado; provisional).'},
-mUcr:{en:'UCR murder. Murder and nonnegligent manslaughter known to police. Not NVSS homicide (ICD). 2021 NIBRS transition reduces intertemporal comparability. 2025 rate 4.1 ties 1955–56.',hu:'UCR-gyilkosság. Rendőrségnek ismert gyilkosság / nem gondatlan emberölés. Nem NVSS-emberölés. 2021 NIBRS rontja az összevethetőséget.',ro:'Omor UCR. Raportat de poliție. Nu omicid NVSS. NIBRS 2021 reduce comparabilitatea.',de:'UCR-Mord. Polizeilich bekannt. Nicht NVSS-Tötung. NIBRS 2021 mindert Vergleichbarkeit.',es:'Asesinato UCR. Conocido por la policía. No homicidio NVSS. NIBRS 2021 reduce comparabilidad.'},
-mIcd:{en:'Drug-poisoning. ICD-8 from 1968; ICD-9 1979; ICD-10 1999 — classification breaks. Intent: accidental, suicide, homicide, undetermined. 2024 final 79,384; 2025 provisional 69,973; 12 months ending Feb 2026 = 68,641 (predicted; not calendar 2026). CDR on this page is crude.',hu:'Drogmérgezés. BNO-8 1968; BNO-9 1979; BNO-10 1999 — osztályozási törések. 2024 végleges 79 384; 2025 előzetes 69 973; 12 hónap 2026. febr.-ig = 68 641.',ro:'Intoxicație. CIM-8 din 1968; CIM-9 1979; CIM-10 1999. 2024 final 79.384; 2025 provizoriu 69.973; 12 luni până feb. 2026 = 68.641.',de:'Drogenvergiftung. ICD-8 ab 1968; ICD-9 1979; ICD-10 1999. 2024 endgültig 79.384; 2025 vorläufig 69.973; 12 Monate bis Feb. 2026 = 68.641.',es:'Intoxicación. CIE-8 desde 1968; CIE-9 1979; CIE-10 1999. 2024 final 79.384; 2025 provisional 69.973; 12 meses hasta feb. 2026 = 68.641.'},
-mT:{en:'T40.4. Multiple-cause mention, synthetic opioids other than methadone. Mentions overlap; do not add to all-drug.',hu:'T40.4. Többszörös említés, szintetikus opioidok metadon nélkül. Átfed; ne adjuk a teljes drogsorhoz.',ro:'T40.4. Mențiune multiplă, opioide sintetice fără metadonă. Se suprapune; nu adăugați la toate drogurile.',de:'T40.4. Mehrfachnennung, synthetische Opioide außer Methadon. Überlappt; nicht zu allen Drogen addieren.',es:'T40.4. Mención múltiple, opioides sintéticos salvo metadona. Se solapa; no sume al total de drogas.'},
-mCov:{en:'COVID-19. ICD-10 U07.1 from 2020. Involving = any mention. Underlying = originating cause. 2024 shown as underlying (31,426). Do not add U07.1 to XA.',hu:'COVID-19. BNO-10 U07.1 2020-tól. Involving = bármely említés. Alapok = kiinduló ok. 2024 alapok 31 426.',ro:'COVID-19. CIM-10 U07.1 din 2020. Involving = orice mențiune. Cauză de bază = originea. 2024 cauză de bază 31.426.',de:'COVID-19. ICD-10 U07.1 ab 2020. Involving = jede Nennung. Grundleiden = Ausgangsursache. 2024 Grundleiden 31.426.',es:'COVID-19. CIE-10 U07.1 desde 2020. Involving = cualquier mención. Causa básica = origen. 2024 causa básica 31.426.'},
-mEx:{en:'Excess. XA = residual vs a U.S. expected baseline (OWID / RGA family); method-dependent. XB = U.S. vs other high-income countries (Bor et al. 2025); 2019–2023 only. Missing XA is not zero. 2025 has no CDC “0 excess” year-total.',hu:'Többlet. XA = maradék egy USA-várthoz (OWID/RGA). XB = USA vs más HIC (Bor et al. 2025); csak 2019–2023. A hiányzó XA nem nulla.',ro:'Exces. XA = reziduu față de un așteptat SUA (OWID/RGA). XB = SUA vs alte HIC (Bor et al. 2025); doar 2019–2023. XA lipsă nu e zero.',de:'Übersterblichkeit. XA = Residual vs. US-Erwartung (OWID/RGA). XB = USA vs. andere HIC (Bor et al. 2025); nur 2019–2023. Fehlendes XA ist nicht null.',es:'Exceso. XA = residual frente a un esperado EE.UU. (OWID/RGA). XB = EE.UU. frente a otros HIC (Bor et al. 2025); solo 2019–2023. XA ausente no es cero.'},
-mLim:{en:'Limits. Provisional rows revise. Late injury certification undercounts recent injury deaths (VSRR 44). Race/ethnicity on certificates is misclassified for some groups. This file is a transcription, not a primary extract.',hu:'Korlátok. Az előzetes sorok változnak. A késői sérülésigazolás alulszámolja a közeli sérüléses halált. Ez átírás, nem elsődleges kivonat.',ro:'Limite. Rândurile provizorii se revizuiesc. Certificarea întârziată a leziunilor subestimează. Acest fișier e o transcriere, nu un extras primar.',de:'Grenzen. Vorläufige Zeilen werden revidiert. Verspätete Verletzungsbescheinigung untererfasst. Diese Datei ist eine Abschrift, kein Primärextrakt.',es:'Límites. Las filas provisionales se revisan. La certificación tardía de lesiones subcuenta. Este archivo es una transcripción, no un extracto primario.'},
-mScope:{en:'Scope. Mortality series only. No private names. No attribution to parties or administrations.',hu:'Hatály. Csak halálozási sorozatok. Nincs magánnév. Nincs párthoz kötés.',ro:'Domeniu. Doar serii de mortalitate. Fără nume private. Fără atribuire politică.',de:'Umfang. Nur Sterbereihen. Keine Privatnamen. Keine Parteizuordnung.',es:'Alcance. Solo series de mortalidad. Sin nombres privados. Sin atribución política.'},
-hSrc:{en:'Sources',hu:'Források',ro:'Surse',de:'Quellen',es:'Fuentes'},
-srcP:{en:'Local compilation from named public releases. Single static file. Cutoff 18 August 2026.',hu:'Helyi összeállítás megnevezett nyilvános közlésekből. Egy statikus fájl. Zárás: 2026. augusztus 18.',ro:'Compilație locală din comunicate publice numite. Un fișier static. Data-limită: 18 august 2026.',de:'Lokale Zusammenstellung benannter öffentlicher Freigaben. Eine statische Datei. Stichtag 18. August 2026.',es:'Compilación local de comunicados públicos nombrados. Un archivo estático. Corte: 18 de agosto de 2026.'},
-allc:{en:'All-cause',hu:'Minden ok',ro:'Toate cauzele',de:'Alle Ursachen',es:'Todas las causas'},
-crude:{en:'CDR /100k',hu:'CDR /100e',ro:'CDR /100k',de:'CDR /100k',es:'CDR /100k'},
-notAa:{en:'not age-standardized',hu:'nem korszerűsített',ro:'nestandardizat pe vârstă',de:'nicht altersstandardisiert',es:'no estandarizada por edad'},
-exU:{en:'XA vs U.S.',hu:'XA vs USA',ro:'XA vs SUA',de:'XA vs. USA',es:'XA vs EE.UU.'},
-notHic:{en:'not XB',hu:'nem XB',ro:'nu XB',de:'nicht XB',es:'no XB'},
-tagE:{en:'national estimate · DRA incomplete',hu:'nemzeti becslés · DRA hiányos',ro:'estimare națională · DRA incomplet',de:'nationale Schätzung · DRA unvollständig',es:'estimación nacional · DRA incompleta'},
-tagP:{en:'NVSS provisional',hu:'NVSS előzetes',ro:'NVSS provizoriu',de:'NVSS vorläufig',es:'NVSS provisional'},
-tagR:{en:'NVSS registered',hu:'NVSS bejegyzett',ro:'NVSS înregistrat',de:'NVSS registriert',es:'NVSS registrado'},
-tagW:{en:'12-month window',hu:'12 hónapos ablak',ro:'fereastră de 12 luni',de:'12-Monatsfenster',es:'ventana de 12 meses'},
-noTot:{en:'no annual total',hu:'nincs éves összeg',ro:'fără total anual',de:'kein Jahreswert',es:'sin total anual'},
-pre:{en:'Pre-1933 all-cause is a national estimate; the death-registration area did not cover all states.',hu:'1933 előtt nemzeti becslés; a bejegyzési terület nem fedte az összes államot.',ro:'Înainte de 1933 estimare națională; zona de înregistrare nu acoperea toate statele.',de:'Vor 1933 nationale Schätzung; Registrierungsgebiet nicht flächendeckend.',es:'Antes de 1933 estimación nacional; el área de registro no cubría todos los estados.'},
-noFlag:{en:'No special flag.',hu:'Nincs külön jelzés.',ro:'Fără semnal special.',de:'Kein Sondervermerk.',es:'Sin marca especial.'},
-hCon:{en:'Constructs',hu:'Konstruktumok',ro:'Constructe',de:'Konstrukte',es:'Constructos'},
-stat:{en:'Status',hu:'Státusz',ro:'Stare',de:'Status',es:'Estado'},
-ns:{en:'This page needs JavaScript.',hu:'A laphoz JavaScript kell.',ro:'Această pagină necesită JavaScript.',de:'Diese Seite braucht JavaScript.',es:'Esta página necesita JavaScript.'}
+brand:{en:'US resident mortality',fr:'Mortalité des résidents des É.-U.',hu:'USA-lakossági halálozás',ro:'Mortalitate rezidenți SUA',de:'US-Wohnbevölkerungssterblichkeit',es:'Mortalidad de residentes EE.UU.'},
+sub:{en:'Unofficial compilation · 18 Aug 2026 · not FBI/CDC/NCHS',fr:'Compilation non officielle · 18 août 2026 · pas FBI/CDC/NCHS',hu:'Nem hivatalos · 2026. aug. 18. · nem FBI/CDC/NCHS',ro:'Neoficial · 18 aug. 2026 · nu FBI/CDC/NCHS',de:'Inoffiziell · 18. Aug. 2026 · nicht FBI/CDC/NCHS',es:'No oficial · 18 ago 2026 · no FBI/CDC/NCHS'},
+foot:{en:'UCR murder through 2025 · NVSS poisoning through 2025 · all-cause 1900–2025',fr:'Meurtre UCR jusqu’en 2025 · intoxications NVSS jusqu’en 2025 · toutes causes 1900–2025',hu:'UCR-gyilkosság 2025-ig · NVSS-mérgezés 2025-ig · minden ok 1900–2025',ro:'Omor UCR până în 2025 · intoxicații NVSS până în 2025 · toate cauzele 1900–2025',de:'UCR-Mord bis 2025 · NVSS-Vergiftung bis 2025 · alle Ursachen 1900–2025',es:'Asesinato UCR hasta 2025 · intoxicación NVSS hasta 2025 · todas las causas 1900–2025'},
+nHome:{en:'Home',fr:'Accueil',hu:'Kezdőlap',ro:'Acasă',de:'Start',es:'Inicio'},
+nCharts:{en:'Charts',fr:'Graphiques',hu:'Ábrák',ro:'Grafice',de:'Diagramme',es:'Gráficos'},
+nMurder:{en:'Murder',fr:'Meurtre',hu:'Gyilkosság',ro:'Omor',de:'Mord',es:'Homicidio'},
+nOd:{en:'Poisoning',fr:'Intoxication',hu:'Mérgezés',ro:'Intoxicații',de:'Vergiftung',es:'Intoxicación'},
+nYears:{en:'Years',fr:'Années',hu:'Évek',ro:'Ani',de:'Jahre',es:'Años'},
+nCmp:{en:'Compare',fr:'Comparer',hu:'Összevetés',ro:'Comparație',de:'Vergleich',es:'Comparar'},
+nMet:{en:'Methods',fr:'Méthodes',hu:'Módszer',ro:'Metode',de:'Methoden',es:'Métodos'},
+nSrc:{en:'Sources',fr:'Sources',hu:'Források',ro:'Surse',de:'Quellen',es:'Fuentes'},
+yr:{en:'Year',fr:'Année',hu:'Év',ro:'An',de:'Jahr',es:'Año'},
+h1:{en:'U.S. resident mortality',fr:'Mortalité des résidents des États-Unis',hu:'USA-beli lakossági halálozás',ro:'Mortalitatea rezidenților SUA',de:'Sterblichkeit der US-Wohnbevölkerung',es:'Mortalidad de residentes de EE.UU.'},
+warn:{en:'Unofficial transcription. Constructs are not interchangeable: UCR murder ≠ NVSS homicide; U07.1 involving ≠ underlying; CDR ≠ year-2000 AA; XA ≠ XB. Do not add series.',fr:'Transcription non officielle. Les construits ne sont pas interchangeables : meurtre UCR ≠ homicide NVSS ; U07.1 mentionnée ≠ cause initiale ; TBM ≠ TSA 2000 ; XA ≠ XB. Ne pas additionner les séries.',hu:'Nem hivatalos átírás. A konstruktumok nem cserélhetők: UCR-gyilkosság ≠ NVSS-emberölés; U07.1 involving ≠ alapok; CDR ≠ AA; XA ≠ XB. Ne adjuk össze.',ro:'Transcriere neoficială. Constructele nu sunt interșanjabile: omor UCR ≠ omicid NVSS; U07.1 involving ≠ cauză de bază; CDR ≠ AA; XA ≠ XB. Nu însumați.',de:'Inoffizielle Abschrift. Konstrukte nicht austauschbar: UCR-Mord ≠ NVSS-Tötung; U07.1 involving ≠ Grundleiden; CDR ≠ AA; XA ≠ XB. Nicht addieren.',es:'Transcripción no oficial. Constructos no intercambiables: asesinato UCR ≠ homicidio NVSS; U07.1 involving ≠ causa básica; CDR ≠ AA; XA ≠ XB. No sumar.'},
+hCrude:{en:'CDR · all-cause · 1900–2025',fr:'TBM · toutes causes · 1900–2025',hu:'CDR · minden ok · 1900–2025',ro:'CDR · toate cauzele · 1900–2025',de:'CDR · alle Ursachen · 1900–2025',es:'CDR · todas las causas · 1900–2025'},
+legCrude:{en:'CDR = D / P × 10⁵ · not year-2000 AA · 1900–32 national estimates (DRA incomplete)',fr:'TBM = D / P × 10⁵ · pas le TSA 2000 · 1900–32 estimations nationales (zone d’enregistrement incomplète)',hu:'CDR = D / P × 10⁵ · nem 2000-es AA · 1900–32 nemzeti becslés (DRA hiányos)',ro:'CDR = D / P × 10⁵ · nu AA 2000 · 1900–32 estimări naționale (DRA incomplet)',de:'CDR = D / P × 10⁵ · nicht AA 2000 · 1900–32 nationale Schätzungen (DRA unvollständig)',es:'CDR = D / P × 10⁵ · no AA 2000 · 1900–32 estimaciones nacionales (DRA incompleta)'},
+hMur:{en:'UCR murder rate /100,000 · 1960–2025',fr:'Taux de meurtre UCR /100 000 · 1960–2025',hu:'UCR-gyilkossági arány /100 000 · 1960–2025',ro:'Rată omor UCR /100.000 · 1960–2025',de:'UCR-Mordziffer /100.000 · 1960–2025',es:'Tasa de asesinato UCR /100.000 · 1960–2025'},
+hOd:{en:'Drug-poisoning CDR /100,000 · 1968–2025',fr:'TBM par intoxication /100 000 · 1968–2025',hu:'Drogmérgezési CDR /100 000 · 1968–2025',ro:'CDR intoxicație /100.000 · 1968–2025',de:'Drogenvergiftungs-CDR /100.000 · 1968–2025',es:'CDR por intoxicación /100.000 · 1968–2025'},
+legMO:{en:'murder',fr:'meurtre',hu:'gyilkosság',ro:'omor',de:'Mord',es:'asesinato'},
+legOD:{en:'poisoning',fr:'intoxication',hu:'mérgezés',ro:'intoxicație',de:'Vergiftung',es:'intoxicación'},
+fig:{en:'Figures',fr:'Figures',hu:'Ábrák',ro:'Figuri',de:'Abbildungen',es:'Figuras'},
+uMur:{en:'UCR murder /100k',fr:'Meurtre UCR /100k',hu:'UCR-gyilkosság /100e',ro:'Omor UCR /100k',de:'UCR-Mord /100k',es:'Asesinato UCR /100k'},
+uOd:{en:'Poisoning CDR /100k',fr:'Intoxication TBM /100k',hu:'Mérgezés CDR /100e',ro:'Intoxicație CDR /100k',de:'Vergiftung CDR /100k',es:'Intoxicación CDR /100k'},
+uAc:{en:'All-cause CDR /100k',fr:'Toutes causes TBM /100k',hu:'Minden ok CDR /100e',ro:'Toate cauzele CDR /100k',de:'Alle Ursachen CDR /100k',es:'Todas las causas CDR /100k'},
+uCov:{en:'U07.1, thousands (2024 = underlying)',fr:'U07.1, milliers (2024 = cause initiale)',hu:'U07.1, ezer (2024 = alapok)',ro:'U07.1, mii (2024 = cauză de bază)',de:'U07.1, Tausend (2024 = Grundleiden)',es:'U07.1, miles (2024 = causa básica)'},
+uEx:{en:'XA vs U.S. expected, thousands',fr:'XA vs attendu É.-U., milliers',hu:'XA a USA-várthoz, ezer',ro:'XA față de așteptatul SUA, mii',de:'XA vs. US-Erwartung, Tausend',es:'XA frente a lo esperado en EE.UU., miles'},
+uPeer:{en:'XB vs high-income peers, thousands',fr:'XB vs pays à revenu élevé, milliers',hu:'XB a HIC-ekhez, ezer',ro:'XB față de HIC, mii',de:'XB vs. HIC, Tausend',es:'XB frente a pares de altos ingresos, miles'},
+cUcr:{en:'UCR murder 2025',fr:'Meurtre UCR 2025',hu:'UCR-gyilkosság 2025',ro:'Omor UCR 2025',de:'UCR-Mord 2025',es:'Asesinato UCR 2025'},
+cOd:{en:'NVSS poisoning 2025',fr:'Intoxication NVSS 2025',hu:'NVSS-mérgezés 2025',ro:'Intoxicații NVSS 2025',de:'NVSS-Vergiftung 2025',es:'Intoxicación NVSS 2025'},
+cAc:{en:'NVSS deaths 2025',fr:'Décès NVSS 2025',hu:'NVSS-halálozás 2025',ro:'Decese NVSS 2025',de:'NVSS-Todesfälle 2025',es:'Defunciones NVSS 2025'},
+aaLow:{en:'AA 689.2 · lowest recorded AA · not CDR',fr:'TSA 689,2 · plus bas TSA enregistré · pas la TBM',hu:'AA 689,2 · legalacsonyabb AA · nem CDR',ro:'AA 689,2 · cel mai mic AA · nu CDR',de:'AA 689,2 · niedrigstes AA · nicht CDR',es:'AA 689,2 · AA mínimo registrado · no CDR'},
+fromPeak:{en:'from 107,941 (2022) · provisional',fr:'depuis 107 941 (2022) · provisoire',hu:'107 941-ről (2022) · előzetes',ro:'de la 107.941 (2022) · provizoriu',de:'von 107.941 (2022) · vorläufig',es:'desde 107.941 (2022) · provisional'},
+ties:{en:'14,085 · rate ties 1955–56',fr:'14 085 · taux égal à 1955–56',hu:'14 085 · arány mint 1955–56',ro:'14.085 · rata egală 1955–56',de:'14.085 · Ziffer wie 1955–56',es:'14.085 · tasa igual a 1955–56'},
+inv:{en:'involving',fr:'mentionnée',hu:'említés',ro:'mențiune',de:'Nennung',es:'mención'},
+hUcr:{en:'UCR murder / nonnegligent manslaughter',fr:'Meurtre UCR / homicide volontaire non négligent',hu:'UCR-gyilkosság / nem gondatlan emberölés',ro:'Omor UCR / omor prin imprudență exclus',de:'UCR-Mord / nicht fahrlässige Tötung',es:'Asesinato UCR / homicidio no imprudente'},
+wUcr:{en:'Police-reported offense. NVSS homicide is a different construct (2024 = 20,162; crude 5.9). 2021 NIBRS transition: treat counts as less comparable across the break.',fr:'Infraction connue de la police. L’homicide NVSS est un autre construit (2024 = 20 162 ; brut 5,9). Transition NIBRS 2021 : comparabilité réduite.',hu:'Rendőrségi bejelentés. Az NVSS-emberölés más konstruktum (2024: 20 162; nyers 5,9). 2021 NIBRS: kevésbé összevethető.',ro:'Infracțiune raportată de poliție. Omicidul NVSS e alt construct (2024: 20.162; brut 5,9). NIBRS 2021: comparabilitate redusă.',de:'Polizeilich gemeldet. NVSS-Tötung ist ein anderes Konstrukt (2024: 20.162; roh 5,9). NIBRS 2021: eingeschränkte Vergleichbarkeit.',es:'Delito denunciado. El homicidio NVSS es otro constructo (2024: 20.162; bruta 5,9). NIBRS 2021: menos comparable.'},
+thRate:{en:'Rate',fr:'Taux',hu:'Arány',ro:'Rată',de:'Ziffer',es:'Tasa'},
+thCnt:{en:'Count',fr:'Effectif',hu:'Szám',ro:'Număr',de:'Zahl',es:'Recuento'},
+thD:{en:'Δ rate',fr:'Δ taux',hu:'Δ arány',ro:'Δ rată',de:'Δ Ziffer',es:'Δ tasa'},
+thNote:{en:'Note',fr:'Note',hu:'Megj.',ro:'Notă',de:'Hinweis',es:'Nota'},
+hPois:{en:'NVSS drug-poisoning (overdose)',fr:'Intoxication NVSS (surdose)',hu:'NVSS-drogmérgezés (túladagolás)',ro:'Intoxicație NVSS (supradoză)',de:'NVSS-Drogenvergiftung (Überdosis)',es:'Intoxicación NVSS (sobredosis)'},
+wPois:{en:'Underlying ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violet rows are revision breaks (ICD-9 1979; ICD-10 1999), not biological discontinuities. T40.4 is a multiple-cause mention. CDR here is crude, not NCHS AA (2024 AA = 23.1).',fr:'Cause initiale CIM-10 X40–X44, X60–X64, X85, Y10–Y14. Violet = ruptures de classification (1979, 1999), pas une chute biologique. T40.4 est une mention à causes multiples. TBM ici = brute, pas le TSA NCHS (2024 TSA = 23,1).',hu:'Alapok BNO-10 X40–X44, X60–X64, X85, Y10–Y14. Lila: kódváltás (1979, 1999). T40.4 többszörös említés. Itt CDR nyers, nem NCHS AA (2024 AA = 23,1).',ro:'Cauză de bază CIM-10 X40–X44, X60–X64, X85, Y10–Y14. Violet: rupturi de clasificare (1979, 1999). T40.4 e mențiune multiplă. CDR aici e brut, nu AA NCHS (2024 AA = 23,1).',de:'Grundleiden ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violett: Revisionsbrüche (1979, 1999). T40.4 ist Mehrfachnennung. CDR hier roh, nicht NCHS-AA (2024 AA = 23,1).',es:'Causa básica CIE-10 X40–X44, X60–X64, X85, Y10–Y14. Violeta: cortes de revisión (1979, 1999). T40.4 es mención múltiple. CDR aquí es bruta, no AA NCHS (2024 AA = 23,1).'},
+thDth:{en:'Deaths',fr:'Décès',hu:'Halálozás',ro:'Decese',de:'Todesfälle',es:'Defunciones'},
+p26:{en:'Calendar 2026 is unpublished (≈4-month lag). Predicted 12 months ending Feb 2026 = 68,641 — a window, not a year.',fr:'L’année civile 2026 n’est pas publiée (≈4 mois de décalage). Fenêtre de 12 mois finissant en févr. 2026 = 68 641 — une fenêtre, pas une année.',hu:'A 2026-os naptári év nincs közzétéve (≈4 hónap késés). 12 hónap 2026. febr.-ig = 68 641 — ablak, nem év.',ro:'Anul calendaristic 2026 nu e publicat (≈4 luni). Fereastra de 12 luni până feb. 2026 = 68.641 — o fereastră, nu un an.',de:'Kalenderjahr 2026 unveröffentlicht (≈4 Monate). 12 Monate bis Feb. 2026 = 68.641 — ein Fenster, kein Jahr.',es:'El año 2026 no está publicado (≈4 meses). Ventana de 12 meses hasta feb. 2026 = 68.641 — una ventana, no un año.'},
+hAnn:{en:'Annual all-cause file',fr:'Fichier annuel toutes causes',hu:'Éves minden-ok fájl',ro:'Fișier anual toate cauzele',de:'Jährliche Alle-Ursachen-Datei',es:'Archivo anual de todas las causas'},
+nAnn:{en:'All-cause only, 1900–2025. CDR = D/P×10⁵, not year-2000 AA. 1900–32 national estimates (DRA incomplete). 1933–2024 NVSS registered. 2025 provisional. Murder, poisoning, U07.1 and excess have their own pages and start years.',fr:'Toutes causes seulement, 1900–2025. TBM = D/P×10⁵, pas le TSA 2000. 1900–32 estimations nationales. 1933–2024 NVSS enregistré. 2025 provisoire. Meurtre, intoxication, U07.1 et surmortalité ont leurs propres pages.',hu:'Csak minden ok, 1900–2025. CDR = D/P×10⁵, nem AA. 1900–32 becslés. 1933–2024 NVSS. 2025 előzetes. A többi sor külön lapon.',ro:'Doar toate cauzele, 1900–2025. CDR = D/P×10⁵, nu AA. 1900–32 estimări. 1933–2024 NVSS. 2025 provizoriu. Celelalte serii pe pagini proprii.',de:'Nur alle Ursachen, 1900–2025. CDR = D/P×10⁵, nicht AA. 1900–32 Schätzungen. 1933–2024 NVSS. 2025 vorläufig. Andere Reihen auf eigenen Seiten.',es:'Solo todas las causas, 1900–2025. CDR = D/P×10⁵, no AA. 1900–32 estimaciones. 1933–2024 NVSS. 2025 provisional. Las demás series en sus páginas.'},
+hCmp:{en:'Murder versus drug-poisoning',fr:'Meurtre versus intoxication',hu:'Gyilkosság és drogmérgezés',ro:'Omor versus intoxicație',de:'Mord versus Drogenvergiftung',es:'Asesinato frente a intoxicación'},
+nCmp2:{en:'Different units of observation. Ratio is descriptive only. Do not sum. 1980 poisoning is post–ICD-9.',fr:'Unités d’observation distinctes. Le rapport est descriptif seulement. Ne pas additionner. 1980 est post-CIM-9.',hu:'Külön megfigyelési egységek. Az arány csak leíró. Ne adjuk össze. 1980 ICD-9 utáni.',ro:'Unități de observație diferite. Raportul e doar descriptiv. Nu însumați. 1980 e post-CIM-9.',de:'Andere Beobachtungseinheiten. Verhältnis nur deskriptiv. Nicht addieren. 1980 nach ICD-9.',es:'Unidades distintas. La razón es solo descriptiva. No sumar. 1980 es post-CIE-9.'},
+hT:{en:'Synthetic opioids other than methadone (T40.4)',fr:'Opioïdes de synthèse hors méthadone (T40.4)',hu:'Szintetikus opioidok metadon nélkül (T40.4)',ro:'Opioide sintetice fără metadonă (T40.4)',de:'Synthetische Opioide außer Methadon (T40.4)',es:'Opioides sintéticos salvo metadona (T40.4)'},
+pT:{en:'Mostly illicit fentanyl. Multiple-cause mention; overlaps the all-drug total. Share = T40.4 ÷ all-drug.',fr:'Surtout fentanyl illicite. Mention à causes multiples ; chevauche le total toutes drogues. Part = T40.4 ÷ toutes drogues.',hu:'Főleg tiltott fentanil. Többszörös említés; átfed. Arány = T40.4 ÷ összes.',ro:'Mai ales fentanil ilicit. Mențiune multiplă; se suprapune. Pondere = T40.4 ÷ toate drogurile.',de:'Überwiegend illegales Fentanyl. Mehrfachnennung; überlappt. Anteil = T40.4 ÷ alle Drogen.',es:'Sobre todo fentanilo ilícito. Mención múltiple; se solapa. Cuota = T40.4 ÷ todas las drogas.'},
+thSh:{en:'Share of all poisoning',fr:'Part de toute intoxication',hu:'Részesedés az összes mérgezésből',ro:'Pondere din toate intoxicațiile',de:'Anteil aller Vergiftungen',es:'Cuota de toda intoxicación'},
+hCov:{en:'COVID-19 and excess · 2020–2025',fr:'COVID-19 et surmortalité · 2020–2025',hu:'COVID-19 és többlet · 2020–2025',ro:'COVID-19 și exces · 2020–2025',de:'COVID-19 und Übersterblichkeit · 2020–2025',es:'COVID-19 y exceso · 2020–2025'},
+w0:{en:'U07.1 exists from 2020. XA is a U.S.-expected residual (OWID/RGA), 2020–24 only. XB is U.S. vs other high-income countries (Bor et al. 2025), 2019–23; 2019 is a pre-pandemic baseline, not COVID. Do not add U07.1 + XA + XB. 2025 has no CDC “0 excess” year-total. 1918 influenza is all-cause, not this page.',fr:'U07.1 existe à partir de 2020. XA = résidu vs un attendu américain (OWID/RGA), 2020–24 seulement. XB = É.-U. vs autres pays à revenu élevé (Bor et al. 2025), 2019–23 ; 2019 est une base pré-pandémique, pas la COVID. Ne pas additionner U07.1 + XA + XB. 2025 n’a pas de total CDC « 0 excès ». La grippe de 1918 est toutes causes, pas cette page.',hu:'U07.1 2020-tól. XA csak 2020–24. XB 2019–23 (2019 a járvány előtti alap). Ne adjuk össze. Az 1918-as influenza nem ez a lap.',ro:'U07.1 din 2020. XA doar 2020–24. XB 2019–23 (2019 e baza pre-pandemică). Nu însumați. Gripa 1918 nu e această pagină.',de:'U07.1 ab 2020. XA nur 2020–24. XB 2019–23 (2019 ist Vor-Pandemie). Nicht addieren. Grippe 1918 ist nicht diese Seite.',es:'U07.1 desde 2020. XA solo 2020–24. XB 2019–23 (2019 es la base prepandémica). No sume. La gripe de 1918 no es esta página.'},
+hCert:{en:'Certificate COVID (NVSS)',fr:'COVID sur le certificat (NVSS)',hu:'Anyakönyvi COVID (NVSS)',ro:'COVID pe certificat (NVSS)',de:'COVID auf der Sterbeurkunde (NVSS)',es:'COVID en el certificado (NVSS)'},
+hA:{en:'Estimator A (XA) — vs U.S. expected',fr:'Estimateur A (XA) — vs attendu É.-U.',hu:'A becslő (XA) — USA-várthoz',ro:'Estimator A (XA) — vs așteptatul SUA',de:'Schätzer A (XA) — vs. US-Erwartung',es:'Estimador A (XA) — vs esperado EE.UU.'},
+hB:{en:'Estimator B (XB) — vs other high-income countries',fr:'Estimateur B (XB) — vs autres pays à revenu élevé',hu:'B becslő (XB) — más HIC',ro:'Estimator B (XB) — vs alte HIC',de:'Schätzer B (XB) — andere HIC',es:'Estimador B (XB) — otros países de altos ingresos'},
+prePan:{en:'pre-pandemic',fr:'pré-pandémique',hu:'járvány előtt',ro:'pre-pandemic',de:'vor der Pandemie',es:'prepandémico'},
+unpub:{en:'unpublished · AA 689.2 is not a zero count',fr:'non publié · TSA 689,2 n’est pas un zéro',hu:'nincs közölve · az AA 689,2 nem nulla',ro:'nepublicat · AA 689,2 nu e zero',de:'unveröffentlicht · AA 689,2 ist keine Null',es:'inédito · AA 689,2 no es un cero'},
+noInv:{en:'no involving annual in this file',fr:'pas de total annuel « mentionnée » dans ce fichier',hu:'nincs éves involving ebben a fájlban',ro:'fără total anual involving în acest fișier',de:'kein jährliches Involving in dieser Datei',es:'sin total anual involving en este archivo'},
+undOnly:{en:'underlying only',fr:'cause initiale seulement',hu:'csak alapok',ro:'doar cauză de bază',de:'nur Grundleiden',es:'solo causa básica'},
+hMet:{en:'Methods',fr:'Méthodes',hu:'Módszer',ro:'Metode',de:'Methoden',es:'Métodos'},
+mAc:{en:'All-cause (D). 1900–32 published national estimates (Death Registration Area incomplete). 1933–2024 NVSS registered resident deaths. 2019 final 2,854,838. 2023 final 3,090,964. 2024 final 3,072,666. 2025 provisional 3,094,593 (VSRR 44). 2026 unpublished. Not UN WPP.',fr:'Toutes causes (D). 1900–32 estimations nationales (zone d’enregistrement incomplète). 1933–2024 décès de résidents NVSS. 2019 final 2 854 838. 2023 3 090 964. 2024 3 072 666. 2025 provisoire 3 094 593 (VSRR 44). 2026 non publié. Pas UN WPP.',hu:'Minden ok (D). 1900–32 nemzeti becslés (DRA hiányos). 1933–2024 NVSS. 2019 2 854 838. 2023 3 090 964. 2024 3 072 666. 2025 előzetes 3 094 593 (VSRR 44). 2026 nincs. Nem UN WPP.',ro:'Toate cauzele (D). 1900–32 estimări naționale (DRA incomplet). 1933–2024 NVSS. 2019 2.854.838. 2023 3.090.964. 2024 3.072.666. 2025 provizoriu 3.094.593 (VSRR 44). 2026 nepublicat. Nu UN WPP.',de:'Alle Ursachen (D). 1900–32 nationale Schätzungen (DRA unvollständig). 1933–2024 NVSS. 2019 2.854.838. 2023 3.090.964. 2024 3.072.666. 2025 vorläufig 3.094.593 (VSRR 44). 2026 unveröffentlicht. Nicht UN WPP.',es:'Todas las causas (D). 1900–32 estimaciones nacionales (DRA incompleta). 1933–2024 NVSS. 2019 2.854.838. 2023 3.090.964. 2024 3.072.666. 2025 provisional 3.094.593 (VSRR 44). 2026 inédito. No UN WPP.'},
+mAa:{en:'Age-adjusted (AA). Year-2000 U.S. standard million. Separate construct from CDR. 2019 = 715.2; 2023 = 750.5; 2024 = 722.1; 2025 = 689.2 (lowest recorded; provisional). A falling AA with a rising D is consistent with growth and aging.',fr:'Taux standardisé sur l’âge (TSA / AA). Population type des É.-U. 2000. Construit distinct de la TBM. 2019 = 715,2 ; 2023 = 750,5 ; 2024 = 722,1 ; 2025 = 689,2 (plus bas enregistré ; provisoire). Un TSA en baisse avec un D en hausse est compatible avec la croissance et le vieillissement.',hu:'Korszerűsített (AA). 2000-es USA-standard. Külön konstruktum. 2019 = 715,2; 2025 = 689,2 (rekordalacsony; előzetes).',ro:'Standardizat pe vârstă (AA). Standard SUA 2000. Construct separat. 2019 = 715,2; 2025 = 689,2 (minim record; provizoriu).',de:'Altersstandardisiert (AA). US-Standard 2000. Anderes Konstrukt als CDR. 2019 = 715,2; 2025 = 689,2 (Rekordtief; vorläufig).',es:'Ajustada por edad (AA). Estándar EE.UU. 2000. Constructo distinto. 2019 = 715,2; 2025 = 689,2 (mínimo registrado; provisional).'},
+mUcr:{en:'UCR murder. Murder and nonnegligent manslaughter known to police. Not NVSS homicide (ICD). 2021 NIBRS transition reduces intertemporal comparability. 2025 rate 4.1 ties 1955–56.',fr:'Meurtre UCR. Meurtre et homicide volontaire non négligent connus de la police. Pas l’homicide NVSS (CIM). La transition NIBRS 2021 réduit la comparabilité. Taux 2025 : 4,1 (égal à 1955–56).',hu:'UCR-gyilkosság. Rendőrségnek ismert. Nem NVSS-emberölés. 2021 NIBRS rontja az összevethetőséget.',ro:'Omor UCR. Raportat de poliție. Nu omicid NVSS. NIBRS 2021 reduce comparabilitatea.',de:'UCR-Mord. Polizeilich bekannt. Nicht NVSS-Tötung. NIBRS 2021 mindert Vergleichbarkeit.',es:'Asesinato UCR. Conocido por la policía. No homicidio NVSS. NIBRS 2021 reduce comparabilidad.'},
+mIcd:{en:'Drug-poisoning. ICD-8 from 1968; ICD-9 1979; ICD-10 1999 — classification breaks. 2024 final 79,384; 2025 provisional 69,973; 12 months ending Feb 2026 = 68,641 (window, not calendar 2026). CDR on this page is crude.',fr:'Intoxication. CIM-8 dès 1968 ; CIM-9 1979 ; CIM-10 1999 — ruptures de classification. 2024 final 79 384 ; 2025 provisoire 69 973 ; 12 mois finissant en févr. 2026 = 68 641 (fenêtre, pas l’année 2026). La TBM ici est brute.',hu:'Drogmérgezés. BNO-8 1968; BNO-9 1979; BNO-10 1999. 2024 79 384; 2025 69 973; 12 hónap 2026. febr.-ig = 68 641.',ro:'Intoxicație. CIM-8 din 1968; CIM-9 1979; CIM-10 1999. 2024 79.384; 2025 69.973; 12 luni până feb. 2026 = 68.641.',de:'Drogenvergiftung. ICD-8 ab 1968; ICD-9 1979; ICD-10 1999. 2024 79.384; 2025 69.973; 12 Monate bis Feb. 2026 = 68.641.',es:'Intoxicación. CIE-8 desde 1968; CIE-9 1979; CIE-10 1999. 2024 79.384; 2025 69.973; 12 meses hasta feb. 2026 = 68.641.'},
+mCov:{en:'COVID-19. ICD-10 U07.1 from 2020 only. Involving = any mention. Underlying = originating cause. 2024 shown as underlying (31,426). Do not add U07.1 to XA.',fr:'COVID-19. CIM-10 U07.1 à partir de 2020 seulement. Mentionnée = toute mention. Cause initiale = origine. 2024 indiqué en cause initiale (31 426). Ne pas ajouter U07.1 à XA.',hu:'COVID-19. BNO-10 U07.1 2020-tól. Involving = bármely említés. Alapok = kiinduló ok. 2024 alapok 31 426.',ro:'COVID-19. CIM-10 U07.1 din 2020. Involving = orice mențiune. Cauză de bază = originea. 2024 cauză de bază 31.426.',de:'COVID-19. ICD-10 U07.1 ab 2020. Involving = jede Nennung. Grundleiden = Ausgangsursache. 2024 Grundleiden 31.426.',es:'COVID-19. CIE-10 U07.1 desde 2020. Involving = cualquier mención. Causa básica = origen. 2024 causa básica 31.426.'},
+mEx:{en:'Excess. XA = residual vs a U.S. expected baseline (OWID / RGA); 2020–24; method-dependent. XB = U.S. vs other high-income countries (Bor et al. 2025); 2019–23 only. Missing XA is not zero. 1918 influenza is not XA.',fr:'Surmortalité. XA = résidu vs un attendu américain (OWID / RGA) ; 2020–24 ; dépend de la méthode. XB = É.-U. vs autres pays à revenu élevé (Bor et al. 2025) ; 2019–23 seulement. Une XA manquante n’est pas zéro. La grippe de 1918 n’est pas XA.',hu:'Többlet. XA = maradék egy USA-várthoz (OWID/RGA); 2020–24. XB = USA vs más HIC (Bor et al. 2025); csak 2019–23. A hiányzó XA nem nulla.',ro:'Exces. XA = reziduu față de un așteptat SUA (OWID/RGA); 2020–24. XB = SUA vs alte HIC (Bor et al. 2025); doar 2019–23. XA lipsă nu e zero.',de:'Übersterblichkeit. XA = Residual vs. US-Erwartung (OWID/RGA); 2020–24. XB = USA vs. andere HIC (Bor et al. 2025); nur 2019–23. Fehlendes XA ist nicht null.',es:'Exceso. XA = residual frente a un esperado EE.UU. (OWID/RGA); 2020–24. XB = EE.UU. frente a otros HIC (Bor et al. 2025); solo 2019–23. XA ausente no es cero.'},
+mLim:{en:'Limits. Provisional rows revise. Late injury certification undercounts recent injury deaths (VSRR 44). This file is a transcription, not a primary extract. Mortality series only.',fr:'Limites. Les lignes provisoires se révisent. La certification tardive des traumatismes sous-compte les décès récents (VSRR 44). Ce fichier est une transcription, pas un extrait primaire. Séries de mortalité seulement.',hu:'Korlátok. Az előzetes sorok változnak. Ez átírás, nem elsődleges kivonat. Csak halálozási sorozatok.',ro:'Limite. Rândurile provizorii se revizuiesc. Acest fișier e o transcriere, nu un extras primar. Doar serii de mortalitate.',de:'Grenzen. Vorläufige Zeilen werden revidiert. Diese Datei ist eine Abschrift, kein Primärextrakt. Nur Sterbereihen.',es:'Límites. Las filas provisionales se revisan. Este archivo es una transcripción, no un extracto primario. Solo series de mortalidad.'},
+hSrc:{en:'Sources',fr:'Sources',hu:'Források',ro:'Surse',de:'Quellen',es:'Fuentes'},
+srcP:{en:'Local compilation from named public releases. Single static file. Cutoff 18 August 2026.',fr:'Compilation locale à partir de publications publiques nommées. Un fichier statique. Date limite : 18 août 2026.',hu:'Helyi összeállítás megnevezett nyilvános közlésekből. Egy statikus fájl. Zárás: 2026. augusztus 18.',ro:'Compilație locală din comunicate publice numite. Un fișier static. Data-limită: 18 august 2026.',de:'Lokale Zusammenstellung benannter öffentlicher Freigaben. Eine statische Datei. Stichtag 18. August 2026.',es:'Compilación local de comunicados públicos nombrados. Un archivo estático. Corte: 18 de agosto de 2026.'},
+allc:{en:'All-cause',fr:'Toutes causes',hu:'Minden ok',ro:'Toate cauzele',de:'Alle Ursachen',es:'Todas las causas'},
+crude:{en:'CDR /100k',fr:'TBM /100k',hu:'CDR /100e',ro:'CDR /100k',de:'CDR /100k',es:'CDR /100k'},
+notAa:{en:'not age-standardized',fr:'non standardisé sur l’âge',hu:'nem korszerűsített',ro:'nestandardizat pe vârstă',de:'nicht altersstandardisiert',es:'no estandarizada por edad'},
+exU:{en:'XA vs U.S.',fr:'XA vs É.-U.',hu:'XA vs USA',ro:'XA vs SUA',de:'XA vs. USA',es:'XA vs EE.UU.'},
+notHic:{en:'not XB',fr:'pas XB',hu:'nem XB',ro:'nu XB',de:'nicht XB',es:'no XB'},
+tagE:{en:'national estimate · DRA incomplete',fr:'estimation nationale · zone incomplète',hu:'nemzeti becslés · DRA hiányos',ro:'estimare națională · DRA incomplet',de:'nationale Schätzung · DRA unvollständig',es:'estimación nacional · DRA incompleta'},
+tagP:{en:'NVSS provisional',fr:'NVSS provisoire',hu:'NVSS előzetes',ro:'NVSS provizoriu',de:'NVSS vorläufig',es:'NVSS provisional'},
+tagR:{en:'NVSS registered',fr:'NVSS enregistré',hu:'NVSS bejegyzett',ro:'NVSS înregistrat',de:'NVSS registriert',es:'NVSS registrado'},
+noTot:{en:'no annual total',fr:'pas de total annuel',hu:'nincs éves összeg',ro:'fără total anual',de:'kein Jahreswert',es:'sin total anual'},
+pre:{en:'Pre-1933 all-cause is a national estimate; the death-registration area did not cover all states.',fr:'Avant 1933, toutes causes = estimation nationale ; la zone d’enregistrement ne couvrait pas tous les États.',hu:'1933 előtt nemzeti becslés; a bejegyzési terület nem fedte az összes államot.',ro:'Înainte de 1933 estimare națională; zona de înregistrare nu acoperea toate statele.',de:'Vor 1933 nationale Schätzung; Registrierungsgebiet nicht flächendeckend.',es:'Antes de 1933 estimación nacional; el área de registro no cubría todos los estados.'},
+noFlag:{en:'No special flag.',fr:'Pas de signalement particulier.',hu:'Nincs külön jelzés.',ro:'Fără semnal special.',de:'Kein Sondervermerk.',es:'Sin marca especial.'},
+stat:{en:'Status',fr:'Statut',hu:'Státusz',ro:'Stare',de:'Status',es:'Estado'},
+ns:{en:'This page needs JavaScript.',fr:'Cette page nécessite JavaScript.',hu:'A laphoz JavaScript kell.',ro:'Această pagină necesită JavaScript.',de:'Diese Seite braucht JavaScript.',es:'Esta página necesita JavaScript.'}
 };
 let L=(localStorage.getItem('lang')||(navigator.language||'en').slice(0,2));
 if(!I.brand[L]) L='en';
 const t=k=>(I[k]&&I[k][L])||(I[k]&&I[k].en)||k;
-const COL={m:'#dc2626',o:'#2563eb',v:'#7c3aed',x:'#d97706',f:'#92400e',k:'#111827'};
+const COL={m:'#dc2626',o:'#2563eb',v:'#7c3aed',x:'#d97706',k:'#111827'};
 const $=id=>document.getElementById(id);
 const ix=a=>Object.fromEntries(a.map(r=>[r[0],r]));
 const Mi=ix(M),Oi=ix(OD);
 const mOf=y=>Mi[y],oOf=y=>Oi[y];
 const ac=y=>y>=1900&&y<=2025?ACx[y-1900]:null;
 const cdr=y=>y>=1900&&y<=2025?ACx[y-1900]/POPk[y-1900]*100:null;
-const ocr=y=>{const o=oOf(y);return o&&y>=1968&&y<=2025?o[1]/POPk[y-1900]*100:null};
+const ocr=y=>{const o=oOf(y);return o?o[1]/POPk[y-1900]*100:null};
 const acTag=y=>y<1933?t('tagE'):y===2025?t('tagP'):t('tagR');
 const note=y=>NOTES[y]||'';
 const fmt=v=>v==null?'—':v.toLocaleString();
@@ -235,7 +223,7 @@ function sideYears(a,b,s){let h='<h4>'+t('yr')+'</h4>';for(let y=a;y<=b;y+=s)h+=
 function draw(id,years,series,ymax,unit,marks){
   const c=$(id); if(!c||!years.length) return;
   const cssW=c.getBoundingClientRect().width||(c.parentNode&&c.parentNode.clientWidth)||0;
-  const dpr=Math.min(window.devicePixelRatio||1,2.5),W=Math.max(cssW,280),n=years.length,H=210;
+  const dpr=Math.min(window.devicePixelRatio||1,2.5),W=Math.max(cssW,280),n=years.length,H=200;
   c.width=W*dpr;c.height=H*dpr;c.style.height=H+'px';
   const g=c.getContext('2d'); g.scale(dpr,dpr);
   const Lft=44,T=16,R=36,B=36,w=W-Lft-R,h=H-T-B,den=Math.max(1,n-1);
@@ -247,13 +235,11 @@ function draw(id,years,series,ymax,unit,marks){
     g.strokeStyle='#f3f4f6';g.beginPath();g.moveTo(Lft,yy);g.lineTo(Lft+w,yy);g.stroke();
     g.fillStyle='#6b7280';g.textAlign='right';g.fillText(v>=100?Math.round(v):v.toFixed(v>=10?0:1),Lft-6,yy+3);
   }
-  if(marks){
-    marks.forEach(function(my){
-      const i=years.indexOf(my); if(i<0) return;
-      const x=Lft+w*i/den;
-      g.strokeStyle='#c4b5fd';g.setLineDash([3,3]);g.beginPath();g.moveTo(x,T);g.lineTo(x,T+h);g.stroke();g.setLineDash([]);
-    });
-  }
+  if(marks) marks.forEach(function(my){
+    const i=years.indexOf(my); if(i<0) return;
+    const x=Lft+w*i/den;
+    g.strokeStyle='#c4b5fd';g.setLineDash([3,3]);g.beginPath();g.moveTo(x,T);g.lineTo(x,T+h);g.stroke();g.setLineDash([]);
+  });
   const st=n<=14?1:n<=30?2:n<=80?5:10;
   years.forEach((y,i)=>{
     if(i%st&&i&&i!==n-1) return;
@@ -274,15 +260,14 @@ function draw(id,years,series,ymax,unit,marks){
   g.fillStyle='#6b7280';g.textAlign='left';g.fillText(unit||'',Lft,12);
 }
 function paint(){
-  const mOk=M.filter(r=>r[1]!=null), y15=[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025], acY=ACx.map((_,i)=>1900+i);
-  const odY=OD.filter(r=>r[0]<=2025);
-  draw('cm',mOk.map(r=>r[0]),[{s:mOk.map(r=>r[1]),c:COL.m}],12,t('uMur'));
-  draw('co',odY.map(r=>r[0]),[{s:odY.map(r=>ocr(r[0])),c:COL.o}],40,t('uOd'),[1979,1999]);
+  const y15=[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025], acY=ACx.map((_,i)=>1900+i);
+  draw('cm',M.map(r=>r[0]),[{s:M.map(r=>r[1]),c:COL.m}],12,t('uMur'));
+  draw('co',OD.map(r=>r[0]),[{s:OD.map(r=>ocr(r[0])),c:COL.o}],40,t('uOd'),[1979,1999]);
   draw('c4',y15,[{s:y15.map(y=>cdr(y)||0),c:COL.k}],1200,t('uAc'));
   draw('cac',acY,[{s:ACx.map((d,i)=>d/POPk[i]*100),c:COL.k,w:1.35}],1900,t('uAc'));
   const yC=[2020,2021,2022,2023,2024];
-  draw('ccov',yC,[{s:yC.map(y=>y in COVID?COVID[y]/1e3:y in COVu?COVu[y]/1e3:null),c:COL.v}],450,t('uCov'));
-  draw('cex',yC,[{s:yC.map(y=>EXCESS[y]!=null?EXCESS[y]/1e3:null),c:COL.x,w:2}],520,t('uEx'));
+  draw('ccov',yC,[{s:yC.map(y=>((COVID[y]||COVu[y])||0)/1e3),c:COL.v}],450,t('uCov'));
+  draw('cex',yC,[{s:yC.map(y=>EXCESS[y]/1e3),c:COL.x,w:2}],520,t('uEx'));
   const yP=[2019,2020,2021,2022,2023];
   draw('cpeer',yP,[{s:yP.map(y=>PEER[y]/1e3),c:'#9d174d',w:2}],1200,t('uPeer'));
 }
@@ -290,8 +275,8 @@ const PAGES={
 home(){
   sideYears(1900,2025,10);
   return `<h1>${t('h1')}</h1><div class="warn">${t('warn')} <a data-go="method">${t('nMet')}</a>.</div>
-    ${cards([[t('cUcr'),'4.1',t('ties')],[t('cOd'),'69,973',t('fromPeak')],[t('cAc'),'3,094,593',t('aaLow')],['U07.1 2021','416,893','involving']])}
-    <p class="eq">CDR = D / P × 10⁵ &nbsp;·&nbsp; CDR ≠ AA &nbsp;·&nbsp; UCR ≠ NVSS &nbsp;·&nbsp; T40.4 ≠ OD &nbsp;·&nbsp; involving ≠ underlying &nbsp;·&nbsp; XA ≠ XB</p>
+    ${cards([[t('cUcr'),'4.1',t('ties')],[t('cOd'),'69,973',t('fromPeak')],[t('cAc'),'3,094,593',t('aaLow')],['U07.1 2021','416,893',t('inv')]])}
+    <p class="eq">CDR = D / P × 10⁵ · CDR ≠ AA · UCR ≠ NVSS · T40.4 ≠ OD · involving ≠ underlying · XA ≠ XB</p>
     <h2>${t('hCrude')}</h2><canvas id="cac"></canvas>
     <p class="legend"><i style="background:#111827"></i>${t('legCrude')}</p>
     <h2>${t('hMur')}</h2><canvas id="cm"></canvas>
@@ -309,8 +294,8 @@ charts(){
 murder(){
   sideYears(1960,2025,1);
   let rows='';
-  M.filter(r=>r[1]!=null).forEach((r,i,a)=>{
-    const p=i?a[i-1][1]:null,d=p==null?'':((r[1]-p>=0?'+':'')+(r[1]-p).toFixed(1));
+  M.forEach((r,i)=>{
+    const p=i?M[i-1][1]:null,d=p==null?'':((r[1]-p>=0?'+':'')+(r[1]-p).toFixed(1));
     const cls=r[1]>=10?'pk':r[1]<=4.2?'lo':(r[0]===2020||r[0]===2021)?'hi':'';
     rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${r[1].toFixed(1)}</td><td>${fmt(r[2])}</td><td>${d}</td></tr>`;
   });
@@ -319,19 +304,22 @@ murder(){
 od(){
   sideYears(1968,2025,1);
   let rows='';
-  OD.filter(r=>r[0]<=2025).forEach(r=>{
+  OD.forEach(r=>{
     const cls=r[0]===1979||r[0]===1999?'br':r[1]>1e5?'pk':r[0]>=2023?'lo':'';
     rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${fmt(r[1])}</td><td>${ocr(r[0]).toFixed(1)}</td><td>${SYN[r[0]]?fmt(SYN[r[0]]):'—'}</td></tr>`;
   });
-  return `<h1>${t('hPois')}</h1><div class="warn">${t('wPois')}</div>${table([t('yr'),t('thDth'),'CDR','T40.4'],rows)}<p>${t('p26')}</p>`;
+  const ys=[1999,2010,2013,2015,2017,2019,2020,2022,2024,2025];
+  const trows=ys.map(y=>{const s=SYN[y],o=oOf(y);return `<tr><td>${y}</td><td>${fmt(s)}</td><td>${s&&o?(100*s/o[1]).toFixed(0)+'%':'—'}</td></tr>`}).join('');
+  return `<h1>${t('hPois')}</h1><div class="warn">${t('wPois')}</div>${table([t('yr'),t('thDth'),'CDR','T40.4'],rows)}<p>${t('p26')}</p>
+    <h2>${t('hT')}</h2><p>${t('pT')}</p>${table([t('yr'),'T40.4',t('thSh')],trows)}`;
 },
 five(){
   sideYears(1900,2025,5);
   let rows='';
   for(let y=1900;y<=2025;y++){
-    const a=ac(y),r=cdr(y);
+    const r=cdr(y);
     const cls=y===1918||y===2020||y===2021?'pk':y===2025?'hi':'';
-    rows+=`<tr class="${cls}"><td><a data-yr="${y}">${y}</a></td><td>${fmt(a)}</td><td>${r?r.toFixed(0):'—'}</td><td>${acTag(y)}</td><td class="l">${note(y)||(y<1933?'DRA':'')}</td></tr>`;
+    rows+=`<tr class="${cls}"><td><a data-yr="${y}">${y}</a></td><td>${fmt(ac(y))}</td><td>${r?r.toFixed(0):'—'}</td><td>${acTag(y)}</td><td class="l">${note(y)||(y<1933?'DRA':'')}</td></tr>`;
   }
   return `<h1>${t('hAnn')}</h1><div class="note">${t('nAnn')}</div>${table([t('yr'),'D','CDR',t('stat'),{t:t('thNote'),l:1}],rows)}`;
 },
@@ -343,63 +331,49 @@ compare(){
   }).join('');
   return `<h1>${t('hCmp')}</h1>${table([t('yr'),'UCR n','NVSS OD','OD/UCR'],rows)}<div class="note">${t('nCmp2')}</div>`;
 },
-fent(){
-  $('side').innerHTML='';
-  const ys=[1999,2010,2013,2015,2017,2019,2020,2022,2024,2025];
-  const rows=ys.map(y=>{const s=SYN[y],o=oOf(y);return `<tr><td>${y}</td><td>${s?fmt(s):'—'}</td><td>${s&&o?(100*s/o[1]).toFixed(0)+'%':'—'}</td></tr>`}).join('');
-  return `<h1>${t('hT')}</h1><p>${t('pT')}</p>${table([t('yr'),'T40.4',t('thSh')],rows)}`;
-},
 covid(){
   sideYears(2020,2025,1);
   return `<h1>${t('hCov')}</h1><div class="warn">${t('w0')}</div>
     <h2>${t('hCert')}</h2>
     ${table([t('yr'),'U07.1',t('allc'),'%',{t:t('thNote'),l:1}],
-      `<tr class="pk"><td>2020</td><td>350,831</td><td>3,383,729</td><td>10.4%</td><td class="l">involving</td></tr>
-       <tr class="pk"><td>2021</td><td>416,893</td><td>3,464,231</td><td>12.0%</td><td class="l">involving</td></tr>
-       <tr><td>2022</td><td>245,614</td><td>3,279,857</td><td>7.5%</td><td class="l">involving · underlying 186,552</td></tr>
-       <tr><td>2023</td><td>76,446</td><td>3,090,964</td><td>2.5%</td><td class="l">involving · underlying 49,932</td></tr>
-       <tr><td>2024</td><td>31,426</td><td>3,072,666</td><td>1.0%</td><td class="l">underlying only</td></tr>
-       <tr><td>2025</td><td>—</td><td>3,094,593</td><td>—</td><td class="l">no involving annual in this file</td></tr>`)}
+      `<tr class="pk"><td>2020</td><td>350,831</td><td>3,383,729</td><td>10.4%</td><td class="l">${t('inv')}</td></tr>
+       <tr class="pk"><td>2021</td><td>416,893</td><td>3,464,231</td><td>12.0%</td><td class="l">${t('inv')}</td></tr>
+       <tr><td>2022</td><td>245,614</td><td>3,279,857</td><td>7.5%</td><td class="l">${t('inv')} · 186,552</td></tr>
+       <tr><td>2023</td><td>76,446</td><td>3,090,964</td><td>2.5%</td><td class="l">${t('inv')} · 49,932</td></tr>
+       <tr><td>2024</td><td>31,426</td><td>3,072,666</td><td>1.0%</td><td class="l">${t('undOnly')}</td></tr>
+       <tr><td>2025</td><td>—</td><td>3,094,593</td><td>—</td><td class="l">${t('noInv')}</td></tr>`)}
     <canvas id="ccov"></canvas>
     <h2>${t('hA')}</h2>
     ${table([t('yr'),'XA',{t:t('thNote'),l:1}],
-      `<tr class="pk"><td>2020</td><td>≈480,000</td><td class="l">OWID family</td></tr>
-       <tr class="pk"><td>2021</td><td>≈460,000</td><td class="l">OWID family</td></tr>
-       <tr><td>2022</td><td>≈250,000</td><td class="l">OWID family</td></tr>
+      `<tr class="pk"><td>2020</td><td>≈480,000</td><td class="l">OWID</td></tr>
+       <tr class="pk"><td>2021</td><td>≈460,000</td><td class="l">OWID</td></tr>
+       <tr><td>2022</td><td>≈250,000</td><td class="l">OWID</td></tr>
        <tr><td>2023</td><td>≈80,000</td><td class="l">RGA / OWID</td></tr>
        <tr><td>2024</td><td>≈12,300</td><td class="l">RGA 0.4%</td></tr>
-       <tr><td>2025</td><td>—</td><td class="l">unpublished · AA 689.2 is not a zero count</td></tr>`)}
+       <tr><td>2025</td><td>—</td><td class="l">${t('unpub')}</td></tr>`)}
     <canvas id="cex"></canvas>
     <h2>${t('hB')}</h2>
-    <p>Bor J, et al. JAMA Health Forum. 2025;6(5):e251118. 2019 = pre-pandemic US–HIC gap, not COVID.</p>
-    ${table([t('yr'),'XB',{t:t('thNote'),l:1}],`<tr><td>2019</td><td>631,247</td><td class="l">pre-pandemic</td></tr><tr class="pk"><td>2020</td><td>1,008,369</td><td class="l"></td></tr><tr class="pk"><td>2021</td><td>1,098,808</td><td class="l"></td></tr><tr><td>2022</td><td>820,396</td><td class="l"></td></tr><tr><td>2023</td><td>705,331</td><td class="l"></td></tr>`)}
+    <p>Bor J, et al. JAMA Health Forum. 2025;6(5):e251118. 2019 = ${t('prePan')}.</p>
+    ${table([t('yr'),'XB',{t:t('thNote'),l:1}],`<tr><td>2019</td><td>631,247</td><td class="l">${t('prePan')}</td></tr><tr class="pk"><td>2020</td><td>1,008,369</td><td class="l"></td></tr><tr class="pk"><td>2021</td><td>1,098,808</td><td class="l"></td></tr><tr><td>2022</td><td>820,396</td><td class="l"></td></tr><tr><td>2023</td><td>705,331</td><td class="l"></td></tr>`)}
     <canvas id="cpeer"></canvas>`;
 },
 method(){$('side').innerHTML='';return `<h1>${t('hMet')}</h1>
-  <p class="eq">CDR = D / P × 10⁵ &nbsp;·&nbsp; AA ≠ CDR &nbsp;·&nbsp; UCR ≠ NVSS &nbsp;·&nbsp; involving ≠ underlying &nbsp;·&nbsp; XA ≠ XB</p>
-  <ul>
-    <li>${t('mAc')}</li>
-    <li>${t('mAa')}</li>
-    <li>${t('mUcr')}</li>
-    <li>${t('mIcd')}</li>
-    <li>${t('mCov')}</li>
-    <li>${t('mEx')}</li>
-    <li>${t('mLim')}</li>
-  </ul>`;},
+  <p class="eq">CDR = D / P × 10⁵ · AA ≠ CDR · UCR ≠ NVSS · involving ≠ underlying · XA ≠ XB</p>
+  <ul><li>${t('mAc')}</li><li>${t('mAa')}</li><li>${t('mUcr')}</li><li>${t('mIcd')}</li><li>${t('mCov')}</li><li>${t('mEx')}</li><li>${t('mLim')}</li></ul>`;},
 src(){$('side').innerHTML='';return `<h1>${t('hSrc')}</h1><p>${t('srcP')}</p>
   <ul>
     <li>FBI UCR 2025 — murder/nonnegligent manslaughter 4.1 / 14,085 (ties 1955–56).</li>
     <li>NCHS FastStats — 2024 NVSS homicide 20,162 (crude 5.9).</li>
-    <li>Ahmad FB, Cisewski JA, Anderson RN. Mortality in the United States: Provisional Data, 2025. VSRR 44. 2026. D = 3,094,593; AA = 689.2 (99.9% of records, 10 May 2026).</li>
+    <li>Ahmad FB, Cisewski JA, Anderson RN. Mortality in the United States: Provisional Data, 2025. VSRR 44. 2026. D = 3,094,593; AA = 689.2.</li>
     <li>Xu JQ, et al. Mortality in the United States, 2024. NCHS Data Brief 548. D = 3,072,666; AA = 722.1.</li>
     <li>Murphy SL, et al. Mortality in the United States, 2023. D = 3,090,964.</li>
     <li>NCHS final 2019 — D = 2,854,838; AA = 715.2.</li>
     <li>Garnett MF, et al. Drug Overdose Deaths in the United States, 2023–2024. NCHS Data Brief 549. 2024 final 79,384; AA 23.1.</li>
     <li>NCHS press, 13 May 2026 — 2025 provisional overdose 69,973; T40.4 38,084 (2024 pair 48,913).</li>
-    <li>CDC overdose page — 12 months ending Feb 2026 predicted 68,641.</li>
+    <li>CDC — 12 months ending Feb 2026 predicted 68,641 (window, not calendar year).</li>
     <li>NVSS U07.1 involving 2020–23; 2022–24 underlying as labeled.</li>
     <li>Bor J, et al. Excess US Deaths Before, During, and After the COVID-19 Pandemic. JAMA Health Forum. 2025;6(5):e251118. XB 2019–2023.</li>
-    <li>OWID / RGA — XA residuals (U.S. expected). Approximate.</li>
+    <li>OWID / RGA — XA residuals (U.S. expected), 2020–24. Approximate.</li>
     <li>NCHS historical mortality 1900–1998; DRA national from 1933.</li>
     <li>Census Bureau midyear population estimates.</li>
   </ul>`;}
@@ -410,8 +384,8 @@ function chrome(){
   if($('noscript')) $('noscript').textContent=t('ns');
   document.title=t('brand');
   $('langs').innerHTML=LANGS.map(x=>`<button type="button" data-lang="${x[0]}" class="${x[0]===L?'on':''}">${x[1]}</button>`).join('');
-  const NAV=[['home',t('nHome')],['charts',t('nCharts')],['murder',t('nMurder')],['od',t('nOd')],['five',t('nYears')],['compare',t('nCmp')],['fent','T40.4'],['covid','COVID'],['method',t('nMet')],['src',t('nSrc')]];
-  const qEl=$('q'); const qv=qEl?qEl.value:'';
+  const NAV=[['home',t('nHome')],['charts',t('nCharts')],['murder',t('nMurder')],['od',t('nOd')],['five',t('nYears')],['compare',t('nCmp')],['covid','COVID'],['method',t('nMet')],['src',t('nSrc')]];
+  const qv=$('q')?$('q').value:'';
   $('nav').innerHTML=NAV.map(n=>`<a href="#${n[0]}" data-go="${n[0]}">${n[1]}</a>`).join('')+
     `<input id="q" type="text" inputmode="numeric" pattern="[0-9]*" enterkeyhint="go" placeholder="${t('yr')}" aria-label="${t('yr')}" maxlength="4" autocomplete="off" value="${qv}">`;
   $('q').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();jump('y/'+$('q').value.replace(/\D/g,''))}});
@@ -419,19 +393,26 @@ function chrome(){
 function hdrH(){const h=$('nav')&&$('nav').parentElement;document.documentElement.style.setProperty('--hdr',(h?Math.ceil(h.getBoundingClientRect().height):52)+'px')}
 function toTop(){try{scrollTo(0,0)}catch(e){}if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0}
 function afterPaint(){hdrH();requestAnimationFrame(function(){requestAnimationFrame(paint)})}
-function go(p){if(!PAGES[p])p='home';$('pane').innerHTML=PAGES[p]();toTop();for(const a of $('nav').querySelectorAll('a[data-go]'))a.classList.toggle('on',a.dataset.go===p);afterPaint()}
+function go(p){
+  if(p==='fent'){p='od'}
+  if(!PAGES[p])p='home';
+  $('pane').innerHTML=PAGES[p]();
+  toTop();
+  for(const a of $('nav').querySelectorAll('a[data-go]'))a.classList.toggle('on',a.dataset.go===p);
+  afterPaint();
+}
 function yr(y){
-  y=+y;if(!y||y<1900||y>2026){location.hash='home';return}
+  y=+y;if(!y||y<1900||y>2025){location.hash='home';return}
   const m=mOf(y),o=oOf(y),a=ac(y),r=cdr(y);
   sideYears(1900,2025,5);
   for(const el of $('nav').querySelectorAll('a[data-go]'))el.classList.remove('on');
   const cs=[[t('allc'),a?fmt(a):'—',a?acTag(y):t('noTot')],[t('crude'),r?r.toFixed(0):'—',t('notAa')]];
   if(AA[y]!=null) cs.push(['AA',AA[y],'year-2000']);
-  if(y>=2020&&(COVID[y]!=null||COVu[y]!=null)) cs.push(['U07.1',fmt(COVID[y]||COVu[y]),y in COVu&&COVID[y]?'inv. / und. '+fmt(COVu[y]):y in COVID?'involving':'underlying']);
+  if(y>=2020&&(COVID[y]!=null||COVu[y]!=null)) cs.push(['U07.1',fmt(COVID[y]||COVu[y]),COVID[y]?t('inv'):t('undOnly')]);
   if(EXCESS[y]!=null) cs.push([t('exU'),fmt(EXCESS[y]),t('notHic')]);
-  if(m&&m[1]!=null) cs.push([t('nMurder'),m[1].toFixed(1),fmt(m[2])]);
-  if(o) cs.push([t('nOd'),fmt(o[1]),ocr(y)!=null?ocr(y).toFixed(1)+' CDR':t('tagW')]);
-  if(SYN[y]) cs.push(['T40.4',fmt(SYN[y]),'mention']);
+  if(m) cs.push([t('nMurder'),m[1].toFixed(1),fmt(m[2])]);
+  if(o) cs.push([t('nOd'),fmt(o[1]),ocr(y).toFixed(1)+' CDR']);
+  if(SYN[y]) cs.push(['T40.4',fmt(SYN[y]),'']);
   $('pane').innerHTML=`<h1>${y}</h1>${cards(cs)}<div class="note">${note(y)||(y<1933?t('pre'):t('noFlag'))}</div>
     <p><a data-go="five">${t('nYears')}</a>${y>=2020?' · <a data-go="covid">COVID</a>':''} · <a data-go="method">${t('nMet')}</a></p>`;
   toTop();afterPaint();
