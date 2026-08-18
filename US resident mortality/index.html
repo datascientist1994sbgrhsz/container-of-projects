@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Unofficial U.S. mortality compilation: NVSS all-cause, FBI UCR murder, CDC drug-poisoning, COVID-19, excess. Not FBI/CDC. Cutoff 18 Aug 2026.">
+<meta name="description" content="Unofficial U.S. resident mortality compilation. EN/HU/RO/DE/ES. Not FBI/CDC.">
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 <meta name="format-detection" content="telephone=no">
@@ -19,8 +19,11 @@ a{color:var(--link);cursor:pointer;text-decoration:none}a:hover{text-decoration:
 .skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;z-index:9;background:#fff;padding:6px}
 header{position:sticky;top:0;z-index:8;background:#fff;border-bottom:1px solid var(--line);padding:calc(6px + env(safe-area-inset-top)) 12px 0}
 .top,.wrap,nav{max-width:1200px;margin:0 auto;width:100%}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .top strong{font-size:14px;letter-spacing:-.02em}.top small{color:var(--mute);font-size:11px}
+.langs{display:flex;gap:2px}
+.langs button{border:1px solid var(--line);background:#fff;border-radius:5px;padding:3px 7px;font:11px system-ui;cursor:pointer;color:#374151}
+.langs button.on{background:#111827;color:#fff;border-color:#111827}
 nav{display:flex;flex-wrap:wrap;margin-top:4px}
 nav a{padding:6px 8px;color:#4b5563;border-bottom:2px solid transparent;font-size:12.5px}
 nav a.on{color:var(--ink);border-color:var(--ink);font-weight:600}
@@ -59,37 +62,30 @@ footer{border-top:1px solid var(--line);padding:8px 12px calc(16px + env(safe-ar
   nav::-webkit-scrollbar{display:none}
   nav a{flex:0 0 auto;white-space:nowrap}
   #q{flex:0 0 auto;font-size:16px;min-height:40px;width:4.8rem;margin:0 0 2px 8px}
-  #side{width:100%;max-height:none;position:static;display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:8px 0;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
+  #side{width:100%;max-height:none;position:static;display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:8px 0;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x}
   #side h4{flex:0 0 auto;margin:0 6px 0 0;width:auto}
   #side button{width:auto;flex:0 0 auto;padding:8px 10px}
   #pane{padding:10px 10px 28px}.top small{display:none}table{min-width:560px}
-  .cards{grid-template-columns:repeat(auto-fill,minmax(146px,1fr))}
 }
-@media(pointer:coarse){nav a,#side button{min-height:40px}}
-@media print{
-  header,#side,footer,#q{position:static!important}
-  header{border:0}
-  #side,footer,#q{display:none}
-  #pane{padding:0}
-  .scroll{overflow:visible;border:0}
-  table{min-width:0}
-  canvas{break-inside:avoid;max-width:100%}
-  a{color:inherit;text-decoration:none}
-}
+@media(pointer:coarse){nav a,#side button,.langs button{min-height:40px}}
+@media print{header,#side,footer,#q,.langs{position:static!important}#side,footer,#q{display:none}.scroll{overflow:visible}table{min-width:0}}
 </style>
 </head>
 <body>
-<noscript>This page needs JavaScript to render the tables and figures.</noscript>
+<noscript id="noscript">This page needs JavaScript.</noscript>
 <a class="skip" href="#pane">Skip</a>
 <header>
-  <div class="top"><strong>US mortality</strong><small>Unofficial compilation · 18 Aug 2026 · not FBI/CDC/NCHS</small></div>
-  <nav id="nav" aria-label="Sections"></nav>
+  <div class="top">
+    <div><strong id="brand">US mortality</strong><br><small id="sub"></small></div>
+    <div class="langs" id="langs" role="navigation" aria-label="Language"></div>
+  </div>
+  <nav id="nav"></nav>
 </header>
 <div class="wrap">
-  <aside id="side" aria-label="Years"></aside>
+  <aside id="side"></aside>
   <main id="pane" tabindex="-1"></main>
 </div>
-<footer>UCR murder through 2025 · NVSS drug-poisoning 12-month window to Feb 2026 · all-cause 1900–2025 · 2026 incomplete</footer>
+<footer id="foot"></footer>
 <script>
 const M=[[1960,5.1,9145],[1961,4.8,8740],[1962,4.6,8530],[1963,4.6,8640],[1964,4.9,9360],[1965,5.1,9960],[1966,5.6,11040],[1967,6.2,12240],[1968,6.9,13800],[1969,7.3,14760],[1970,7.9,16000],[1971,8.6,17780],[1972,9.0,18670],[1973,9.4,19640],[1974,9.8,20710],[1975,9.6,20510],[1976,8.8,18780],[1977,8.8,19120],[1978,9.0,19560],[1979,9.8,21460],[1980,10.2,23040],[1981,9.8,22520],[1982,9.1,21010],[1983,8.3,19310],[1984,7.9,18690],[1985,8.0,18980],[1986,8.6,20610],[1987,8.3,20096],[1988,8.4,20680],[1989,8.7,21500],[1990,9.4,23440],[1991,9.8,24700],[1992,9.3,23760],[1993,9.5,24526],[1994,9.0,23326],[1995,8.2,21606],[1996,7.4,19645],[1997,6.8,18208],[1998,6.3,16914],[1999,5.7,15522],[2000,5.5,15586],[2001,5.6,16037],[2002,5.6,16229],[2003,5.7,16528],[2004,5.5,16148],[2005,5.6,16740],[2006,5.7,17030],[2007,5.6,16929],[2008,5.4,16442],[2009,5.0,15399],[2010,4.8,14748],[2011,4.7,14661],[2012,4.7,14856],[2013,4.5,14319],[2014,4.4,14164],[2015,4.9,15883],[2016,5.4,17413],[2017,5.3,17294],[2018,5.0,16374],[2019,5.0,16425],[2020,6.5,21570],[2021,6.8,22600],[2022,6.3,21600],[2023,5.7,20210],[2024,5.0,17200],[2025,4.1,14085],[2026,null,null]];
 const OD=[[1968,5033,2.5],[1969,6006,3.0],[1970,7101,3.5],[1971,6771,3.3],[1972,6622,3.2],[1973,6413,3.0],[1974,6449,3.0],[1975,7145,3.3],[1976,6765,3.1],[1977,6130,2.8],[1978,5506,2.5],[1979,2544,1.1],[1980,2492,1.1],[1981,2668,1.2],[1982,2862,1.2],[1983,2866,1.2],[1984,3266,1.4],[1985,3612,1.5],[1986,4187,1.7],[1987,3907,1.6],[1988,4865,2.0],[1989,5035,2.0],[1990,4506,1.8],[1991,5215,2.1],[1992,5951,2.3],[1993,7382,2.8],[1994,7828,3.0],[1995,8000,3.0],[1996,8431,3.1],[1997,9099,3.3],[1998,9838,3.6],[1999,16849,6.1],[2000,17415,6.2],[2001,19394,6.8],[2002,23518,8.2],[2003,25785,8.9],[2004,27424,9.4],[2005,29813,10.1],[2006,34425,11.5],[2007,36010,11.9],[2008,36450,11.9],[2009,37004,11.9],[2010,38329,12.3],[2011,41340,13.2],[2012,41502,13.1],[2013,43982,13.8],[2014,47055,14.7],[2015,52404,16.3],[2016,63632,19.8],[2017,70237,21.7],[2018,67367,20.7],[2019,70630,21.6],[2020,91799,28.3],[2021,106699,32.4],[2022,107941,32.6],[2023,105007,31.3],[2024,79384,23.1],[2025,69973,20.5],[2026,68641,null]];
@@ -122,6 +118,96 @@ const NOTES={
   2025:'UCR 4.1 / 14,085. NVSS provisional 3,094,593; age-adjusted 689.2 (record low vs 2019 715.2). Not a CDC “0 excess” count — three estimators on COVID page.',
   2026:'Incomplete year. No UCR or NVSS annual total. Poisoning = 12 months ending Feb 2026 (68,641), not calendar YTD.'
 };
+
+const LANGS=[['en','EN'],['hu','HU'],['ro','RO'],['de','DE'],['es','ES']];
+const I={
+brand:{en:'US mortality',hu:'USA-halálozás',ro:'Mortalitate SUA',de:'US-Sterblichkeit',es:'Mortalidad EE.UU.'},
+sub:{en:'Unofficial · 18 Aug 2026 · not FBI/CDC/NCHS',hu:'Nem hivatalos · 2026. aug. 18. · nem FBI/CDC/NCHS',ro:'Neoficial · 18 aug. 2026 · nu FBI/CDC/NCHS',de:'Inoffiziell · 18. Aug. 2026 · nicht FBI/CDC/NCHS',es:'No oficial · 18 ago 2026 · no FBI/CDC/NCHS'},
+foot:{en:'UCR murder through 2025 · NVSS poisoning to Feb 2026 · all-cause 1900–2025 · 2026 open',hu:'UCR-gyilkosság 2025-ig · NVSS-mérgezés 2026. febr.-ig · minden ok 1900–2025 · 2026 nyitott',ro:'Omor UCR până în 2025 · intoxicații NVSS până feb. 2026 · toate cauzele 1900–2025 · 2026 deschis',de:'UCR-Mord bis 2025 · NVSS-Vergiftung bis Feb. 2026 · alle Ursachen 1900–2025 · 2026 offen',es:'Asesinato UCR hasta 2025 · envenenamiento NVSS hasta feb. 2026 · todas las causas 1900–2025 · 2026 abierto'},
+nHome:{en:'Home',hu:'Kezdőlap',ro:'Acasă',de:'Start',es:'Inicio'},
+nCharts:{en:'Charts',hu:'Ábrák',ro:'Grafice',de:'Diagramme',es:'Gráficos'},
+nMurder:{en:'Murder',hu:'Gyilkosság',ro:'Omor',de:'Mord',es:'Homicidio'},
+nOd:{en:'Poisoning',hu:'Mérgezés',ro:'Intoxicații',de:'Vergiftung',es:'Intoxicación'},
+nYears:{en:'Years',hu:'Évek',ro:'Ani',de:'Jahre',es:'Años'},
+nCmp:{en:'Compare',hu:'Összevetés',ro:'Comparație',de:'Vergleich',es:'Comparar'},
+nMet:{en:'Methods',hu:'Módszer',ro:'Metode',de:'Methoden',es:'Métodos'},
+nSrc:{en:'Sources',hu:'Források',ro:'Surse',de:'Quellen',es:'Fuentes'},
+yr:{en:'Year',hu:'Év',ro:'An',de:'Jahr',es:'Año'},
+h1:{en:'U.S. resident mortality',hu:'USA-beli lakossági halálozás',ro:'Mortalitatea rezidenților SUA',de:'Sterblichkeit der US-Wohnbevölkerung',es:'Mortalidad de residentes de EE.UU.'},
+warn:{en:'Unofficial transcription of published series. Constructs are not interchangeable (UCR murder ≠ NVSS homicide; involving ≠ underlying; crude ≠ age-adjusted; excess is a residual).',hu:'Nem hivatalos átírás. A sorozatok nem cserélhetők (UCR-gyilkosság ≠ NVSS-emberölés; „involving” ≠ alapok; nyers ≠ korszerűsített; többlet = maradék).',ro:'Transcriere neoficială. Seriile nu sunt interșanjabile (omor UCR ≠ omicid NVSS; involving ≠ cauză de bază; brut ≠ standardizat; excesul e un reziduu).',de:'Inoffizielle Abschrift. Reihen sind nicht austauschbar (UCR-Mord ≠ NVSS-Tötung; involving ≠ Grundleiden; roh ≠ altersstandardisiert; Übersterblichkeit = Residual).',es:'Transcripción no oficial. Las series no son intercambiables (asesinato UCR ≠ homicidio NVSS; involving ≠ causa básica; bruta ≠ estandarizada; exceso = residual).'},
+hCrude:{en:'Crude all-cause rate /100,000 · 1900–2025',hu:'Nyers halálozási arány /100 000 · 1900–2025',ro:'Rată brută /100.000 · 1900–2025',de:'Rohe Sterbeziffer /100.000 · 1900–2025',es:'Tasa bruta /100.000 · 1900–2025'},
+legCrude:{en:'D/P × 10⁵ · not year-2000 standardized · 1900–32 national estimates',hu:'D/P × 10⁵ · nem 2000-es standard · 1900–32 nemzeti becslés',ro:'D/P × 10⁵ · nestandardizat 2000 · 1900–32 estimări naționale',de:'D/P × 10⁵ · nicht 2000-standardisiert · 1900–32 nationale Schätzungen',es:'D/P × 10⁵ · no estandarizado 2000 · 1900–32 estimaciones nacionales'},
+hMur:{en:'UCR murder rate /100,000 · 1960–2025',hu:'UCR-gyilkossági arány /100 000 · 1960–2025',ro:'Rată omor UCR /100.000 · 1960–2025',de:'UCR-Mordziffer /100.000 · 1960–2025',es:'Tasa de asesinato UCR /100.000 · 1960–2025'},
+hOd:{en:'Drug-poisoning deaths, thousands · 1968–Feb 2026',hu:'Drogmérgezési halálozás, ezer fő · 1968–2026. febr.',ro:'Decese prin intoxicație, mii · 1968–feb. 2026',de:'Drogenvergiftungstote, Tausend · 1968–Feb. 2026',es:'Muertes por intoxicación, miles · 1968–feb. 2026'},
+legMO:{en:'murder',hu:'gyilkosság',ro:'omor',de:'Mord',es:'asesinato'},
+legOD:{en:'poisoning',hu:'mérgezés',ro:'intoxicație',de:'Vergiftung',es:'intoxicación'},
+fig:{en:'Figures',hu:'Ábrák',ro:'Figuri',de:'Abbildungen',es:'Figuras'},
+uMur:{en:'UCR murder /100k',hu:'UCR-gyilkosság /100e',ro:'Omor UCR /100k',de:'UCR-Mord /100k',es:'Asesinato UCR /100k'},
+uOd:{en:'Drug-poisoning, thousands',hu:'Mérgezés, ezer',ro:'Intoxicații, mii',de:'Vergiftung, Tausend',es:'Intoxicación, miles'},
+uAc:{en:'Crude all-cause /100k',hu:'Nyers összes ok /100e',ro:'Brut toate cauzele /100k',de:'Roh alle Ursachen /100k',es:'Bruta todas las causas /100k'},
+uInc:{en:'Thousands · incommensurable series',hu:'Ezer · össze nem mérhető sorozatok',ro:'Mii · serii incomparabile',de:'Tausend · inkommensurable Reihen',es:'Miles · series inconmensurables'},
+uCov:{en:'COVID-involving, thousands · 2024 underlying',hu:'COVID-involving, ezer · 2024 alapok',ro:'COVID-involving, mii · 2024 cauză de bază',de:'COVID-involving, Tausend · 2024 Grundleiden',es:'COVID-involving, miles · 2024 causa básica'},
+uEx:{en:'Excess vs U.S. expected, thousands',hu:'Többlet a USA-várthoz képest, ezer',ro:'Exces față de așteptatul SUA, mii',de:'Übersterblichkeit vs. US-Erwartung, Tausend',es:'Exceso frente a lo esperado en EE.UU., miles'},
+uPeer:{en:'Excess vs HIC peers, thousands',hu:'Többlet a magas jövedelműekhez, ezer',ro:'Exces față de țări cu venit ridicat, mii',de:'Übersterblichkeit vs. HIC, Tausend',es:'Exceso frente a pares de altos ingresos, miles'},
+u18:{en:'1918 influenza excess, thousands',hu:'1918-as influenza-többlet, ezer',ro:'Exces gripă 1918, mii',de:'Übersterblichkeit Grippe 1918, Tausend',es:'Exceso gripe 1918, miles'},
+cUcr:{en:'UCR murder 2025',hu:'UCR-gyilkosság 2025',ro:'Omor UCR 2025',de:'UCR-Mord 2025',es:'Asesinato UCR 2025'},
+cOd:{en:'NVSS poisoning 2025',hu:'NVSS-mérgezés 2025',ro:'Intoxicații NVSS 2025',de:'NVSS-Vergiftung 2025',es:'Intoxicación NVSS 2025'},
+cWin:{en:'Poisoning → Feb 2026',hu:'Mérgezés → 2026. febr.',ro:'Intoxicații → feb. 2026',de:'Vergiftung → Feb. 2026',es:'Intoxicación → feb. 2026'},
+cAc:{en:'NVSS deaths 2025',hu:'NVSS-halálozás 2025',ro:'Decese NVSS 2025',de:'NVSS-Todesfälle 2025',es:'Defunciones NVSS 2025'},
+cCov:{en:'COVID-involving 2020–23',hu:'COVID-involving 2020–23',ro:'COVID-involving 2020–23',de:'COVID-involving 2020–23',es:'COVID-involving 2020–23'},
+open:{en:'open',hu:'nyitott',ro:'deschis',de:'offen',es:'abierto'},
+noYear:{en:'no annual UCR / NVSS total',hu:'nincs éves UCR/NVSS-összeg',ro:'fără total anual UCR/NVSS',de:'kein Jahreswert UCR/NVSS',es:'sin total anual UCR/NVSS'},
+win12:{en:'12-month window, not YTD',hu:'12 hónapos ablak, nem évközi',ro:'fereastră de 12 luni, nu YTD',de:'12-Monatsfenster, nicht YTD',es:'ventana de 12 meses, no YTD'},
+aaLow:{en:'age-adj. 689.2 · record low',hu:'korszerűsített 689,2 · rekordalacsony',ro:'std. vârstă 689,2 · minim record',de:'altersstd. 689,2 · Rekordtief',es:'ajustada edad 689,2 · mínimo récord'},
+fromPeak:{en:'from 107,941 (2022)',hu:'107 941-ről (2022)',ro:'de la 107.941 (2022)',de:'von 107.941 (2022)',es:'desde 107.941 (2022)'},
+ties:{en:'14,085 · rate ties 1955–56',hu:'14 085 · arány mint 1955–56',ro:'14.085 · rata egală 1955–56',de:'14.085 · Ziffer wie 1955–56',es:'14.085 · tasa igual a 1955–56'},
+und:{en:'2024 underlying 31,426',hu:'2024 alapok 31 426',ro:'2024 cauză de bază 31.426',de:'2024 Grundleiden 31.426',es:'2024 causa básica 31.426'},
+hUcr:{en:'UCR murder / non-negligent manslaughter',hu:'UCR-gyilkosság / nem gondatlan emberölés',ro:'Omor UCR / omor prin imprudență exclus',de:'UCR-Mord / nicht fahrlässige Tötung',es:'Asesinato UCR / homicidio no imprudente'},
+wUcr:{en:'Police-reported offense. NVSS homicide is a different construct (2024 NVSS homicide = 20,162). 2021 NIBRS transition: treat the count as less comparable.',hu:'Rendőrségi bejelentés. Az NVSS-emberölés más konstruktum (2024: 20 162). 2021 NIBRS: a szám kevésbé összevethető.',ro:'Infracțiune raportată de poliție. Omicidul NVSS e alt construct (2024: 20.162). Tranziția NIBRS 2021: comparabilitate redusă.',de:'Polizeilich gemeldet. NVSS-Tötung ist ein anderes Konstrukt (2024: 20.162). NIBRS 2021: eingeschränkte Vergleichbarkeit.',es:'Delito denunciado. El homicidio NVSS es otro constructo (2024: 20.162). Transición NIBRS 2021: menos comparable.'},
+thRate:{en:'Rate',hu:'Arány',ro:'Rată',de:'Ziffer',es:'Tasa'},
+thCnt:{en:'Count',hu:'Szám',ro:'Număr',de:'Zahl',es:'Recuento'},
+thD:{en:'Δ rate',hu:'Δ arány',ro:'Δ rată',de:'Δ Ziffer',es:'Δ tasa'},
+thNote:{en:'Note',hu:'Megj.',ro:'Notă',de:'Hinweis',es:'Nota'},
+hPois:{en:'NVSS drug-poisoning (overdose)',hu:'NVSS-drogmérgezés (túladagolás)',ro:'Intoxicație NVSS (supradoză)',de:'NVSS-Drogenvergiftung (Überdosis)',es:'Intoxicación NVSS (sobredosis)'},
+wPois:{en:'ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violet rows are revision breaks (ICD-9 1979; ICD-10 1999), not biological discontinuities. T40.4 is multiple-mention.',hu:'BNO-10 X40–X44, X60–X64, X85, Y10–Y14. A lila sorok kódváltások (1979, 1999), nem biológiai törések. A T40.4 többszörös említés.',ro:'CIM-10 X40–X44, X60–X64, X85, Y10–Y14. Rândurile violete sunt rupturi de clasificare (1979, 1999). T40.4 e mențiune multiplă.',de:'ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violette Zeilen sind Revisionsbrüche (1979, 1999). T40.4 ist Mehrfachnennung.',es:'CIE-10 X40–X44, X60–X64, X85, Y10–Y14. Las filas violetas son cortes de revisión (1979, 1999). T40.4 es mención múltiple.'},
+thDth:{en:'Deaths',hu:'Halálozás',ro:'Decese',de:'Todesfälle',es:'Defunciones'},
+p26:{en:'2026 calendar year is unpublished (≈4-month lag). Window ending Feb 2026 = 68,641.',hu:'A 2026-os naptári év még nincs közzétéve (≈4 hónap késés). Ablak 2026. febr.-ig = 68 641.',ro:'Anul calendaristic 2026 nu e publicat (≈4 luni întârziere). Fereastra până feb. 2026 = 68.641.',de:'Kalenderjahr 2026 unveröffentlicht (≈4 Monate Verzug). Fenster bis Feb. 2026 = 68.641.',es:'El año 2026 no está publicado (≈4 meses de retraso). Ventana hasta feb. 2026 = 68.641.'},
+hAnn:{en:'Annual file',hu:'Éves fájl',ro:'Fișier anual',de:'Jahresdatei',es:'Archivo anual'},
+nAnn:{en:'All-cause 1900–2025. /100k = crude (D/P × 10⁵), not year-2000 age-adjusted. 1900–32 national estimates (DRA incomplete). 1933–24 NVSS registered. 2025 provisional. Year notes stay in English (source language).',hu:'Minden ok 1900–2025. /100e = nyers, nem 2000-es standard. 1900–32 becslés (DRA hiányos). 1933–24 NVSS. 2025 előzetes. Az éves megjegyzések angolul maradnak (forrásnyelv).',ro:'Toate cauzele 1900–2025. /100k = brut, nu std. 2000. 1900–32 estimări (DRA incomplet). 1933–24 NVSS. 2025 provizoriu. Notele anuale rămân în engleză (limba sursei).',de:'Alle Ursachen 1900–2025. /100k = roh, nicht 2000-std. 1900–32 Schätzungen (DRA unvollständig). 1933–24 NVSS. 2025 vorläufig. Jahresnotizen bleiben Englisch (Quellsprache).',es:'Todas las causas 1900–2025. /100k = bruta, no std. 2000. 1900–32 estimaciones (DRA incompleta). 1933–24 NVSS. 2025 provisional. Las notas anuales quedan en inglés (lengua fuente).'},
+hCmp:{en:'Murder versus drug-poisoning',hu:'Gyilkosság és drogmérgezés',ro:'Omor versus intoxicație',de:'Mord versus Drogenvergiftung',es:'Asesinato frente a intoxicación'},
+nCmp2:{en:'Different units of observation. Do not sum. 1980 poisoning is post–ICD-9.',hu:'Külön megfigyelési egységek. Ne adjuk össze. Az 1980-as mérgezés ICD-9 utáni.',ro:'Unități de observație diferite. Nu însumați. 1980 e post-CIM-9.',de:'Andere Beobachtungseinheiten. Nicht addieren. 1980 nach ICD-9.',es:'Unidades distintas. No sumar. 1980 es post-CIE-9.'},
+hT:{en:'Synthetic opioids other than methadone (T40.4)',hu:'Szintetikus opioidok metadon nélkül (T40.4)',ro:'Opioide sintetice fără metadonă (T40.4)',de:'Synthetische Opioide außer Methadon (T40.4)',es:'Opioides sintéticos salvo metadona (T40.4)'},
+pT:{en:'Mostly illicit fentanyl. Multiple-cause mentions overlap the all-drug total. Share = T40.4 ÷ all-drug row.',hu:'Főleg tiltott fentanil. A többszörös említés átfed a teljes drogsorral. Arány = T40.4 ÷ összes drogsor.',ro:'Mai ales fentanil ilicit. Mențiunile multiple se suprapun. Pondere = T40.4 ÷ rândul tuturor drogurilor.',de:'Überwiegend illegales Fentanyl. Mehrfachnennungen überlappen. Anteil = T40.4 ÷ alle Drogen.',es:'Sobre todo fentanilo ilícito. Las menciones múltiples se solapan. Cuota = T40.4 ÷ todas las drogas.'},
+thSh:{en:'Share of all poisoning',hu:'Részesedés az összes mérgezésből',ro:'Pondere din toate intoxicațiile',de:'Anteil aller Vergiftungen',es:'Cuota de toda intoxicación'},
+hCov:{en:'COVID-19 and excess mortality',hu:'COVID-19 és többlethalálozás',ro:'COVID-19 și mortalitate în exces',de:'COVID-19 und Übersterblichkeit',es:'COVID-19 y exceso de mortalidad'},
+w0:{en:'No CDC publication states “0 excess deaths in 2025.” Three non-equivalent estimators: (A) vs U.S. expected — 2025 age-adj. 689.2 < 2019 715.2 ⇒ deficit. (B) vs other high-income countries (JAMA 2025) — 705,331 in 2023; 2025 not estimated. (C) raw counts 3.09M vs 2.85M. Do not add COVID + excess.',hu:'Nincs CDC-közlés „0 többlethalál 2025-ben.” Három nem egyenértékű becslő. Ne adjuk össze a COVID-ot és a többletet.',ro:'Nicio publicație CDC nu spune „0 decese în exces în 2025”. Trei estimatori neechivalenți. Nu adunați COVID + exces.',de:'Keine CDC-Publikation sagt „0 Übersterblichkeit 2025“. Drei nicht äquivalente Schätzer. COVID + Übersterblichkeit nicht addieren.',es:'Ninguna publicación del CDC dice «0 muertes en exceso en 2025». Tres estimadores no equivalentes. No sume COVID + exceso.'},
+hCert:{en:'Certificate COVID (NVSS)',hu:'Anyakönyvi COVID (NVSS)',ro:'COVID pe certificat (NVSS)',de:'COVID auf der Sterbeurkunde (NVSS)',es:'COVID en el certificado (NVSS)'},
+hA:{en:'Estimator A — excess versus U.S. expected',hu:'A becslő — többlet a USA-várthoz',ro:'Estimator A — exces față de așteptatul SUA',de:'Schätzer A — Übersterblichkeit vs. US-Erwartung',es:'Estimador A — exceso frente a lo esperado en EE.UU.'},
+hB:{en:'Estimator B — versus other high-income countries (JAMA 2025)',hu:'B becslő — más magas jövedelmű országok (JAMA 2025)',ro:'Estimator B — față de alte țări cu venit ridicat (JAMA 2025)',de:'Schätzer B — andere HIC (JAMA 2025)',es:'Estimador B — otros países de altos ingresos (JAMA 2025)'},
+h18:{en:'1918 influenza versus COVID-19',hu:'1918-as influenza és COVID-19',ro:'Gripa 1918 versus COVID-19',de:'Grippe 1918 versus COVID-19',es:'Gripe de 1918 frente a COVID-19'},
+hMet:{en:'Methods',hu:'Módszer',ro:'Metode',de:'Methoden',es:'Métodos'},
+mPop:{en:'Population. Midyear Census (thousands). Crude rate = deaths ÷ population × 100,000. Not the NCHS year-2000 age-adjusted rate.',hu:'Népesség. Évközi népszámlálás (ezer). Nyers arány = halálozás ÷ népesség × 100 000. Nem a 2000-es NCHS-standard.',ro:'Populație. Recensământ la mijloc de an (mii). Rată brută = decese ÷ populație × 100.000.',de:'Bevölkerung. Jahresmitte (Tausend). Rohe Ziffer = Sterbefälle ÷ Bevölkerung × 100.000.',es:'Población. Censo a mitad de año (miles). Tasa bruta = defunciones ÷ población × 100.000.'},
+mAc:{en:'All-cause. 1900–32 national estimates (DRA incomplete). 1933–2024 NVSS registered. 2019 final 2,854,838. 2023 final 3,090,964. 2025 provisional 3,094,593. Not UN WPP.',hu:'Minden ok. 1900–32 becslés (DRA hiányos). 1933–2024 NVSS. 2019 végleges 2 854 838. 2023 végleges 3 090 964. 2025 előzetes 3 094 593.',ro:'Toate cauzele. 1900–32 estimări (DRA incomplet). 1933–2024 NVSS. 2019 final 2.854.838. 2023 final 3.090.964. 2025 provizoriu 3.094.593.',de:'Alle Ursachen. 1900–32 Schätzungen (DRA unvollständig). 1933–2024 NVSS. 2019 endgültig 2.854.838. 2023 3.090.964. 2025 vorläufig 3.094.593.',es:'Todas las causas. 1900–32 estimaciones (DRA incompleta). 1933–2024 NVSS. 2019 final 2.854.838. 2023 3.090.964. 2025 provisional 3.094.593.'},
+mUcr:{en:'UCR murder. Police-reported. 2021 NIBRS reduces comparability.',hu:'UCR-gyilkosság. Rendőrségi. A 2021-es NIBRS rontja az összevethetőséget.',ro:'Omor UCR. Raportat de poliție. NIBRS 2021 reduce comparabilitatea.',de:'UCR-Mord. Polizeilich. NIBRS 2021 mindert Vergleichbarkeit.',es:'Asesinato UCR. Denunciado. NIBRS 2021 reduce comparabilidad.'},
+mScope:{en:'Scope. Mortality series only. No private names. No attribution to parties or administrations.',hu:'Hatály. Csak halálozási sorozatok. Nincs magánnév. Nincs párthoz kötés.',ro:'Domeniu. Doar serii de mortalitate. Fără nume private. Fără atribuire politică.',de:'Umfang. Nur Sterbereihen. Keine Privatnamen. Keine Parteizuordnung.',es:'Alcance. Solo series de mortalidad. Sin nombres privados. Sin atribución política.'},
+hSrc:{en:'Sources',hu:'Források',ro:'Surse',de:'Quellen',es:'Fuentes'},
+srcP:{en:'Local compilation from FBI UCR, NCHS/NVSS, CDC WONDER/Data Briefs, OWID/RGA excess, JAMA Health Forum 2025. Single static file.',hu:'Helyi összeállítás: FBI UCR, NCHS/NVSS, CDC WONDER, OWID/RGA, JAMA Health Forum 2025. Egy statikus fájl.',ro:'Compilație locală: FBI UCR, NCHS/NVSS, CDC WONDER, OWID/RGA, JAMA Health Forum 2025. Un fișier static.',de:'Lokale Zusammenstellung: FBI UCR, NCHS/NVSS, CDC WONDER, OWID/RGA, JAMA Health Forum 2025. Eine statische Datei.',es:'Compilación local: FBI UCR, NCHS/NVSS, CDC WONDER, OWID/RGA, JAMA Health Forum 2025. Un archivo estático.'},
+allc:{en:'All-cause',hu:'Minden ok',ro:'Toate cauzele',de:'Alle Ursachen',es:'Todas las causas'},
+crude:{en:'Crude /100k',hu:'Nyers /100e',ro:'Brut /100k',de:'Roh /100k',es:'Bruta /100k'},
+notAa:{en:'not age-standardized',hu:'nem korszerűsített',ro:'nestandardizat pe vârstă',de:'nicht altersstandardisiert',es:'no estandarizada por edad'},
+exU:{en:'Excess vs U.S.',hu:'Többlet vs USA',ro:'Exces vs SUA',de:'Übersterbl. vs. USA',es:'Exceso vs EE.UU.'},
+notHic:{en:'not vs HICs',hu:'nem a HIC-ekhez',ro:'nu față de HIC',de:'nicht vs. HIC',es:'no frente a HIC'},
+tagE:{en:'national estimate · DRA incomplete',hu:'nemzeti becslés · DRA hiányos',ro:'estimare națională · DRA incomplet',de:'nationale Schätzung · DRA unvollständig',es:'estimación nacional · DRA incompleta'},
+tagP:{en:'NVSS provisional',hu:'NVSS előzetes',ro:'NVSS provizoriu',de:'NVSS vorläufig',es:'NVSS provisional'},
+tagR:{en:'NVSS registered',hu:'NVSS bejegyzett',ro:'NVSS înregistrat',de:'NVSS registriert',es:'NVSS registrado'},
+noTot:{en:'no annual total',hu:'nincs éves összeg',ro:'fără total anual',de:'kein Jahreswert',es:'sin total anual'},
+pre:{en:'Pre-1933 all-cause is a national estimate; the death-registration area did not cover all states.',hu:'1933 előtt nemzeti becslés; a bejegyzési terület nem fedte az összes államot.',ro:'Înainte de 1933 estimare națională; zona de înregistrare nu acoperea toate statele.',de:'Vor 1933 nationale Schätzung; Registrierungsgebiet nicht flächendeckend.',es:'Antes de 1933 estimación nacional; el área de registro no cubría todos los estados.'},
+noFlag:{en:'No special flag.',hu:'Nincs külön jelzés.',ro:'Fără semnal special.',de:'Kein Sondervermerk.',es:'Sin marca especial.'},
+ns:{en:'This page needs JavaScript.',hu:'A laphoz JavaScript kell.',ro:'Această pagină necesită JavaScript.',de:'Diese Seite braucht JavaScript.',es:'Esta página necesita JavaScript.'}
+};
+let L=(localStorage.getItem('lang')||(navigator.language||'en').slice(0,2));
+if(!I.brand[L]) L='en';
+const t=k=>(I[k]&&I[k][L])||(I[k]&&I[k].en)||k;
 const COL={m:'#dc2626',o:'#2563eb',v:'#7c3aed',x:'#d97706',f:'#92400e',k:'#111827'};
 const $=id=>document.getElementById(id);
 const ix=a=>Object.fromEntries(a.map(r=>[r[0],r]));
@@ -129,112 +215,84 @@ const Mi=ix(M),Oi=ix(OD);
 const mOf=y=>Mi[y],oOf=y=>Oi[y];
 const ac=y=>y>=1900&&y<=2025?ACx[y-1900]:null;
 const acr=y=>y>=1900&&y<=2025?ACx[y-1900]/POPk[y-1900]*100:null;
-const acTag=y=>y<1933?'national estimate · DRA incomplete':y===2025?'NVSS provisional':'NVSS registered';
+const acTag=y=>y<1933?t('tagE'):y===2025?t('tagP'):t('tagR');
 const note=y=>NOTES[y]||'';
 const fmt=v=>v==null?'—':v.toLocaleString();
-const cards=xs=>`<div class="cards">${xs.map(([k,v,s])=>`<div class="card"><small>${k}</small><em>${v}</em><span>${s||''}</span></div>`).join('')}</div>`;
+const cards=xs=>`<div class="cards">${xs.map(x=>`<div class="card"><small>${x[0]}</small><em>${x[1]}</em><span>${x[2]||''}</span></div>`).join('')}</div>`;
 const heads=H=>H.map((h,i)=>`<th${i===0||h.l?' class="l"':''}>${h.t||h}</th>`).join('');
 const table=(H,rows)=>`<div class="scroll"><table><thead><tr>${heads(H)}</tr></thead><tbody>${rows}</tbody></table></div>`;
-
-function sideYears(a,b,s){
-  let h='<h4>Year</h4>';
-  for(let y=a;y<=b;y+=s) h+=`<button type="button" data-yr="${y}">${y}</button>`;
-  $('side').innerHTML=h;
-}
-
+function sideYears(a,b,s){let h='<h4>'+t('yr')+'</h4>';for(let y=a;y<=b;y+=s)h+=`<button type="button" data-yr="${y}">${y}</button>`;$('side').innerHTML=h}
 function draw(id,years,series,ymax,unit){
   const c=$(id); if(!c||!years.length) return;
   const cssW=c.getBoundingClientRect().width||(c.parentNode&&c.parentNode.clientWidth)||0;
   const dpr=Math.min(window.devicePixelRatio||1,2.5),W=Math.max(cssW,280),n=years.length,H=210;
   c.width=W*dpr;c.height=H*dpr;c.style.height=H+'px';
   const g=c.getContext('2d'); g.scale(dpr,dpr);
-  const L=44,T=16,R=36,B=36,w=W-L-R,h=H-T-B,den=Math.max(1,n-1);
+  const Lft=44,T=16,R=36,B=36,w=W-Lft-R,h=H-T-B,den=Math.max(1,n-1);
   g.fillStyle='#fff';g.fillRect(0,0,W,H);
-  g.strokeStyle='#e5e7eb';g.beginPath();g.moveTo(L,T);g.lineTo(L,T+h);g.lineTo(L+w,T+h);g.stroke();
+  g.strokeStyle='#e5e7eb';g.beginPath();g.moveTo(Lft,T);g.lineTo(Lft,T+h);g.lineTo(Lft+w,T+h);g.stroke();
   g.font='10px system-ui';
   for(let i=0;i<=4;i++){
     const yy=T+h*i/4,v=ymax*(1-i/4);
-    g.strokeStyle='#f3f4f6';g.beginPath();g.moveTo(L,yy);g.lineTo(L+w,yy);g.stroke();
-    g.fillStyle='#6b7280';g.textAlign='right';g.fillText(v>=100?Math.round(v):v.toFixed(v>=10?0:1),L-6,yy+3);
+    g.strokeStyle='#f3f4f6';g.beginPath();g.moveTo(Lft,yy);g.lineTo(Lft+w,yy);g.stroke();
+    g.fillStyle='#6b7280';g.textAlign='right';g.fillText(v>=100?Math.round(v):v.toFixed(v>=10?0:1),Lft-6,yy+3);
   }
   const st=n<=14?1:n<=30?2:n<=80?5:10;
   years.forEach((y,i)=>{
     if(i%st&&i&&i!==n-1) return;
-    g.save();
-    g.translate(L+w*i/den,T+h+13);
-    g.rotate(-.35);
-    g.fillStyle='#374151';
-    g.textAlign=i===0?'left':i===n-1?'right':'center';
-    g.fillText(String(y),0,0);
-    g.restore();
+    g.save();g.translate(Lft+w*i/den,T+h+13);g.rotate(-.35);
+    g.fillStyle='#374151';g.textAlign=i===0?'left':i===n-1?'right':'center';g.fillText(String(y),0,0);g.restore();
   });
   series.forEach(S=>{
     g.strokeStyle=S.c||COL.o;g.lineWidth=S.w||1.8;g.lineJoin='round';g.beginPath();
-    S.s.forEach((v,i)=>{const x=L+w*i/den,y=T+h*(1-Math.max(0,v)/ymax);i?g.lineTo(x,y):g.moveTo(x,y)});
+    S.s.forEach((v,i)=>{const x=Lft+w*i/den,yy=T+h*(1-Math.max(0,v)/ymax);i?g.lineTo(x,yy):g.moveTo(x,yy)});
     g.stroke();
-    if(n<=20) S.s.forEach((v,i)=>{g.fillStyle=S.c||COL.o;g.beginPath();g.arc(L+w*i/den,T+h*(1-Math.max(0,v)/ymax),2.1,0,7);g.fill()});
+    if(n<=20) S.s.forEach((v,i)=>{g.fillStyle=S.c||COL.o;g.beginPath();g.arc(Lft+w*i/den,T+h*(1-Math.max(0,v)/ymax),2.1,0,7);g.fill()});
   });
-  g.fillStyle='#6b7280';g.textAlign='left';g.fillText(unit||'',L,12);
+  g.fillStyle='#6b7280';g.textAlign='left';g.fillText(unit||'',Lft,12);
 }
-
 function paint(){
   const mOk=M.filter(r=>r[1]!=null), y15=[...Array(11)].map((_,i)=>2015+i), acY=ACx.map((_,i)=>1900+i);
-  draw('cm',mOk.map(r=>r[0]),[{s:mOk.map(r=>r[1]),c:COL.m}],12,'UCR murder /100k');
-  draw('co',OD.map(r=>r[0]),[{s:OD.map(r=>r[1]/1e3),c:COL.o}],120,'Drug-poisoning, thousands');
+  draw('cm',mOk.map(r=>r[0]),[{s:mOk.map(r=>r[1]),c:COL.m}],12,t('uMur'));
+  draw('co',OD.map(r=>r[0]),[{s:OD.map(r=>r[1]/1e3),c:COL.o}],120,t('uOd'));
   draw('c3',y15,[
     {s:y15.map(y=>((mOf(y)||[])[2]||0)/1e3),c:COL.m},
     {s:y15.map(y=>((oOf(y)||[])[1]||0)/1e3),c:COL.o},
     {s:y15.map(y=>y<2020?0:(COVID[y]||0)/1e3),c:COL.v}
-  ],450,'Thousands · incommensurable series');
-  draw('c4',y15,[{s:y15.map(y=>acr(y)||0),c:COL.k}],1200,'Crude all-cause /100k');
-  draw('cac',acY,[{s:ACx.map((d,i)=>d/POPk[i]*100),c:COL.k,w:1.35}],1900,'Crude all-cause /100k');
+  ],450,t('uInc'));
+  draw('c4',y15,[{s:y15.map(y=>acr(y)||0),c:COL.k}],1200,t('uAc'));
+  draw('cac',acY,[{s:ACx.map((d,i)=>d/POPk[i]*100),c:COL.k,w:1.35}],1900,t('uAc'));
   const yC=[2018,2019,2020,2021,2022,2023,2024];
-  draw('ccov',yC,[{s:yC.map(y=>(COVID[y]||0)/1e3),c:COL.v}],450,'COVID-involving, thousands · 2024 underlying');
+  draw('ccov',yC,[{s:yC.map(y=>(COVID[y]||0)/1e3),c:COL.v}],450,t('uCov'));
   const yEx=[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
-  draw('cex',yEx,[{s:yEx.map(y=>(EXCESS[y]||0)/1e3),c:COL.x,w:2}],600,'Excess vs U.S. expected, thousands');
+  draw('cex',yEx,[{s:yEx.map(y=>(EXCESS[y]||0)/1e3),c:COL.x,w:2}],600,t('uEx'));
   const yP=[2019,2020,2021,2022,2023];
-  draw('cpeer',yP,[{s:yP.map(y=>PEER[y]/1e3),c:'#9d174d',w:2}],1200,'Excess vs HIC peers, thousands');
-  draw('c18',[1917,1918,1919,1920,1921],[{s:[0,500,175,25,0],c:COL.f,w:2}],550,'1918 influenza excess, thousands');
+  draw('cpeer',yP,[{s:yP.map(y=>PEER[y]/1e3),c:'#9d174d',w:2}],1200,t('uPeer'));
+  draw('c18',[1917,1918,1919,1920,1921],[{s:[0,500,175,25,0],c:COL.f,w:2}],550,t('u18'));
 }
-
 const PAGES={
 home(){
   sideYears(1900,2026,5);
-  return `<h1>U.S. resident mortality</h1>
-    <div class="warn">Unofficial transcription of published series. Constructs are not interchangeable (UCR murder ≠ NVSS homicide; involving ≠ underlying; crude ≠ age-adjusted; excess is a residual). <a data-go="method">Methods</a>. Observation date <b>18 Aug 2026</b>; calendar 2026 is open. Latest poisoning file: 12 months ending Feb 2026 = 68,641.</div>
-    ${cards([
-      ['UCR murder 2025','4.1','14,085 · rate ties 1955–56'],
-      ['NVSS poisoning 2025','69,973','from 107,941 (2022)'],
-      ['Poisoning → Feb 2026','68,641','12-month window, not YTD'],
-      ['NVSS deaths 2025','3,094,593','age-adj. 689.2 · record low'],
-      ['COVID-involving 2020–23','1.09M','2024 underlying 31,426'],
-      ['2026','open','no annual UCR / NVSS total']
-    ])}
-    <h2>Crude all-cause rate /100,000 · 1900–2025</h2>
-    <canvas id="cac"></canvas>
-    <p class="legend"><i style="background:#111827"></i>D/P × 10⁵ · not year-2000 standardized · 1900–32 national estimates</p>
-    <h2>UCR murder rate /100,000 · 1960–2025</h2><canvas id="cm"></canvas>
-    <h2>Drug-poisoning deaths, thousands · 1968–Feb 2026</h2><canvas id="co"></canvas>
-    <p class="legend"><i style="background:#dc2626"></i>murder <i style="background:#2563eb"></i>poisoning · <a data-go="charts">all figures</a></p>`;
+  return `<h1>${t('h1')}</h1><div class="warn">${t('warn')} <a data-go="method">${t('nMet')}</a>.</div>
+    ${cards([[t('cUcr'),'4.1',t('ties')],[t('cOd'),'69,973',t('fromPeak')],[t('cWin'),'68,641',t('win12')],[t('cAc'),'3,094,593',t('aaLow')],[t('cCov'),'1.09M',t('und')],['2026',t('open'),t('noYear')]])}
+    <h2>${t('hCrude')}</h2><canvas id="cac"></canvas>
+    <p class="legend"><i style="background:#111827"></i>${t('legCrude')}</p>
+    <h2>${t('hMur')}</h2><canvas id="cm"></canvas>
+    <h2>${t('hOd')}</h2><canvas id="co"></canvas>
+    <p class="legend"><i style="background:#dc2626"></i>${t('legMO')} <i style="background:#2563eb"></i>${t('legOD')} · <a data-go="charts">${t('nCharts')}</a></p>`;
 },
 charts(){
-  $('side').innerHTML='<h4>Jump</h4><button type="button" data-go="covid">COVID</button><button type="button" data-go="five">Year table</button>';
-  return `<h1>Figures</h1>
-    <h2>Crude all-cause /100k · 1900–2025</h2>
-    <p class="legend"><i style="background:#111827"></i>population-scaled · not age-standardized</p>
-    <canvas id="cac"></canvas>
-    <h2>Crude all-cause /100k · 2015–25</h2><canvas id="c4"></canvas>
-    <h2>UCR murder /100k · 1960–2025</h2><canvas id="cm"></canvas>
-    <h2>Drug-poisoning deaths, thousands</h2><canvas id="co"></canvas>
-    <h2>2015–25 counts, thousands</h2>
-    <p class="legend"><i style="background:#dc2626"></i>murder <i style="background:#2563eb"></i>poisoning <i style="background:#7c3aed"></i>COVID (2024 = underlying)</p>
-    <canvas id="c3"></canvas>
-    <h2>COVID-involving · 2018–24</h2><canvas id="ccov"></canvas>
-    <h2>Excess vs U.S. expected · 2015–24</h2><canvas id="cex"></canvas>
-    <p>No official NVSS 2025–26 excess year-total. Age-adjusted 689.2 (2025) versus 715.2 (2019) is a deficit on that ruler. JAMA HIC-peer excess in 2023 = 705,331 (2025 unpublished). RGA: 2024 U.S.-expected excess ≈0.4% (≈12k).</p>
-    <h2>Excess vs high-income peers · 2019–23 (JAMA Health Forum 2025)</h2><canvas id="cpeer"></canvas>
-    <h2>1918 influenza excess · 1917–21</h2><canvas id="c18"></canvas>
-    <p>Influenza ≈675k U.S.; COVID certified ≈1.16M+. Per 100k, 1918 exceeds COVID (smaller denominator, younger deaths).</p>`;
+  $('side').innerHTML='<h4>'+t('nCharts')+'</h4><button type="button" data-go="covid">COVID</button><button type="button" data-go="five">'+t('nYears')+'</button>';
+  return `<h1>${t('fig')}</h1>
+    <h2>${t('hCrude')}</h2><p class="legend"><i style="background:#111827"></i>${t('legCrude')}</p><canvas id="cac"></canvas>
+    <h2>${t('uAc')} · 2015–25</h2><canvas id="c4"></canvas>
+    <h2>${t('hMur')}</h2><canvas id="cm"></canvas>
+    <h2>${t('uOd')}</h2><canvas id="co"></canvas>
+    <h2>2015–25</h2><p class="legend"><i style="background:#dc2626"></i>${t('legMO')} <i style="background:#2563eb"></i>${t('legOD')} <i style="background:#7c3aed"></i>COVID</p><canvas id="c3"></canvas>
+    <h2>COVID · 2018–24</h2><canvas id="ccov"></canvas>
+    <h2>${t('uEx')}</h2><canvas id="cex"></canvas>
+    <h2>${t('uPeer')}</h2><canvas id="cpeer"></canvas>
+    <h2>${t('u18')}</h2><canvas id="c18"></canvas>`;
 },
 murder(){
   sideYears(1960,2026,1);
@@ -242,23 +300,18 @@ murder(){
   M.forEach((r,i)=>{
     const p=i?M[i-1][1]:null,d=r[1]==null||p==null?'':((r[1]-p>=0?'+':'')+(r[1]-p).toFixed(1));
     const cls=r[1]==null?'hi':r[1]>=10?'pk':r[1]<=4.2?'lo':(r[0]===2020||r[0]===2021)?'hi':'';
-    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${r[1]==null?'n/a':r[1].toFixed(1)}</td><td>${r[2]==null?'no UCR year':fmt(r[2])}</td><td>${d}</td><td class="l">${note(r[0])}</td></tr>`;
+    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${r[1]==null?'n/a':r[1].toFixed(1)}</td><td>${r[2]==null?'—':fmt(r[2])}</td><td>${d}</td><td class="l">${note(r[0])}</td></tr>`;
   });
-  return `<h1>UCR murder / non-negligent manslaughter</h1>
-    <div class="warn">Police-reported offense. NVSS <b>homicide</b> (death certificates) is a different construct and is higher in some years (2024 NVSS homicide = 20,162). 2021 NIBRS transition: treat the count as less comparable.</div>
-    ${table(['Year','Rate','Count','Δ rate',{t:'Note',l:1}],rows)}`;
+  return `<h1>${t('hUcr')}</h1><div class="warn">${t('wUcr')}</div>${table([t('yr'),t('thRate'),t('thCnt'),t('thD'),{t:t('thNote'),l:1}],rows)}`;
 },
 od(){
   sideYears(1968,2026,1);
   let rows='';
   OD.forEach(r=>{
     const cls=r[0]===1979||r[0]===1999?'br':r[1]>1e5?'pk':r[0]>=2023?'lo':'';
-    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${fmt(r[1])}</td><td>${r[2]==null?'—':r[2]}</td><td>${SYN[r[0]]?fmt(SYN[r[0]]):'—'}</td><td class="l">${note(r[0])||(r[0]>=2015&&r[0]<=2022?'T40.4-dominated rise':'')}</td></tr>`;
+    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${fmt(r[1])}</td><td>${r[2]==null?'—':r[2]}</td><td>${SYN[r[0]]?fmt(SYN[r[0]]):'—'}</td><td class="l">${note(r[0])}</td></tr>`;
   });
-  return `<h1>NVSS drug-poisoning (overdose)</h1>
-    <div class="warn">ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violet rows are <b>revision breaks</b> (ICD-9 1979; ICD-10 1999), not biological discontinuities. T40.4 is multiple-mention; deaths may appear on more than one drug row.</div>
-    ${table(['Year','Deaths','Rate','T40.4',{t:'Note',l:1}],rows)}
-    <p>2026 calendar year is unpublished (≈4-month lag). Window ending Feb 2026 = <b>68,641</b>. Linear prorate 1 Jan–18 Aug ≈ <b>43,000</b> if that pace held — illustration only.</p>`;
+  return `<h1>${t('hPois')}</h1><div class="warn">${t('wPois')}</div>${table([t('yr'),t('thDth'),t('thRate'),'T40.4',{t:t('thNote'),l:1}],rows)}<p>${t('p26')}</p>`;
 },
 five(){
   sideYears(1900,2026,1);
@@ -266,191 +319,104 @@ five(){
   for(let y=1900;y<=2026;y++){
     const m=mOf(y),o=oOf(y),a=ac(y),r=acr(y);
     const cls=y===1918||y===2020||y===2021?'pk':y===1979||y===1999?'br':y===2026?'hi':(m&&m[1]>=10)||(o&&o[1]>1e5)?'pk':y>=2023?'lo':'';
-    rows+=`<tr class="${cls}"><td><a data-yr="${y}">${y}</a></td>
-      <td>${a?fmt(a):'—'}</td><td>${r?r.toFixed(0):'—'}</td>
-      <td>${y<2020?0:fmt(COVID[y])}</td>
-      <td>${EXCESS[y]!=null?fmt(EXCESS[y]):(y<1918||(y>1920&&y<2020)?'0':'—')}</td>
-      <td>${m&&m[1]!=null?m[1].toFixed(1):(y===2026?'n/a':'—')}</td>
-      <td>${m&&m[2]!=null?fmt(m[2]):(y===2026?'—':'—')}</td>
-      <td>${o?fmt(o[1])+(y===2026?'*':''):'—'}</td>
-      <td>${fmt(SYN[y])}</td><td>${VIO[y]??'—'}</td>
-      <td class="l">${note(y)||(y<1933?'DRA incomplete':'')}</td></tr>`;
+    rows+=`<tr class="${cls}"><td><a data-yr="${y}">${y}</a></td><td>${a?fmt(a):'—'}</td><td>${r?r.toFixed(0):'—'}</td><td>${y<2020?0:fmt(COVID[y])}</td><td>${EXCESS[y]!=null?fmt(EXCESS[y]):(y<1918||(y>1920&&y<2020)?'0':'—')}</td><td>${m&&m[1]!=null?m[1].toFixed(1):'—'}</td><td>${m&&m[2]!=null?fmt(m[2]):'—'}</td><td>${o?fmt(o[1]):'—'}</td><td>${fmt(SYN[y])}</td><td>${VIO[y]??'—'}</td><td class="l">${note(y)||(y<1933?'DRA':'')}</td></tr>`;
   }
-  return `<h1>Annual file</h1>
-    <div class="note">All-cause 1900–2025. <b>/100k</b> = crude (D/P × 10⁵), not year-2000 age-adjusted. 1900–32: published national estimates (000s; registration incomplete). 1933–24: NVSS resident registrations. 2025: provisional. COVID = U07.1 <b>involving</b> (0 before 2020). Excess = U.S.-expected residual, not a HIC-peer gap. 1918–20 influenza split is approximate.</div>
-    ${table(['Year','All-cause','/100k','COVID','Excess','Mur /100k','Murders','Poison.','T40.4','Viol.',{t:'Note',l:1}],rows)}
-    <p>*2026 poisoning = 12-month window to Feb 2026. Do not read 2025 excess as a CDC zero.</p>`;
+  return `<h1>${t('hAnn')}</h1><div class="note">${t('nAnn')}</div>${table([t('yr'),t('allc'),'/100k','COVID','Excess','Mur','n','OD','T40.4','V',{t:t('thNote'),l:1}],rows)}`;
 },
 compare(){
   sideYears(1970,2025,5);
-  const ys=[1970,1980,1990,2000,2010,2015,2020,2022,2025];
-  const rows=ys.map(y=>{
-    const m=mOf(y),o=oOf(y);
-    const ratio=m&&o&&m[2]? (o[1]/m[2]) : null;
-    const mark=y===1980?' *ICD-9':(y===2000&&ratio>1?' · poisoning exceeds murder':'');
-    return `<tr><td>${y}</td><td>${m?fmt(m[2]):'—'}</td><td>${o?fmt(o[1]):'—'}</td><td>${ratio==null?'—':ratio.toFixed(1)+'×'}<span class="${ratio>1?'bad':''}">${mark}</span></td></tr>`;
+  const rows=[1970,1980,1990,2000,2010,2015,2020,2022,2025].map(y=>{
+    const m=mOf(y),o=oOf(y),ratio=m&&o&&m[2]?(o[1]/m[2]):null;
+    return `<tr><td>${y}</td><td>${m?fmt(m[2]):'—'}</td><td>${o?fmt(o[1]):'—'}</td><td>${ratio==null?'—':ratio.toFixed(1)+'×'}</td></tr>`;
   }).join('');
-  return `<h1>Murder versus drug-poisoning</h1>
-    ${table(['Year','UCR murders','NVSS poisoning','Poisoning / murder'],rows)}
-    <div class="note">Different units of observation (offense vs death certificate). Do not sum. 1980 poisoning is post–ICD-9 and not comparable to 1978.</div>`;
+  return `<h1>${t('hCmp')}</h1>${table([t('yr'),'UCR','NVSS','OD/UCR'],rows)}<div class="note">${t('nCmp2')}</div>`;
 },
 fent(){
   $('side').innerHTML='';
-  const ys=[2013,2015,2017,2020,2022,2025];
-  const rows=ys.map(y=>{
-    const s=SYN[y],o=oOf(y);
-    return `<tr><td>${y}</td><td>${s?fmt(s):'—'}</td><td>${s&&o?(100*s/o[1]).toFixed(0)+'%':'—'}</td></tr>`;
-  }).join('');
-  return `<h1>Synthetic opioids other than methadone (T40.4)</h1>
-    <p>Mostly illicit fentanyl and analogues. Multiple-cause mentions: a death can contribute to T40.4 and to the all-drug total.</p>
-    ${table(['Year','T40.4 mentions','Share of all poisoning'],rows)}
-    <p>Share = T40.4 ÷ all-drug row. Not a partition of mutually exclusive deaths.</p>`;
+  const rows=[2013,2015,2017,2020,2022,2025].map(y=>{const s=SYN[y],o=oOf(y);return `<tr><td>${y}</td><td>${s?fmt(s):'—'}</td><td>${s&&o?(100*s/o[1]).toFixed(0)+'%':'—'}</td></tr>`}).join('');
+  return `<h1>${t('hT')}</h1><p>${t('pT')}</p>${table([t('yr'),'T40.4',t('thSh')],rows)}`;
 },
 covid(){
   sideYears(1918,2026,1);
-  return `<h1>COVID-19 and excess mortality</h1>
-    <div class="warn"><b>No CDC publication states “0 excess deaths in 2025.”</b> Three non-equivalent estimators: (A) versus a U.S. expected baseline — 2025 age-adjusted 689.2 &lt; 2019 715.2 ⇒ deficit, not a counted zero. (B) versus other high-income countries (JAMA Health Forum 2025) — 705,331 in <b>2023</b> and 631,247 already in <b>2019</b>; 2025 not estimated. (C) raw counts 3.09M (2025) versus 2.85M (2019) ≈ +240k registrations, largely population aging. Do not add COVID + excess.</div>
-    <h2>Certificate COVID (NVSS)</h2>
-    ${table(['Year','Involving','All-cause','Share',{t:'Note',l:1}],
-      `<tr class="pk"><td>2020</td><td>350,831</td><td>3,383,729</td><td>10.4%</td><td class="l">Third leading cause. All-cause +19% vs 2019.</td></tr>
-       <tr class="pk"><td>2021</td><td>416,893</td><td>3,464,231</td><td>12.0%</td><td class="l">Maximum involving year.</td></tr>
-       <tr><td>2022</td><td>245,614</td><td>3,279,857</td><td>7.5%</td><td class="l">MMWR. Underlying ≈186,702.</td></tr>
-       <tr><td>2023</td><td>76,446</td><td>3,090,964</td><td>2.5%</td><td class="l">Final. Underlying 49,928. 10th leading cause.</td></tr>
-       <tr><td>2024</td><td>31,426*</td><td>3,072,666</td><td>1.0%</td><td class="l">*Underlying only (Data Brief 548). Age-adj. 722.1.</td></tr>
-       <tr><td>2025</td><td>—</td><td>3,094,593</td><td>—</td><td class="l">Provisional. Age-adj. 689.2, lowest recorded.</td></tr>
-       <tr class="hi"><td>2026</td><td>—</td><td>—</td><td>—</td><td class="l">Incomplete. Weekly all-cause still issued.</td></tr>`)}
-    <p>Involving 2020–23 ≈ <b>1.09M</b>. Cumulative tallies near 1.24M use a different cutoff and are not this series.</p>
+  return `<h1>${t('hCov')}</h1><div class="warn">${t('w0')}</div>
+    <h2>${t('hCert')}</h2>
+    ${table([t('yr'),'Inv.',t('allc'),'%',{t:t('thNote'),l:1}],
+      `<tr class="pk"><td>2020</td><td>350,831</td><td>3,383,729</td><td>10.4%</td><td class="l"></td></tr>
+       <tr class="pk"><td>2021</td><td>416,893</td><td>3,464,231</td><td>12.0%</td><td class="l"></td></tr>
+       <tr><td>2022</td><td>245,614</td><td>3,279,857</td><td>7.5%</td><td class="l"></td></tr>
+       <tr><td>2023</td><td>76,446</td><td>3,090,964</td><td>2.5%</td><td class="l"></td></tr>
+       <tr><td>2024</td><td>31,426*</td><td>3,072,666</td><td>1.0%</td><td class="l">*underlying</td></tr>
+       <tr><td>2025</td><td>—</td><td>3,094,593</td><td>—</td><td class="l">aa 689.2</td></tr>`)}
     <canvas id="ccov"></canvas>
-    <h2>Estimator A — excess versus U.S. expected</h2>
-    ${table(['Year','Excess',{t:'Source',l:1}],
-      `<tr class="pk"><td>2020</td><td>≈480,000</td><td class="l">OWID U.S. baseline</td></tr>
-       <tr class="pk"><td>2021</td><td>≈460,000</td><td class="l">same family (some papers to ≈586k)</td></tr>
-       <tr><td>2022</td><td>≈250,000</td><td class="l">same family</td></tr>
-       <tr><td>2023</td><td>≈80,000</td><td class="l">RGA later 3.2% ≈ 99k</td></tr>
-       <tr><td>2024</td><td>≈12,300</td><td class="l">RGA 0.4% of 3,072,666 — not an NVSS total</td></tr>
-       <tr><td>2025</td><td>unpublished</td><td class="l">age-adj. 689.2 &lt; 715.2 ⇒ <b>deficit</b></td></tr>
-       <tr><td>2026</td><td>open</td><td class="l">registration continues</td></tr>`)}
+    <h2>${t('hA')}</h2>
+    ${table([t('yr'),'Excess',{t:t('thNote'),l:1}],
+      `<tr class="pk"><td>2020</td><td>≈480,000</td><td class="l">OWID</td></tr>
+       <tr class="pk"><td>2021</td><td>≈460,000</td><td class="l">OWID</td></tr>
+       <tr><td>2022</td><td>≈250,000</td><td class="l">OWID</td></tr>
+       <tr><td>2023</td><td>≈80,000</td><td class="l">RGA/OWID</td></tr>
+       <tr><td>2024</td><td>≈12,300</td><td class="l">RGA 0.4%</td></tr>
+       <tr><td>2025</td><td>—</td><td class="l">aa 689.2 &lt; 715.2</td></tr>`)}
     <canvas id="cex"></canvas>
-    <h2>Estimator B — versus other high-income countries (JAMA 2025)</h2>
-    ${table(['Year','U.S. excess vs HICs'],
-      `<tr><td>2019</td><td>631,247 (pre-pandemic gap)</td></tr>
-       <tr class="pk"><td>2020</td><td>1,008,369</td></tr>
-       <tr class="pk"><td>2021</td><td>1,098,808</td></tr>
-       <tr><td>2022</td><td>820,396</td></tr>
-       <tr><td>2023</td><td>705,331 (≈23% of U.S. deaths)</td></tr>
-       <tr><td>2024–26</td><td>not published</td></tr>`)}
-    <p>Extrapolating 2023’s peer gap into 2025 is not an estimate. It is an assumption.</p>
+    <h2>${t('hB')}</h2>
+    ${table([t('yr'),'HIC'],`<tr><td>2019</td><td>631,247</td></tr><tr class="pk"><td>2020</td><td>1,008,369</td></tr><tr class="pk"><td>2021</td><td>1,098,808</td></tr><tr><td>2022</td><td>820,396</td></tr><tr><td>2023</td><td>705,331</td></tr>`)}
     <canvas id="cpeer"></canvas>
-    <h2>1918 influenza versus COVID-19</h2>
-    ${table([{t:'',l:1},'1918–19 influenza','COVID 2020–25'],
-      `<tr><td class="l">U.S. pandemic deaths</td><td>≈675,000</td><td>≈1.2 million certified</td></tr>
-       <tr><td class="l">Population</td><td>≈103 million</td><td>≈331 million</td></tr>
-       <tr><td class="l">Deaths /100k</td><td>≈650</td><td>≈360</td></tr>
-       <tr><td class="l">Age pattern</td><td>W-shaped; young adults</td><td>concentrated at 65+</td></tr>`)}
-    <div class="note">Typical seasonal influenza is ≈10–50k U.S. deaths and is not entered as excess here except 1918–20. 1957 and 1968 pandemics were real and far smaller.</div>`;
+    <h2>${t('h18')}</h2>
+    ${table([{t:'',l:1},'1918–19','COVID'],`<tr><td class="l">n</td><td>≈675,000</td><td>≈1.2M</td></tr><tr><td class="l">N</td><td>≈103M</td><td>≈331M</td></tr><tr><td class="l">/100k</td><td>≈650</td><td>≈360</td></tr>`)}`;
 },
-method(){
-  $('side').innerHTML='';
-  return `<h1>Methods</h1>
-    <ul>
-      <li><b>Population.</b> Midyear / average Census population (thousands). Crude rate = registered or estimated deaths ÷ population × 100,000. Not the NCHS year-2000 age-adjusted rate (2025 aa 689.2 versus crude ≈905).</li>
-      <li><b>All-cause.</b> 1900–32: published national estimates, rounded to thousands; death-registration area incomplete — not equivalent to later NVSS coverage. 1933–2024: NVSS resident registrations (<i>Deaths: Final Data</i>, Data Briefs). 2019 kept at final 2,854,838. 2023 final 3,090,964. 2025 provisional 3,094,593. 2026 unpublished. Not UN WPP.</li>
-      <li><b>UCR murder.</b> Police-reported murder / non-negligent manslaughter. National estimates from 1936. 1960s counts reconstructed rate × population (rounded). 2023–24 counts rounded from published percent changes onto the 2025 official 14,085. 2021 NIBRS transition reduces comparability.</li>
-      <li><b>NVSS homicide.</b> Certificate underlying-cause homicide. Usually exceeds UCR murder (coverage and definition).</li>
-      <li><b>Drug-poisoning.</b> ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Level-shifts at <b>1979 (ICD-9)</b> and <b>1999 (ICD-10)</b>. 2026 calendar YTD is not observed; Feb 2026 12-month window is.</li>
-      <li><b>T40.4.</b> Synthetic opioids other than methadone, multiple-cause. Overlaps the all-drug total.</li>
-      <li><b>COVID-involving</b> (U07.1 anywhere) ≠ underlying-only. 2022: 245,614 involving / ≈186,702 underlying. 2023: 76,446 / 49,928. 2024 figure stored here is underlying.</li>
-      <li><b>Excess</b> is baseline-dependent. 2020–23: OWID/CDC-style versus U.S. expected. 2024: RGA 0.4% of 3,072,666. 2025 unpublished on that ruler. JAMA HIC-peer series is a separate contrast and is already large in 2019.</li>
-      <li><b>1918–20.</b> CDC ≈675k U.S. influenza deaths over the pandemic; annual split is an allocation, not a vital-statistics line.</li>
-      <li><b>Scope.</b> Mortality series only. No private names. No attribution to parties, administrations, or immigration status.</li>
-    </ul>`;
-},
-src(){
-  $('side').innerHTML='';
-  return `<h1>Sources</h1>
-    <ul>
-      <li>FBI UCR / Crime in the United States; 2025 national tables (Aug 2026) — rate 4.1, count 14,085 (−18.1%)</li>
-      <li>NCHS WONDER and Data Briefs — drug-poisoning 1968–2024 final (2024 = 79,384; age-adj. 23.1)</li>
-      <li>CDC provisional poisoning dashboard, 4 Aug 2026 — 12 months ending Feb 2026 = 68,641</li>
-      <li>Disaster Center / CRS UCR rate reconstructions, 1960–2019</li>
-      <li>NVSS / NVSR <i>Deaths: Final Data</i> and Data Briefs — resident all-cause 1933–2024; 2025 provisional</li>
-      <li>NCHS / Census / Historical Statistics — 1900–32 national death estimates (DRA incomplete)</li>
-      <li>Census midyear / average population — crude-rate denominator</li>
-      <li>CDC excess-deaths dashboard / OWID U.S. excess (2020–22)</li>
-      <li>CDC 1918 pandemic history (≈675,000 U.S.)</li>
-      <li>JAMA Health Forum 2025 — U.S. versus other high-income countries</li>
-    </ul>
-    <p>Single static file. No network after load. Canvas figures. Chromium, Firefox, Safari.</p>`;
-}
+method(){$('side').innerHTML='';return `<h1>${t('hMet')}</h1><ul><li>${t('mPop')}</li><li>${t('mAc')}</li><li>${t('mUcr')}</li><li>${t('mScope')}</li></ul>`},
+src(){$('side').innerHTML='';return `<h1>${t('hSrc')}</h1><p>${t('srcP')}</p><ul><li>FBI UCR 2025 — 4.1 / 14,085</li><li>NCHS WONDER / Data Briefs — poisoning, all-cause</li><li>CDC provisional OD · Feb 2026 = 68,641</li><li>NVSS Deaths: Final Data · 1933–2024</li><li>Census midyear population</li><li>OWID / RGA excess · JAMA Health Forum 2025</li></ul>`}
 };
-
-function hdrH(){
-  const h=$('nav')&&$('nav').parentElement;
-  document.documentElement.style.setProperty('--hdr', (h?Math.ceil(h.getBoundingClientRect().height):52)+'px');
+function chrome(){
+  document.documentElement.lang=L;
+  $('brand').textContent=t('brand');$('sub').textContent=t('sub');$('foot').textContent=t('foot');
+  if($('noscript')) $('noscript').textContent=t('ns');
+  document.title=t('brand');
+  $('langs').innerHTML=LANGS.map(x=>`<button type="button" data-lang="${x[0]}" class="${x[0]===L?'on':''}">${x[1]}</button>`).join('');
+  const NAV=[['home',t('nHome')],['charts',t('nCharts')],['murder',t('nMurder')],['od',t('nOd')],['five',t('nYears')],['compare',t('nCmp')],['fent','T40.4'],['covid','COVID'],['method',t('nMet')],['src',t('nSrc')]];
+  const qEl=$('q'); const qv=qEl?qEl.value:'';
+  $('nav').innerHTML=NAV.map(n=>`<a href="#${n[0]}" data-go="${n[0]}">${n[1]}</a>`).join('')+
+    `<input id="q" type="text" inputmode="numeric" pattern="[0-9]*" enterkeyhint="go" placeholder="${t('yr')}" aria-label="${t('yr')}" maxlength="4" autocomplete="off" value="${qv}">`;
+  $('q').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();jump('y/'+$('q').value.replace(/\D/g,''))}});
 }
-function toTop(){
-  try{scrollTo(0,0)}catch(e){}
-  if(document.documentElement) document.documentElement.scrollTop=0;
-  if(document.body) document.body.scrollTop=0;
-}
-function afterPaint(){
-  hdrH();
-  requestAnimationFrame(function(){ requestAnimationFrame(paint); });
-}
-function go(p){
-  if(!PAGES[p]) p='home';
-  $('pane').innerHTML=PAGES[p]();
-  toTop();
-  for(const a of $('nav').querySelectorAll('a[data-go]')) a.classList.toggle('on',a.dataset.go===p);
-  afterPaint();
-  document.title=(NAV.find(n=>n[0]===p)||[, 'US'])[1]+' · US mortality';
-}
+function hdrH(){const h=$('nav')&&$('nav').parentElement;document.documentElement.style.setProperty('--hdr',(h?Math.ceil(h.getBoundingClientRect().height):52)+'px')}
+function toTop(){try{scrollTo(0,0)}catch(e){}if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0}
+function afterPaint(){hdrH();requestAnimationFrame(function(){requestAnimationFrame(paint)})}
+function go(p){if(!PAGES[p])p='home';$('pane').innerHTML=PAGES[p]();toTop();for(const a of $('nav').querySelectorAll('a[data-go]'))a.classList.toggle('on',a.dataset.go===p);afterPaint()}
 function yr(y){
-  y=+y; if(!y||y<1900||y>2026){location.hash='home';return}
+  y=+y;if(!y||y<1900||y>2026){location.hash='home';return}
   const m=mOf(y),o=oOf(y),a=ac(y),r=acr(y);
   sideYears(1900,2026,1);
-  for(const a of $('nav').querySelectorAll('a[data-go]')) a.classList.remove('on');
+  for(const a of $('nav').querySelectorAll('a[data-go]'))a.classList.remove('on');
   $('pane').innerHTML=`<h1>${y}</h1>${cards([
-    ['All-cause',a?fmt(a):'—',a?acTag(y):'no annual total'],
-    ['Crude /100k',r?r.toFixed(0):'—','not age-standardized'],
+    [t('allc'),a?fmt(a):'—',a?acTag(y):t('noTot')],
+    [t('crude'),r?r.toFixed(0):'—',t('notAa')],
     ['COVID-involving',y<2020?0:fmt(COVID[y]),'U07.1'],
-    ['Excess vs U.S.',EXCESS[y]!=null?fmt(EXCESS[y]):(y<2020?0:'—'),'not vs HICs'],
-    ['UCR murder rate',m&&m[1]!=null?m[1].toFixed(1):'—',m&&m[2]!=null?fmt(m[2]):''],
-    ['Drug-poisoning',o?fmt(o[1])+(y===2026?'*':''):'—',o&&o[2]!=null?'rate '+o[2]:''],
-    ['T40.4 / violence',fmt(SYN[y]),'UCR viol. '+ (VIO[y]??'—')]
-  ])}<div class="note">${note(y)||(y<1933?'Pre-1933 all-cause is a national estimate; the death-registration area did not cover all states.':'No special flag.')}</div>
-    <p><a data-go="five">Annual file</a> · <a data-go="murder">UCR</a> · <a data-go="od">Poisoning</a></p>`;
-  toTop();
-  afterPaint();
-  document.title=y+' · US mortality';
+    [t('exU'),EXCESS[y]!=null?fmt(EXCESS[y]):(y<2020?0:'—'),t('notHic')],
+    [t('nMurder'),m&&m[1]!=null?m[1].toFixed(1):'—',m&&m[2]!=null?fmt(m[2]):''],
+    [t('nOd'),o?fmt(o[1]):'—',o&&o[2]!=null?o[2]:'']
+  ])}<div class="note">${note(y)||(y<1933?t('pre'):t('noFlag'))}</div>
+    <p><a data-go="five">${t('nYears')}</a> · <a data-go="murder">${t('nMurder')}</a> · <a data-go="od">${t('nOd')}</a></p>`;
+  toTop();afterPaint();
 }
 function route(){const h=location.hash.slice(1);h.startsWith('y/')?yr(h.slice(2)):go(h||'home')}
-function jump(h){ if(location.hash.slice(1)===h) route(); else location.hash=h; }
-$('nav').innerHTML=NAV.map(([id,lab])=>`<a href="#${id}" data-go="${id}">${lab}</a>`).join('')+
-  '<input id="q" type="text" inputmode="numeric" pattern="[0-9]*" enterkeyhint="go" placeholder="year" aria-label="Year" maxlength="4" autocomplete="off">';
+function jump(h){if(location.hash.slice(1)===h)route();else location.hash=h}
+function setLang(x){L=x;try{localStorage.setItem('lang',L)}catch(e){}chrome();route()}
+chrome();
 document.addEventListener('click',e=>{
-  const a=e.target.closest('[data-go],[data-yr]');
-  if(!a) return;
-  e.preventDefault();
-  jump(a.dataset.go||('y/'+a.dataset.yr));
-});
-$('q').addEventListener('keydown',e=>{
-  if(e.key==='Enter'){ e.preventDefault(); jump('y/'+$('q').value.replace(/\D/g,'')); }
+  const lang=e.target.closest('[data-lang]'); if(lang){e.preventDefault();setLang(lang.dataset.lang);return}
+  const a=e.target.closest('[data-go],[data-yr]'); if(!a) return;
+  e.preventDefault(); jump(a.dataset.go||('y/'+a.dataset.yr));
 });
 addEventListener('hashchange',route);
-function onView(){ clearTimeout(window._rz); window._rz=setTimeout(function(){ hdrH(); paint(); },120); }
+function onView(){clearTimeout(window._rz);window._rz=setTimeout(function(){hdrH();paint()},120)}
 addEventListener('resize',onView);
 if(window.visualViewport) visualViewport.addEventListener('resize',onView);
 document.addEventListener('wheel',e=>{
   if(e.ctrlKey||Math.abs(e.deltaY)<Math.abs(e.deltaX)) return;
-  if(window.matchMedia && matchMedia('(max-width:800px)').matches) return;
-  const box=e.target.closest('#side');
-  if(!box) return;
+  if(window.matchMedia&&matchMedia('(max-width:800px)').matches) return;
+  const box=e.target.closest('#side'); if(!box) return;
   const max=box.scrollHeight-box.clientHeight;
-  if(max<=1||(box.scrollTop<=0&&e.deltaY<0)||(box.scrollTop>=max-1&&e.deltaY>0)){
-    scrollBy(0,e.deltaY);
-    e.preventDefault();
-  }
+  if(max<=1||(box.scrollTop<=0&&e.deltaY<0)||(box.scrollTop>=max-1&&e.deltaY>0)){scrollBy(0,e.deltaY);e.preventDefault()}
 },{passive:false,capture:true});
 route();
 </script>
