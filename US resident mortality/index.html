@@ -41,7 +41,7 @@ p,ul{margin:6px 0}ul{padding-left:1.15rem}
 .note,.warn{margin:6px 0;padding:7px 9px;background:var(--soft);border-radius:7px;color:#374151}.warn{background:#fff7ed}
 .eq{font:12px/1.45 ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
 .scroll{overflow-x:auto;overflow-y:visible;margin:6px 0;border:1px solid var(--line);border-radius:8px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;min-width:500px;font-size:12px;font-variant-numeric:tabular-nums}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:12px;font-variant-numeric:tabular-nums}
 th,td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:right}
 th{background:var(--soft);text-align:center;font-weight:600}
 td:first-child,th:first-child,td.l,th.l{text-align:left}
@@ -92,7 +92,7 @@ const OD=[[1968,5033],[1969,6006],[1970,7101],[1971,6771],[1972,6622],[1973,6413
 const SYN={1999:730,2000:782,2005:1742,2010:3007,2013:3105,2014:5544,2015:9580,2016:19413,2017:28466,2018:31335,2019:36359,2020:56516,2021:70601,2022:73798,2023:72500,2024:48913,2025:38084};
 const COVID={2020:350831,2021:416893,2022:245614,2023:76446};
 const COVu={2022:186552,2023:49932,2024:31426};
-const EXCESS={1918:500000,1919:175000,1920:25000,2020:480000,2021:460000,2022:250000,2023:80000,2024:12300};
+const EXCESS={2020:480000,2021:460000,2022:250000,2023:80000,2024:12300};
 const PEER={2019:631247,2020:1008369,2021:1098808,2022:820396,2023:705331};
 const AA={2019:715.2,2023:750.5,2024:722.1,2025:689.2};
 const ACx=[1308000,1274000,1225000,1260000,1348000,1332000,1343000,1385000,1302000,1289000,1357000,1305000,1297000,1343000,1318000,1325000,1408000,1445000,1892000,1354000,1383000,1248000,1286000,1358000,1323000,1353000,1422000,1347000,1445000,1447000,1393000,1372000,1358000,1342106,1396903,1392752,1479228,1450427,1381391,1387897,1417269,1397642,1385187,1459544,1411338,1401719,1395617,1445370,1444337,1443607,1452454,1482099,1496838,1518459,1481091,1528717,1564476,1633128,1647886,1656814,1711982,1701522,1756720,1813549,1798051,1828136,1863149,1851323,1930082,1921990,1921031,1927542,1963944,1973003,1934388,1892879,1909440,1899597,1927788,1913841,1989841,1977981,1974797,2019201,2039369,2086440,2105361,2123323,2167999,2150466,2148463,2169518,2175613,2268553,2278994,2312132,2314690,2314245,2337256,2391399,2403351,2416425,2443387,2448288,2397615,2448017,2426264,2423712,2471984,2437163,2468435,2515458,2543279,2596993,2626418,2712630,2744248,2813503,2839205,2854838,3383729,3464231,3279857,3090964,3072666,3094593];
@@ -172,14 +172,14 @@ wPois:{en:'Underlying ICD-10 X40–X44, X60–X64, X85, Y10–Y14. Violet rows a
 thDth:{en:'Deaths',hu:'Halálozás',ro:'Decese',de:'Todesfälle',es:'Defunciones'},
 p26:{en:'2026 calendar year is unpublished (≈4-month lag). Window ending Feb 2026 = 68,641 (predicted provisional).',hu:'A 2026-os naptári év még nincs közzétéve (≈4 hónap késés). Ablak 2026. febr.-ig = 68 641.',ro:'Anul calendaristic 2026 nu e publicat (≈4 luni întârziere). Fereastra până feb. 2026 = 68.641.',de:'Kalenderjahr 2026 unveröffentlicht (≈4 Monate Verzug). Fenster bis Feb. 2026 = 68.641.',es:'El año 2026 no está publicado (≈4 meses de retraso). Ventana hasta feb. 2026 = 68.641.'},
 hAnn:{en:'Annual file',hu:'Éves fájl',ro:'Fișier anual',de:'Jahresdatei',es:'Archivo anual'},
-nAnn:{en:'All-cause 1900–2025. CDR = D/P×10⁵, not year-2000 AA. 1900–32 national estimates (DRA incomplete). 1933–2024 NVSS registered. 2025 provisional. XA shown only when estimated. Year notes stay in English (source language). UCR violent-crime rates are not mortality and are omitted.',hu:'Minden ok 1900–2025. CDR = D/P×10⁵, nem 2000-es AA. 1900–32 becslés (DRA hiányos). 1933–2024 NVSS. 2025 előzetes. XA csak ha becsült. Az éves megjegyzések angolul maradnak.',ro:'Toate cauzele 1900–2025. CDR = D/P×10⁵, nu AA 2000. 1900–32 estimări (DRA incomplet). 1933–2024 NVSS. 2025 provizoriu. XA doar dacă e estimat. Notele anuale rămân în engleză.',de:'Alle Ursachen 1900–2025. CDR = D/P×10⁵, nicht AA 2000. 1900–32 Schätzungen (DRA unvollständig). 1933–2024 NVSS. 2025 vorläufig. XA nur wenn geschätzt. Jahresnotizen bleiben Englisch.',es:'Todas las causas 1900–2025. CDR = D/P×10⁵, no AA 2000. 1900–32 estimaciones (DRA incompleta). 1933–2024 NVSS. 2025 provisional. XA solo si está estimado. Las notas anuales quedan en inglés.'},
+nAnn:{en:'All-cause only, 1900–2025. CDR = D/P×10⁵, not year-2000 AA. 1900–32 national estimates (DRA incomplete). 1933–2024 NVSS registered. 2025 provisional. Murder, poisoning, U07.1 and excess are on their own pages — they are not defined for every year.',hu:'Csak minden ok, 1900–2025. CDR = D/P×10⁵, nem 2000-es AA. 1900–32 becslés (DRA hiányos). 1933–2024 NVSS. 2025 előzetes. Gyilkosság, mérgezés, U07.1 és többlet külön lapokon.',ro:'Doar toate cauzele, 1900–2025. CDR = D/P×10⁵, nu AA 2000. 1900–32 estimări (DRA incomplet). 1933–2024 NVSS. 2025 provizoriu. Omor, intoxicație, U07.1 și exces pe pagini separate.',de:'Nur alle Ursachen, 1900–2025. CDR = D/P×10⁵, nicht AA 2000. 1900–32 Schätzungen (DRA unvollständig). 1933–2024 NVSS. 2025 vorläufig. Mord, Vergiftung, U07.1 und Übersterblichkeit auf eigenen Seiten.',es:'Solo todas las causas, 1900–2025. CDR = D/P×10⁵, no AA 2000. 1900–32 estimaciones (DRA incompleta). 1933–2024 NVSS. 2025 provisional. Asesinato, intoxicación, U07.1 y exceso en sus páginas.'},
 hCmp:{en:'Murder versus drug-poisoning',hu:'Gyilkosság és drogmérgezés',ro:'Omor versus intoxicație',de:'Mord versus Drogenvergiftung',es:'Asesinato frente a intoxicación'},
 nCmp2:{en:'Different units of observation. Ratio is descriptive only. Do not sum. 1980 poisoning is post–ICD-9.',hu:'Külön megfigyelési egységek. Az arány csak leíró. Ne adjuk össze. Az 1980-as mérgezés ICD-9 utáni.',ro:'Unități de observație diferite. Raportul e doar descriptiv. Nu însumați. 1980 e post-CIM-9.',de:'Andere Beobachtungseinheiten. Verhältnis nur deskriptiv. Nicht addieren. 1980 nach ICD-9.',es:'Unidades distintas. La razón es solo descriptiva. No sumar. 1980 es post-CIE-9.'},
 hT:{en:'Synthetic opioids other than methadone (T40.4)',hu:'Szintetikus opioidok metadon nélkül (T40.4)',ro:'Opioide sintetice fără metadonă (T40.4)',de:'Synthetische Opioide außer Methadon (T40.4)',es:'Opioides sintéticos salvo metadona (T40.4)'},
 pT:{en:'Mostly illicit fentanyl. Multiple-cause mention; overlaps the all-drug total. Share = T40.4 ÷ all-drug. 2024–25 paired to the May 2026 NCHS provisional release (2024 all-drug later revised to 79,384).',hu:'Főleg tiltott fentanil. Többszörös említés; átfed a teljes drogsorral. Arány = T40.4 ÷ összes. 2024–25 a 2026. májusi NCHS-előzeteshez igazodik.',ro:'Mai ales fentanil ilicit. Mențiune multiplă; se suprapune. Pondere = T40.4 ÷ toate drogurile. 2024–25 din comunicatul NCHS din mai 2026.',de:'Überwiegend illegales Fentanyl. Mehrfachnennung; überlappt. Anteil = T40.4 ÷ alle Drogen. 2024–25 gemäß NCHS Mai 2026.',es:'Sobre todo fentanilo ilícito. Mención múltiple; se solapa. Cuota = T40.4 ÷ todas las drogas. 2024–25 según NCHS mayo 2026.'},
 thSh:{en:'Share of all poisoning',hu:'Részesedés az összes mérgezésből',ro:'Pondere din toate intoxicațiile',de:'Anteil aller Vergiftungen',es:'Cuota de toda intoxicación'},
-hCov:{en:'COVID-19 and excess mortality',hu:'COVID-19 és többlethalálozás',ro:'COVID-19 și mortalitate în exces',de:'COVID-19 und Übersterblichkeit',es:'COVID-19 y exceso de mortalidad'},
-w0:{en:'No CDC publication states “0 excess deaths in 2025.” Three non-equivalent estimators: (A) vs U.S. expected — 2025 AA 689.2 < 2019 715.2 ⇒ deficit vs a 2019 AA baseline, not a count of zero. (B) vs other high-income countries (Bor et al., JAMA Health Forum 2025) — 705,331 in 2023; 2025 not estimated. (C) raw D 3.09M vs 2.85M is not excess. Do not add U07.1 + XA + XB.',hu:'Nincs CDC-közlés „0 többlethalál 2025-ben.” Három nem egyenértékű becslő. Ne adjuk össze U07.1 + XA + XB.',ro:'Nicio publicație CDC nu spune „0 decese în exces în 2025”. Trei estimatori neechivalenți. Nu adunați U07.1 + XA + XB.',de:'Keine CDC-Publikation sagt „0 Übersterblichkeit 2025“. Drei nicht äquivalente Schätzer. U07.1 + XA + XB nicht addieren.',es:'Ninguna publicación del CDC dice «0 muertes en exceso en 2025». Tres estimadores no equivalentes. No sume U07.1 + XA + XB.'},
+hCov:{en:'COVID-19 and excess · 2020–2025',hu:'COVID-19 és többlet · 2020–2025',ro:'COVID-19 și exces · 2020–2025',de:'COVID-19 und Übersterblichkeit · 2020–2025',es:'COVID-19 y exceso · 2020–2025'},
+w0:{en:'U07.1 exists from 2020. XA is a U.S.-expected residual (OWID/RGA), 2020–24 only. XB is U.S. vs other high-income countries (Bor et al. 2025), 2019–23; 2019 is a pre-pandemic baseline, not COVID. Do not add U07.1 + XA + XB. 2025 has no CDC “0 excess” year-total; AA 689.2 < 2019 715.2 is not a count of zero. 1918 influenza is all-cause, not this page.',hu:'U07.1 2020-tól. XA csak 2020–24. XB 2019–23 (2019 a járvány előtti alap). Ne adjuk össze. Az 1918-as influenza nem ez a lap.',ro:'U07.1 din 2020. XA doar 2020–24. XB 2019–23 (2019 e baza pre-pandemică). Nu însumați. Gripa 1918 nu e această pagină.',de:'U07.1 ab 2020. XA nur 2020–24. XB 2019–23 (2019 ist Vor-Pandemie). Nicht addieren. Grippe 1918 ist nicht diese Seite.',es:'U07.1 desde 2020. XA solo 2020–24. XB 2019–23 (2019 es la base prepandémica). No sume. La gripe de 1918 no es esta página.'},
 hCert:{en:'Certificate COVID (NVSS)',hu:'Anyakönyvi COVID (NVSS)',ro:'COVID pe certificat (NVSS)',de:'COVID auf der Sterbeurkunde (NVSS)',es:'COVID en el certificado (NVSS)'},
 hA:{en:'Estimator A (XA) — excess versus U.S. expected',hu:'A becslő (XA) — többlet a USA-várthoz',ro:'Estimator A (XA) — exces față de așteptatul SUA',de:'Schätzer A (XA) — Übersterblichkeit vs. US-Erwartung',es:'Estimador A (XA) — exceso frente a lo esperado en EE.UU.'},
 hB:{en:'Estimator B (XB) — versus other high-income countries',hu:'B becslő (XB) — más magas jövedelmű országok',ro:'Estimator B (XB) — față de alte țări cu venit ridicat',de:'Schätzer B (XB) — andere HIC',es:'Estimador B (XB) — otros países de altos ingresos'},
@@ -278,42 +278,25 @@ function paint(){
   const odY=OD.filter(r=>r[0]<=2025);
   draw('cm',mOk.map(r=>r[0]),[{s:mOk.map(r=>r[1]),c:COL.m}],12,t('uMur'));
   draw('co',odY.map(r=>r[0]),[{s:odY.map(r=>ocr(r[0])),c:COL.o}],40,t('uOd'),[1979,1999]);
-  draw('c3',y15,[
-    {s:y15.map(y=>((mOf(y)||[])[2]||0)/1e3),c:COL.m},
-    {s:y15.map(y=>((oOf(y)||[])[1]||0)/1e3),c:COL.o},
-    {s:y15.map(y=>y<2020?null:(COVID[y]||null)?COVID[y]/1e3:null),c:COL.v}
-  ],450,t('uInc'));
   draw('c4',y15,[{s:y15.map(y=>cdr(y)||0),c:COL.k}],1200,t('uAc'));
   draw('cac',acY,[{s:ACx.map((d,i)=>d/POPk[i]*100),c:COL.k,w:1.35}],1900,t('uAc'));
-  const yC=[2018,2019,2020,2021,2022,2023,2024];
+  const yC=[2020,2021,2022,2023,2024];
   draw('ccov',yC,[{s:yC.map(y=>y in COVID?COVID[y]/1e3:y in COVu?COVu[y]/1e3:null),c:COL.v}],450,t('uCov'));
-  draw('cex',[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],[{s:[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024].map(y=>EXCESS[y]!=null?EXCESS[y]/1e3:null),c:COL.x,w:2}],600,t('uEx'));
+  draw('cex',yC,[{s:yC.map(y=>EXCESS[y]!=null?EXCESS[y]/1e3:null),c:COL.x,w:2}],520,t('uEx'));
   const yP=[2019,2020,2021,2022,2023];
   draw('cpeer',yP,[{s:yP.map(y=>PEER[y]/1e3),c:'#9d174d',w:2}],1200,t('uPeer'));
-  draw('c18',[1917,1918,1919,1920,1921],[{s:[null,500,175,25,null],c:COL.f,w:2}],550,t('u18'));
 }
 const PAGES={
 home(){
-  sideYears(1900,2026,5);
+  sideYears(1900,2025,10);
   return `<h1>${t('h1')}</h1><div class="warn">${t('warn')} <a data-go="method">${t('nMet')}</a>.</div>
-    ${cards([[t('cUcr'),'4.1',t('ties')],[t('cOd'),'69,973',t('fromPeak')],[t('cWin'),'68,641',t('win12')],[t('cAc'),'3,094,593',t('aaLow')],[t('cCov'),'1.09M',t('und')],['2026',t('open'),t('noYear')]])}
-    <h2>${t('hCon')}</h2>
-    ${table([{t:t('hCon'),l:1},t('thCnt'),{t:t('thNote'),l:1}],
-      `<tr><td class="l">D</td><td>count</td><td class="l">resident deaths</td></tr>
-       <tr><td class="l">P</td><td>10³</td><td class="l">midyear population</td></tr>
-       <tr><td class="l">CDR</td><td>/100k</td><td class="l">D/P×10⁵ · not AA</td></tr>
-       <tr><td class="l">AA</td><td>/100k</td><td class="l">year-2000 standard</td></tr>
-       <tr><td class="l">UCR</td><td>/100k</td><td class="l">police murder ≠ NVSS homicide</td></tr>
-       <tr><td class="l">X40–Y14</td><td>count</td><td class="l">drug-poisoning underlying</td></tr>
-       <tr><td class="l">T40.4</td><td>count</td><td class="l">multiple-cause mention</td></tr>
-       <tr><td class="l">U07.1</td><td>count</td><td class="l">involving ≠ underlying</td></tr>
-       <tr><td class="l">XA / XB</td><td>residual</td><td class="l">U.S. expected ≠ HIC peers</td></tr>`)}
-    <p class="eq">CDR = D / P × 10⁵</p>
+    ${cards([[t('cUcr'),'4.1',t('ties')],[t('cOd'),'69,973',t('fromPeak')],[t('cAc'),'3,094,593',t('aaLow')],['U07.1 2021','416,893','involving']])}
+    <p class="eq">CDR = D / P × 10⁵ &nbsp;·&nbsp; CDR ≠ AA &nbsp;·&nbsp; UCR ≠ NVSS &nbsp;·&nbsp; T40.4 ≠ OD &nbsp;·&nbsp; involving ≠ underlying &nbsp;·&nbsp; XA ≠ XB</p>
     <h2>${t('hCrude')}</h2><canvas id="cac"></canvas>
     <p class="legend"><i style="background:#111827"></i>${t('legCrude')}</p>
     <h2>${t('hMur')}</h2><canvas id="cm"></canvas>
     <h2>${t('hOd')}</h2><canvas id="co"></canvas>
-    <p class="legend"><i style="background:#dc2626"></i>${t('legMO')} <i style="background:#2563eb"></i>${t('legOD')} · ICD-9 1979 · ICD-10 1999 · <a data-go="charts">${t('nCharts')}</a></p>`;
+    <p class="legend"><i style="background:#dc2626"></i>${t('legMO')} <i style="background:#2563eb"></i>${t('legOD')} · ICD-9 1979 · ICD-10 1999</p>`;
 },
 charts(){
   $('side').innerHTML='<h4>'+t('nCharts')+'</h4><button type="button" data-go="covid">COVID</button><button type="button" data-go="five">'+t('nYears')+'</button>';
@@ -321,44 +304,36 @@ charts(){
     <h2>${t('hCrude')}</h2><p class="legend"><i style="background:#111827"></i>${t('legCrude')}</p><canvas id="cac"></canvas>
     <h2>${t('uAc')} · 2015–25</h2><canvas id="c4"></canvas>
     <h2>${t('hMur')}</h2><canvas id="cm"></canvas>
-    <h2>${t('uOd')}</h2><p class="legend">ICD-9 1979 · ICD-10 1999</p><canvas id="co"></canvas>
-    <h2>2015–25</h2><p class="legend"><i style="background:#dc2626"></i>${t('legMO')} <i style="background:#2563eb"></i>${t('legOD')} <i style="background:#7c3aed"></i>U07.1 · ${t('uInc')}</p><canvas id="c3"></canvas>
-    <h2>U07.1 · 2018–24</h2><canvas id="ccov"></canvas>
-    <h2>${t('uEx')}</h2><canvas id="cex"></canvas>
-    <h2>${t('uPeer')}</h2><canvas id="cpeer"></canvas>
-    <h2>${t('u18')}</h2><canvas id="c18"></canvas>`;
+    <h2>${t('uOd')}</h2><p class="legend">ICD-9 1979 · ICD-10 1999</p><canvas id="co"></canvas>`;
 },
 murder(){
-  sideYears(1960,2026,1);
+  sideYears(1960,2025,1);
   let rows='';
-  M.forEach((r,i)=>{
-    const p=i?M[i-1][1]:null,d=r[1]==null||p==null?'':((r[1]-p>=0?'+':'')+(r[1]-p).toFixed(1));
-    const cls=r[1]==null?'hi':r[1]>=10?'pk':r[1]<=4.2?'lo':(r[0]===2020||r[0]===2021)?'hi':'';
-    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${r[1]==null?'n/a':r[1].toFixed(1)}</td><td>${r[2]==null?'—':fmt(r[2])}</td><td>${d}</td><td class="l">${note(r[0])}</td></tr>`;
+  M.filter(r=>r[1]!=null).forEach((r,i,a)=>{
+    const p=i?a[i-1][1]:null,d=p==null?'':((r[1]-p>=0?'+':'')+(r[1]-p).toFixed(1));
+    const cls=r[1]>=10?'pk':r[1]<=4.2?'lo':(r[0]===2020||r[0]===2021)?'hi':'';
+    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${r[1].toFixed(1)}</td><td>${fmt(r[2])}</td><td>${d}</td></tr>`;
   });
-  return `<h1>${t('hUcr')}</h1><div class="warn">${t('wUcr')}</div>${table([t('yr'),t('thRate'),t('thCnt'),t('thD'),{t:t('thNote'),l:1}],rows)}`;
+  return `<h1>${t('hUcr')}</h1><div class="warn">${t('wUcr')}</div>${table([t('yr'),t('thRate'),t('thCnt'),t('thD')],rows)}`;
 },
 od(){
-  sideYears(1968,2026,1);
+  sideYears(1968,2025,1);
   let rows='';
-  OD.forEach(r=>{
-    const cls=r[0]===1979||r[0]===1999?'br':r[1]>1e5?'pk':r[0]>=2023&&r[0]<=2025?'lo':r[0]===2026?'hi':'';
-    const rate=ocr(r[0]);
-    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${fmt(r[1])}</td><td>${rate==null?(r[0]===2026?'W':'—'):rate.toFixed(1)}</td><td>${SYN[r[0]]?fmt(SYN[r[0]]):'—'}</td><td class="l">${note(r[0])}</td></tr>`;
+  OD.filter(r=>r[0]<=2025).forEach(r=>{
+    const cls=r[0]===1979||r[0]===1999?'br':r[1]>1e5?'pk':r[0]>=2023?'lo':'';
+    rows+=`<tr class="${cls}"><td><a data-yr="${r[0]}">${r[0]}</a></td><td>${fmt(r[1])}</td><td>${ocr(r[0]).toFixed(1)}</td><td>${SYN[r[0]]?fmt(SYN[r[0]]):'—'}</td></tr>`;
   });
-  return `<h1>${t('hPois')}</h1><div class="warn">${t('wPois')}</div>${table([t('yr'),t('thDth'),'CDR','T40.4',{t:t('thNote'),l:1}],rows)}<p>${t('p26')}</p>`;
+  return `<h1>${t('hPois')}</h1><div class="warn">${t('wPois')}</div>${table([t('yr'),t('thDth'),'CDR','T40.4'],rows)}<p>${t('p26')}</p>`;
 },
 five(){
-  sideYears(1900,2026,1);
+  sideYears(1900,2025,5);
   let rows='';
-  for(let y=1900;y<=2026;y++){
-    const m=mOf(y),o=oOf(y),a=ac(y),r=cdr(y);
-    const cls=y===1918||y===2020||y===2021?'pk':y===1979||y===1999?'br':y===2026?'hi':(m&&m[1]>=10)||(o&&o[1]>1e5)?'pk':y>=2023&&y<=2025?'lo':'';
-    const cov=y<2020?'—':(COVID[y]!=null?fmt(COVID[y]):'—');
-    const xa=EXCESS[y]!=null?fmt(EXCESS[y]):'—';
-    rows+=`<tr class="${cls}"><td><a data-yr="${y}">${y}</a></td><td>${a?fmt(a):'—'}</td><td>${r?r.toFixed(0):'—'}</td><td>${y<=2025?acTag(y):t('noTot')}</td><td>${cov}</td><td>${xa}</td><td>${m&&m[1]!=null?m[1].toFixed(1):'—'}</td><td>${m&&m[2]!=null?fmt(m[2]):'—'}</td><td>${o?fmt(o[1]):'—'}</td><td>${fmt(SYN[y])}</td><td class="l">${note(y)||(y<1933?'DRA':'')}</td></tr>`;
+  for(let y=1900;y<=2025;y++){
+    const a=ac(y),r=cdr(y);
+    const cls=y===1918||y===2020||y===2021?'pk':y===2025?'hi':'';
+    rows+=`<tr class="${cls}"><td><a data-yr="${y}">${y}</a></td><td>${fmt(a)}</td><td>${r?r.toFixed(0):'—'}</td><td>${acTag(y)}</td><td class="l">${note(y)||(y<1933?'DRA':'')}</td></tr>`;
   }
-  return `<h1>${t('hAnn')}</h1><div class="note">${t('nAnn')}</div>${table([t('yr'),'D','CDR',t('stat'),'U07.1','XA','UCR','n','OD','T40.4',{t:t('thNote'),l:1}],rows)}`;
+  return `<h1>${t('hAnn')}</h1><div class="note">${t('nAnn')}</div>${table([t('yr'),'D','CDR',t('stat'),{t:t('thNote'),l:1}],rows)}`;
 },
 compare(){
   sideYears(1970,2025,5);
@@ -375,7 +350,7 @@ fent(){
   return `<h1>${t('hT')}</h1><p>${t('pT')}</p>${table([t('yr'),'T40.4',t('thSh')],rows)}`;
 },
 covid(){
-  sideYears(1918,2026,1);
+  sideYears(2020,2025,1);
   return `<h1>${t('hCov')}</h1><div class="warn">${t('w0')}</div>
     <h2>${t('hCert')}</h2>
     ${table([t('yr'),'U07.1',t('allc'),'%',{t:t('thNote'),l:1}],
@@ -384,14 +359,8 @@ covid(){
        <tr><td>2022</td><td>245,614</td><td>3,279,857</td><td>7.5%</td><td class="l">involving · underlying 186,552</td></tr>
        <tr><td>2023</td><td>76,446</td><td>3,090,964</td><td>2.5%</td><td class="l">involving · underlying 49,932</td></tr>
        <tr><td>2024</td><td>31,426</td><td>3,072,666</td><td>1.0%</td><td class="l">underlying only</td></tr>
-       <tr><td>2025</td><td>—</td><td>3,094,593</td><td>—</td><td class="l">AA 689.2 · no involving annual in this file</td></tr>`)}
+       <tr><td>2025</td><td>—</td><td>3,094,593</td><td>—</td><td class="l">no involving annual in this file</td></tr>`)}
     <canvas id="ccov"></canvas>
-    <h2>AA</h2>
-    ${table([t('yr'),'AA',{t:t('thNote'),l:1}],
-      `<tr><td>2019</td><td>715.2</td><td class="l">final</td></tr>
-       <tr><td>2023</td><td>750.5</td><td class="l">final</td></tr>
-       <tr><td>2024</td><td>722.1</td><td class="l">final</td></tr>
-       <tr><td>2025</td><td>689.2</td><td class="l">provisional · lowest recorded AA</td></tr>`)}
     <h2>${t('hA')}</h2>
     ${table([t('yr'),'XA',{t:t('thNote'),l:1}],
       `<tr class="pk"><td>2020</td><td>≈480,000</td><td class="l">OWID family</td></tr>
@@ -399,29 +368,23 @@ covid(){
        <tr><td>2022</td><td>≈250,000</td><td class="l">OWID family</td></tr>
        <tr><td>2023</td><td>≈80,000</td><td class="l">RGA / OWID</td></tr>
        <tr><td>2024</td><td>≈12,300</td><td class="l">RGA 0.4%</td></tr>
-       <tr><td>2025</td><td>—</td><td class="l">AA 689.2 &lt; 715.2 · not a published zero</td></tr>`)}
+       <tr><td>2025</td><td>—</td><td class="l">unpublished · AA 689.2 is not a zero count</td></tr>`)}
     <canvas id="cex"></canvas>
     <h2>${t('hB')}</h2>
-    <p>Bor J, et al. JAMA Health Forum. 2025;6(5):e251118.</p>
-    ${table([t('yr'),'XB'],`<tr><td>2019</td><td>631,247</td></tr><tr class="pk"><td>2020</td><td>1,008,369</td></tr><tr class="pk"><td>2021</td><td>1,098,808</td></tr><tr><td>2022</td><td>820,396</td></tr><tr><td>2023</td><td>705,331</td></tr>`)}
-    <canvas id="cpeer"></canvas>
-    <h2>${t('h18')}</h2>
-    ${table([{t:'',l:1},'1918–19','COVID'],`<tr><td class="l">n</td><td>≈675,000</td><td>≈1.09M involving 2020–23</td></tr><tr><td class="l">N</td><td>≈103M</td><td>≈331M</td></tr><tr><td class="l">/100k</td><td>≈650</td><td>≈330</td></tr>`)}`;
+    <p>Bor J, et al. JAMA Health Forum. 2025;6(5):e251118. 2019 = pre-pandemic US–HIC gap, not COVID.</p>
+    ${table([t('yr'),'XB',{t:t('thNote'),l:1}],`<tr><td>2019</td><td>631,247</td><td class="l">pre-pandemic</td></tr><tr class="pk"><td>2020</td><td>1,008,369</td><td class="l"></td></tr><tr class="pk"><td>2021</td><td>1,098,808</td><td class="l"></td></tr><tr><td>2022</td><td>820,396</td><td class="l"></td></tr><tr><td>2023</td><td>705,331</td><td class="l"></td></tr>`)}
+    <canvas id="cpeer"></canvas>`;
 },
 method(){$('side').innerHTML='';return `<h1>${t('hMet')}</h1>
   <p class="eq">CDR = D / P × 10⁵ &nbsp;·&nbsp; AA ≠ CDR &nbsp;·&nbsp; UCR ≠ NVSS &nbsp;·&nbsp; involving ≠ underlying &nbsp;·&nbsp; XA ≠ XB</p>
   <ul>
-    <li>${t('mUni')}</li>
-    <li>${t('mPop')}</li>
     <li>${t('mAc')}</li>
     <li>${t('mAa')}</li>
     <li>${t('mUcr')}</li>
     <li>${t('mIcd')}</li>
-    <li>${t('mT')}</li>
     <li>${t('mCov')}</li>
     <li>${t('mEx')}</li>
     <li>${t('mLim')}</li>
-    <li>${t('mScope')}</li>
   </ul>`;},
 src(){$('side').innerHTML='';return `<h1>${t('hSrc')}</h1><p>${t('srcP')}</p>
   <ul>
@@ -460,18 +423,17 @@ function go(p){if(!PAGES[p])p='home';$('pane').innerHTML=PAGES[p]();toTop();for(
 function yr(y){
   y=+y;if(!y||y<1900||y>2026){location.hash='home';return}
   const m=mOf(y),o=oOf(y),a=ac(y),r=cdr(y);
-  sideYears(1900,2026,1);
-  for(const a of $('nav').querySelectorAll('a[data-go]'))a.classList.remove('on');
-  $('pane').innerHTML=`<h1>${y}</h1>${cards([
-    [t('allc'),a?fmt(a):'—',a?acTag(y):t('noTot')],
-    [t('crude'),r?r.toFixed(0):'—',t('notAa')],
-    ['AA',AA[y]!=null?AA[y]:'—','year-2000'],
-    ['U07.1',y<2020?'—':fmt(COVID[y]),y in COVu?'und. '+fmt(COVu[y]):'involving'],
-    [t('exU'),EXCESS[y]!=null?fmt(EXCESS[y]):'—',t('notHic')],
-    [t('nMurder'),m&&m[1]!=null?m[1].toFixed(1):'—',m&&m[2]!=null?fmt(m[2]):''],
-    [t('nOd'),o?fmt(o[1]):'—',ocr(y)!=null?ocr(y).toFixed(1)+' CDR':(y===2026?t('tagW'):'')]
-  ])}<div class="note">${note(y)||(y<1933?t('pre'):t('noFlag'))}</div>
-    <p><a data-go="five">${t('nYears')}</a> · <a data-go="murder">${t('nMurder')}</a> · <a data-go="od">${t('nOd')}</a> · <a data-go="method">${t('nMet')}</a></p>`;
+  sideYears(1900,2025,5);
+  for(const el of $('nav').querySelectorAll('a[data-go]'))el.classList.remove('on');
+  const cs=[[t('allc'),a?fmt(a):'—',a?acTag(y):t('noTot')],[t('crude'),r?r.toFixed(0):'—',t('notAa')]];
+  if(AA[y]!=null) cs.push(['AA',AA[y],'year-2000']);
+  if(y>=2020&&(COVID[y]!=null||COVu[y]!=null)) cs.push(['U07.1',fmt(COVID[y]||COVu[y]),y in COVu&&COVID[y]?'inv. / und. '+fmt(COVu[y]):y in COVID?'involving':'underlying']);
+  if(EXCESS[y]!=null) cs.push([t('exU'),fmt(EXCESS[y]),t('notHic')]);
+  if(m&&m[1]!=null) cs.push([t('nMurder'),m[1].toFixed(1),fmt(m[2])]);
+  if(o) cs.push([t('nOd'),fmt(o[1]),ocr(y)!=null?ocr(y).toFixed(1)+' CDR':t('tagW')]);
+  if(SYN[y]) cs.push(['T40.4',fmt(SYN[y]),'mention']);
+  $('pane').innerHTML=`<h1>${y}</h1>${cards(cs)}<div class="note">${note(y)||(y<1933?t('pre'):t('noFlag'))}</div>
+    <p><a data-go="five">${t('nYears')}</a>${y>=2020?' · <a data-go="covid">COVID</a>':''} · <a data-go="method">${t('nMet')}</a></p>`;
   toTop();afterPaint();
 }
 function route(){const h=location.hash.slice(1);h.startsWith('y/')?yr(h.slice(2)):go(h||'home')}

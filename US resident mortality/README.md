@@ -15,11 +15,13 @@ Unofficial static compilation of **incommensurable** U.S. resident mortality ser
 | **UCR** | Police-reported murder / nonnegligent manslaughter | NVSS homicide (ICD) |
 | **X40–Y14** | Drug-poisoning *underlying* cause (ICD-8/9/10; breaks 1979, 1999) | T40.4 mentions |
 | **T40.4** | Multiple-cause mention, synthetic opioids other than methadone | A partition of all-drug |
-| **U07.1** | COVID-19 *involving* (any mention), 2020– | *Underlying*-only |
-| **XA** | Excess vs a U.S. expected baseline (OWID / RGA family) | A CDC year-total |
-| **XB** | Excess vs other high-income countries (Bor et al., *JAMA Health Forum* 2025) | XA |
+| **U07.1** | COVID-19 *involving* (any mention), **2020–** only | A 1900–2019 series; *underlying*-only |
+| **XA** | Excess vs a U.S. expected baseline (OWID / RGA), **2020–24** | 1918 influenza; a CDC year-total |
+| **XB** | Excess vs other high-income countries (Bor et al. 2025), **2019–23** (2019 = pre-pandemic gap) | XA; COVID-19 certificates |
 
 Do not add series. A missing residual is **not** zero. 2025 has **no** CDC publication that states “0 excess deaths.”
+
+The **Years** table is all-cause (D, CDR) only. COVID/excess live on `#covid` (2020–2025). Murder starts 1960; poisoning 1968.
 
 Hashes: `#method`, `#src`, `#murder`, `#od`, `#covid`, `#y/2020`. Language persists in the browser (EN HU RO DE ES). Year notes stay in English.
 
