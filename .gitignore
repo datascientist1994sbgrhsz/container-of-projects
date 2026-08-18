@@ -1,3 +1,3 @@
-us-death-stats-wiki ver1.1 .html
-*.html
-*.html
+# old desktop dumps only — keep project index.html
+/us-death-stats-wiki*.html
+/US-Death-Stats-Wiki.html
