@@ -1,6 +1,6 @@
 # US resident mortality
 
-Unofficial static compilation of **incommensurable** U.S. resident mortality series. One file: `index.html`. Cutoff **18 August 2026**. No build step. No CDN. Languages: English, French, Hungarian, Romanian, German, Spanish.
+Unofficial static compilation of **incommensurable** U.S. resident mortality series. One file: `index.html`. Cutoff **18 August 2026**. No build step. No CDN. Languages: English, French, Portuguese, Polish, Hungarian, Romanian, German, Spanish.
 
 **Not** an FBI, CDC, or NCHS product.
 
@@ -23,7 +23,7 @@ Do not add series. A missing residual is **not** zero. 2025 has **no** CDC publi
 
 The **Years** table is all-cause (D, CDR) only. COVID/excess live on `#covid` (2020–2025). Murder starts 1960; poisoning 1968.
 
-Hashes: `#method`, `#src`, `#murder`, `#od`, `#covid`, `#y/2020`. Language persists in the browser (**EN FR HU RO DE ES**). Year notes stay in English.
+Hashes: `#method`, `#src`, `#murder`, `#od`, `#covid`, `#y/2020`. Language persists in the browser (**EN FR PT PL HU RO DE ES**). Year notes stay in English.
 
 ## Legal
 
