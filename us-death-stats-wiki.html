@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>US Murder &amp; Overdose Wiki</title>
+<style>
+:root{--b:#0058e6;--face:#ece9d8;--face2:#d4d0c8;--link:#002bb8}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font:12px/1.4 Tahoma,"Segoe UI",sans-serif;color:#111}
+body{background:radial-gradient(ellipse 90% 48% at 50% 10%,#b9dcff,#4d94c4 52%,#6b9a28 78%,#3d6a12);overflow:hidden}
+#win{position:absolute;inset:8px 8px 34px;display:flex;flex-direction:column;background:var(--face);border:2px solid #0831d9;box-shadow:3px 3px 0 #0004}
+.title{height:26px;background:linear-gradient(#0af,#0058e6 42%,#003db8);color:#fff;font-weight:700;display:flex;align-items:center;padding:0 8px;justify-content:space-between;text-shadow:1px 1px #003}
+.x{width:20px;height:16px;background:#e81123;color:#fff;border:1px solid #fff;font:700 11px Tahoma;text-align:center;cursor:default}
+.bar{background:var(--face2);border-bottom:1px solid #888;padding:3px 8px;white-space:nowrap;overflow:auto}
+.bar a{color:var(--link);margin-right:10px;cursor:pointer;text-decoration:underline}
+#main{flex:1;display:flex;min-height:0}
+#side{width:188px;background:#fff;border-right:1px solid #999;overflow:auto;padding:6px}
+#side h4{margin:8px 0 3px;font-size:11px;color:#444}
+#side button{display:block;width:100%;text-align:left;border:0;background:0;padding:2px 4px;cursor:pointer;font:11px Tahoma;color:var(--link)}
+#side button:hover,#side button.on{background:#316ac5;color:#fff}
+#pane{flex:1;overflow:auto;padding:10px 14px;background:#fff}
+h1{font:700 17px Tahoma;margin:0 0 6px}
+h2{font:700 13px Tahoma;border-bottom:1px solid #ccc;margin:12px 0 6px}
+.note{background:#ffc;border:1px solid #bb8;padding:6px 8px;margin:8px 0}
+.warn{background:#fee;border:1px solid #c88}
+.okbox{background:#e8ffe8;border:1px solid #8b8}
+table{border-collapse:collapse;width:100%;font-size:11px;margin:6px 0}
+th,td{border:1px solid #bbb;padding:3px 5px;text-align:right}
+th{background:#d6e3f0;text-align:center}
+td:first-child,th:first-child,td.l,th.l{text-align:left}
+.hi{background:#ffe08a}.pk{background:#f7c0c0}.lo{background:#c8f0c8}.br{background:#e0d0ff}
+canvas{width:100%;max-width:820px;background:#fafafa;border:1px solid #aaa;display:block;margin:4px 0 10px}
+.cards{display:flex;flex-wrap:wrap;gap:7px}
+.card{flex:1;min-width:132px;background:linear-gradient(#fff,#ece9d8);border:1px solid #888;padding:7px}
+.card em{display:block;font:700 18px Tahoma;font-style:normal}
+.pic{height:70px;border:1px solid #888;margin:6px 0;position:relative;overflow:hidden}
+.p-spike{background:linear-gradient(#6eafdc 28%,#222 28% 68%,#5a8a20 68%)}
+.p-spike:after{content:"";position:absolute;inset:30% 8% 26%;background:#c00;clip-path:polygon(0 100%,22% 78%,38% 8%,50% 0,62% 14%,80% 72%,100% 100%)}
+.p-fent{background:#111} .p-fent:before{content:"lethal ~2 mg fentanyl";position:absolute;right:8px;top:8px;color:#f55;font:700 11px Tahoma}
+.p-fent:after{content:"";position:absolute;left:48%;top:42%;width:9px;height:9px;background:#ddd;border-radius:50%;box-shadow:0 0 14px #fff}
+.legend span{display:inline-block;width:10px;height:10px;margin:0 4px 0 10px;vertical-align:middle}
+.nums{font-size:10px;margin:2px 0 16px;max-width:820px}
+.nums th{position:sticky;top:0}
+.nums td,.nums th{padding:2px 4px}
+.tb{position:fixed;left:0;right:0;bottom:0;height:28px;background:linear-gradient(#3c9bf0,#125dce);color:#fff;font-weight:700;display:flex;align-items:center;padding:0 8px;font-size:11px}
+.bad{color:#a00}.ok{color:#060}
+#q{width:72px;font:11px Tahoma}
+</style>
+</head>
+<body>
+<div id="win">
+  <div class="title"><b>US Mortality Wiki — murder, OD, COVID, excess, 1918 flu</b><span class="x">X</span></div>
+  <div class="bar">
+    <a onclick="go('home')">Home</a>
+    <a onclick="go('charts')">Graphs</a>
+    <a onclick="go('murder')">Murder y/y</a>
+    <a onclick="go('od')">Overdose y/y</a>
+    <a onclick="go('five')">All years</a>
+    <a onclick="go('compare')">Compare</a>
+    <a onclick="go('fent')">Fentanyl</a>
+    <a onclick="go('border')">Border</a>
+    <a onclick="go('covid')">COVID / excess</a>
+    <a onclick="go('ice')">ICE 2026</a>
+    <a onclick="go('method')">Method</a>
+    <a onclick="go('src')">Sources</a>
+    <input id="q" placeholder="year" onkeydown="if(event.key==='Enter')yr(+this.value)">
+  </div>
+  <div id="main"><div id="side"></div><div id="pane"></div></div>
+</div>
+<div class="tb">Start · FBI murder 1960–2025 · CDC OD 1968–2026-08 · single-file · data tags on each row</div>
+<script>
+/* FBI murder rate + count. Count null = rate-only / incomplete UCR.
+   2023–25: FBI UCR estimates (2025 release). 2024 CDC homicide deaths 20162 is NOT FBI murder. */
+const M=[
+[1960,5.1,9145],[1961,4.8,8740],[1962,4.6,8530],[1963,4.6,8640],[1964,4.9,9360],
+[1965,5.1,9960],[1966,5.6,11040],[1967,6.2,12240],[1968,6.9,13800],[1969,7.3,14760],
+[1970,7.9,16000],[1971,8.6,17780],[1972,9.0,18670],[1973,9.4,19640],[1974,9.8,20710],
+[1975,9.6,20510],[1976,8.8,18780],[1977,8.8,19120],[1978,9.0,19560],[1979,9.8,21460],
+[1980,10.2,23040],[1981,9.8,22520],[1982,9.1,21010],[1983,8.3,19310],[1984,7.9,18690],
+[1985,8.0,18980],[1986,8.6,20610],[1987,8.3,20096],[1988,8.4,20680],[1989,8.7,21500],
+[1990,9.4,23440],[1991,9.8,24700],[1992,9.3,23760],[1993,9.5,24526],[1994,9.0,23326],
+[1995,8.2,21606],[1996,7.4,19645],[1997,6.8,18208],[1998,6.3,16914],[1999,5.7,15522],
+[2000,5.5,15586],[2001,5.6,16037],[2002,5.6,16229],[2003,5.7,16528],[2004,5.5,16148],
+[2005,5.6,16740],[2006,5.7,17030],[2007,5.6,16929],[2008,5.4,16442],[2009,5.0,15399],
+[2010,4.8,14748],[2011,4.7,14661],[2012,4.7,14856],[2013,4.5,14319],[2014,4.4,14164],
+[2015,4.9,15883],[2016,5.4,17413],[2017,5.3,17294],[2018,5.0,16374],[2019,5.0,16425],
+[2020,6.5,21570],[2021,6.8,22600],[2022,6.3,21600],[2023,5.7,20210],[2024,5.0,17200],[2025,4.1,14085],[2026,null,null]
+];
+/* CDC all-drug overdose deaths + crude/aa rate. 1979 ICD-9, 1999 ICD-10. */
+const OD=[
+[1968,5033,2.5],[1969,6006,3.0],[1970,7101,3.5],[1971,6771,3.3],[1972,6622,3.2],
+[1973,6413,3.0],[1974,6449,3.0],[1975,7145,3.3],[1976,6765,3.1],[1977,6130,2.8],
+[1978,5506,2.5],[1979,2544,1.1],[1980,2492,1.1],[1981,2668,1.2],[1982,2862,1.2],
+[1983,2866,1.2],[1984,3266,1.4],[1985,3612,1.5],[1986,4187,1.7],[1987,3907,1.6],
+[1988,4865,2.0],[1989,5035,2.0],[1990,4506,1.8],[1991,5215,2.1],[1992,5951,2.3],
+[1993,7382,2.8],[1994,7828,3.0],[1995,8000,3.0],[1996,8431,3.1],[1997,9099,3.3],
+[1998,9838,3.6],[1999,16849,6.1],[2000,17415,6.2],[2001,19394,6.8],[2002,23518,8.2],
+[2003,25785,8.9],[2004,27424,9.4],[2005,29813,10.1],[2006,34425,11.5],[2007,36010,11.9],
+[2008,36450,11.9],[2009,37004,11.9],[2010,38329,12.3],[2011,41340,13.2],[2012,41502,13.1],
+[2013,43982,13.8],[2014,47055,14.7],[2015,52404,16.3],[2016,63632,19.8],[2017,70237,21.7],
+[2018,67367,20.7],[2019,70630,21.6],[2020,91799,28.3],[2021,106699,32.4],[2022,107941,32.6],
+[2023,105007,31.3],[2024,79384,23.1],[2025,69973,20.5],[2026,68641,null]
+];
+/* Synthetic opioids excl. methadone (mostly fentanyl) — CDC, selected years */
+const SYN={1999:730,2000:782,2005:1742,2010:3007,2013:3105,2014:5544,2015:9580,2016:19413,2017:28466,2018:31335,2019:36359,2020:56516,2021:70601,2022:73798,2023:72500,2024:48913,2025:38084};
+const VIO={1960:161,1965:200,1970:364,1975:488,1980:597,1985:557,1990:730,1991:758,1995:685,2000:507,2005:469,2010:404,2015:374,2019:367,2020:399,2022:381,2024:359,2025:328};
+/* COVID involving (U07.1 on certificate). 0 before 2020. */
+const COVID={2020:350831,2021:416893,2022:245614,2023:76446,2024:null,2025:null,2026:null};
+/* Excess vs US expected (CDC-style / OWID US baseline) — NOT vs other rich countries.
+   1918–20 = influenza pandemic (CDC ~675k over the pandemic; split is approximate). */
+const EXCESS={1918:500000,1919:175000,1920:25000,2020:480000,2021:460000,2022:250000,2023:80000};
+/* All-cause registered deaths (NCHS). Early 1900s = death-registration states only, incomplete. */
+const AC={1900:343217,1910:696856,1918:1447139,1920:1142379,1930:1327200,1940:1417269,1950:1452400,1960:1711909,1970:1921031,1980:1989841,1990:2148463,1995:2312132,1999:2391399,2000:2403351,2005:2448017,2010:2468435,2015:2712630,2018:2839205,2019:2854838,2020:3383729,2021:3464231,2022:3279857,2023:3090582,2024:3072666};
+const POTUS=[[1897,'McKinley (R)'],[1901,'T. Roosevelt (R)'],[1909,'Taft (R)'],[1913,'Wilson (D)'],[1921,'Harding (R)'],[1923,'Coolidge (R)'],[1929,'Hoover (R)'],[1933,'F. Roosevelt (D)'],[1945,'Truman (D)'],[1953,'Eisenhower (R)'],[1961,'Kennedy (D)'],[1963,'Johnson (D)'],[1969,'Nixon (R)'],[1974,'Ford (R)'],[1977,'Carter (D)'],[1981,'Reagan (R)'],[1989,'G.H.W. Bush (R)'],[1993,'Clinton (D)'],[2001,'G.W. Bush (R)'],[2009,'Obama (D)'],[2017,'Trump (R)'],[2021,'Biden (D)'],[2025,'Trump (R)']];
+function potus(y){let p=POTUS[0][1];for(const x of POTUS)if(y>=x[0])p=x[1];return p}
+function mOf(y){return M.find(r=>r[0]===y)}
+function oOf(y){return OD.find(r=>r[0]===y)}
+function note(y){
+  const n={
+    1918:'Influenza pandemic. CDC ~675k U.S. flu deaths 1918–19. Crude death rate worst since early registration.',
+    1919:'Flu pandemic continues (third wave).',
+    1920:'Flu residual; mortality falling.',
+    1968:'CDC OD series begins (ICD-8 era). Hong Kong flu (mild vs 1918/COVID).',
+    1979:'ICD-9 — OD totals not comparable to 1978.',
+    1980:'FBI modern murder peak 10.2.',
+    1991:'Second murder peak 9.8 (crime-drop starts after).',
+    1996:'OxyContin approved — Rx opioid wave.',
+    1999:'ICD-10 — OD series steps up. Wave 1 (Rx opioids) visible.',
+    2010:'Wave 2 (heroin) accelerating.',
+    2013:'Illicit fentanyl takes off (Wave 3).',
+    2014:'FBI murder modern low 4.4 before 2015 uptick.',
+    2020:'COVID year 1. NCHS 350,831 involving; ~480k excess (OWID US baseline). All-cause 3,383,729. Murder spike — lockdowns ≠ murder drop.',
+    2021:'Murder peak of the spike (~6.8). OD >100k.',
+    2022:'OD all-time peak. Murder already falling.',
+    2023:'OD starts down. Murder 3rd year down from peak.',
+    2024:'Largest % OD drop in the modern series (−26% rate). CDC homicide deaths 20,162 ≠ FBI murder count.',
+    2025:'FBI murder 4.1 / 14,085 — ties 1955–56 low. OD ~70k. Trump Y1; decline already running.',
+    2026:'Provisional OD 68,641 in 12mo ending Feb. SW border historically low. 2 citizen ICE/CBP GSW (unadjudicated).'
+  };return n[y]||'';
+}
+function sideYears(from,to,step,fn){
+  let h='<h4>Year</h4>';
+  for(let y=from;y<=to;y+=step)h+=`<button onclick="${fn}(${y})">${y}</button>`;
+  document.getElementById('side').innerHTML=h;
+}
+function draw(id,years,seriesList,ymax,unit){
+  const c=document.getElementById(id);if(!c||!years||!years.length)return;
+  const dpr=window.devicePixelRatio||1,W=Math.max(c.clientWidth||720,640),n=years.length;
+  const H=n<=14?280:n<=25?300:320;
+  c.width=W*dpr;c.height=H*dpr;c.style.height=H+'px';
+  const g=c.getContext('2d');g.scale(dpr,dpr);
+  const L=44,T=18,R=18,B=36,w=W-L-R,h=H-T-B;
+  g.fillStyle='#fafafa';g.fillRect(0,0,W,H);
+  g.strokeStyle='#ccc';g.beginPath();g.moveTo(L,T);g.lineTo(L,T+h);g.lineTo(L+w,T+h);g.stroke();
+  g.fillStyle='#555';g.font='10px Tahoma';
+  for(let i=0;i<=4;i++){
+    const yy=T+h*i/4,v=ymax*(1-i/4);
+    g.strokeStyle='#eee';g.beginPath();g.moveTo(L,yy);g.lineTo(L+w,yy);g.stroke();
+    g.fillStyle='#555';g.fillText(v>=100?Math.round(v):v.toFixed(v>=10?0:1),2,yy+3);
+  }
+  const step=n<=14?1:n<=30?2:5;
+  years.forEach((y,i)=>{
+    if(i%step&&i!==n-1&&i)return;
+    const xx=L+w*i/Math.max(1,n-1);
+    g.fillStyle='#333';g.save();g.translate(xx,T+h+11);g.rotate(-0.55);g.fillText(String(y),0,0);g.restore();
+  });
+  seriesList.forEach(S=>{
+    const s=S.s,col=S.c||'#06c';
+    g.strokeStyle=col;g.lineWidth=S.w||2;g.beginPath();
+    s.forEach((v,i)=>{const xx=L+w*i/Math.max(1,n-1),yy=T+h*(1-Math.max(0,v)/ymax);i?g.lineTo(xx,yy):g.moveTo(xx,yy)});
+    g.stroke();
+    s.forEach((v,i)=>{
+      const show=n<=14||i%step===0||i===n-1||i===0;
+      if(!show)return;
+      const xx=L+w*i/Math.max(1,n-1),yy=T+h*(1-Math.max(0,v)/ymax);
+      g.fillStyle=col;g.beginPath();g.arc(xx,yy,3,0,7);g.fill();
+      const lab=S.fmt?S.fmt(v):String(Math.round(v));
+      g.font='bold 9px Tahoma';g.fillStyle='#111';
+      g.fillText(lab,Math.min(xx+4,W-40),Math.max(yy-6,12));
+    });
+  });
+  g.font='10px Tahoma';g.fillStyle='#333';g.fillText(unit||'',L,12);
+}
+function covY(y){return y<2020?0:(COVID[y]||0)}
+function paintAllCharts(){
+  const mOk=M.filter(r=>r[1]!=null);
+  draw('cm',mOk.map(r=>r[0]),[{s:mOk.map(r=>r[1]),c:'#c00',fmt:v=>v.toFixed(1)}],12,'Murder rate per 100,000');
+  draw('co',OD.map(r=>r[0]),[{s:OD.map(r=>r[1]/1000),c:'#06c',fmt:v=>v>=10?Math.round(v)+'k':v.toFixed(1)+'k'}],120,'Overdose deaths (thousands)');
+  const y15=[...Array(11)].map((_,i)=>2015+i);
+  const k=v=>Math.round(v)+'k';
+  draw('c3',y15,[
+    {s:y15.map(y=>(mOf(y)?mOf(y)[2]:0)/1000),c:'#c00',fmt:k},
+    {s:y15.map(y=>(oOf(y)?oOf(y)[1]:0)/1000),c:'#06c',fmt:k},
+    {s:y15.map(y=>y<2020?0:(COVID[y]?COVID[y]/1000:0)),c:'#609',fmt:k}
+  ],450,'Thousands · red murder · blue OD · purple COVID (official thru 2023)');
+  draw('c4',y15.filter(y=>AC[y]),[{s:y15.filter(y=>AC[y]).map(y=>AC[y]/1000),c:'#333',fmt:k}],3600,'All-cause deaths (thousands)');
+  const yC=[2018,2019,2020,2021,2022,2023];
+  draw('ccov',yC,[{s:yC.map(y=>(y<2020?0:COVID[y])/1000),c:'#609',fmt:k}],450,'COVID-involving deaths (thousands) · NCHS thru 2023');
+  const yEx=[2015,2016,2017,2018,2019,2020,2021,2022,2023];
+  draw('cex15',yEx,[{s:yEx.map(y=>(EXCESS[y]||0)/1000),c:'#c60',w:2.5,fmt:v=>v?Math.round(v)+'k':'0'}],600,'Excess vs U.S. expected (thousands)');
+  const y18=[1917,1918,1919,1920,1921];
+  draw('cex18',y18,[{s:y18.map(y=>(EXCESS[y]||0)/1000),c:'#850',w:2.5,fmt:v=>v?Math.round(v)+'k':'0'}],550,'1918 flu excess (thousands)');
+  draw('cex',yEx,[{s:yEx.map(y=>(EXCESS[y]||0)/1000),c:'#c60',fmt:v=>v?Math.round(v)+'k':'0'}],600,'Excess (thousands)');
+  draw('cflu',['1918–19 flu','COVID 2020–23'],[{s:[675,1089],c:'#850',w:6,fmt:v=>v+'k'}],1300,'Pandemic deaths (thousands)');
+}
+function go(p){
+  const P=document.getElementById('pane');
+  if(p==='home'){
+    sideYears(1960,2026,5,'yr');
+    P.innerHTML=`<h1>United States murder, overdose, COVID, excess</h1>
+    <div class="cards">
+      <div class="card"><small>FBI murder 2025</small><em>4.1</em>14,085 — lowest rate since 1955–56</div>
+      <div class="card"><small>CDC OD 2025</small><em>~69,973</em>from ~108k peak (2022)</div>
+      <div class="card"><small>OD 12mo → Feb 2026</small><em>68,641</em>CDC file 4 Aug 2026</div>
+      <div class="card"><small>COVID 2020–23 involving</small><em>~1.09M</em>NCHS 351+417+246+76k</div>
+      <div class="card"><small>2026 ICE/CBP citizen GSW</small><em>2</em>0.014% of a year’s murders</div>
+    </div>
+    <div class="note">Full graph set: <a onclick="go('charts')">Graphs</a> · <a onclick="go('covid')">COVID / excess</a>. Type a year in the bar.</div>
+    <h2>Murder rate (FBI, per 100k)</h2><canvas id="cm"></canvas>
+    <h2>Overdose deaths (CDC, thousands)</h2><canvas id="co"></canvas>
+    <h2>2015–25: murder vs OD vs COVID (thousands)</h2><canvas id="c3"></canvas>
+    <h2>Excess mortality vs U.S. expected (thousands) · 2015–2026</h2><canvas id="cex15"></canvas>
+    <p class="legend"><span style="background:#c00"></span>murder <span style="background:#06c"></span>OD <span style="background:#609"></span>COVID <span style="background:#c60"></span>excess</p>`;
+    requestAnimationFrame(paintAllCharts);
+  }
+  else if(p==='charts'){
+    document.getElementById('side').innerHTML='<h4>Jump</h4><button onclick="go(\'covid\')">COVID graphs</button><button onclick="go(\'five\')">Year table</button>';
+    P.innerHTML=`<h1>Graphs</h1>
+    <h2>1. Murder rate /100k · 1960–2025</h2><canvas id="cm"></canvas>
+    <h2>2. Overdose deaths, thousands · 1968–2026*</h2><canvas id="co"></canvas>
+    <h2>3. 2015–25 thousands · murder / OD / COVID</h2><canvas id="c3"></canvas>
+    <p class="legend"><span style="background:#c00"></span>murder <span style="background:#06c"></span>OD <span style="background:#609"></span>COVID-involving</p>
+    <h2>4. All-cause deaths, thousands · 2015–25</h2><canvas id="c4"></canvas>
+    <h2>5. COVID-involving, thousands · 2018–25</h2><canvas id="ccov"></canvas>
+    <h2>6. Excess mortality vs U.S. expected · every year 2015–2026</h2><canvas id="cex15"></canvas>
+    <p>2015–19 = 0. 2020 ~480k (OWID). 2021 ~460k. 2022 ~250k. 2023 ~80k. 2024–26: no CDC yearly excess total in this file.</p>
+    <h2>6b. Excess · 1918 influenza (1917–21)</h2><canvas id="cex18"></canvas>
+    <h2>7. Pandemic totals, thousands · 1918–19 flu vs COVID 2020–25</h2><canvas id="cflu"></canvas>
+    <p>Flu ~675k. COVID certified ~1.16M+. Per 100k people, 1918 was worse (smaller population).</p>`;
+    requestAnimationFrame(paintAllCharts);
+  }
+  else if(p==='murder'){
+    sideYears(1960,2026,1,'yr');
+    let t=`<h1>Murder / non-negligent manslaughter — FBI UCR every year</h1>
+    <div class="note warn">Police-reported <b>murder</b>. CDC <b>homicide</b> (death certificates) is a few thousand higher some years. 2024 CDC homicide = 20,162 — not the FBI murder count.</div>
+    <table><tr><th>Year</th><th>Rate</th><th>Count</th><th>Δ rate</th><th class="l">President</th><th class="l">Note</th></tr>`;
+    M.forEach((r,i)=>{
+      const prev=i?M[i-1][1]:null, d=r[1]==null||prev==null?'':((r[1]-prev>=0?'+':'')+(r[1]-prev).toFixed(1));
+      const cls=r[1]==null?'hi':r[1]>=10?'pk':r[1]<=4.2?'lo':(r[0]===2020||r[0]===2021)?'hi':'';
+      t+=`<tr class="${cls}"><td><a onclick="yr(${r[0]})">${r[0]}</a></td><td>${r[1]==null?'n/a YTD':r[1].toFixed(1)}</td><td>${r[2]==null?'no FBI year':r[2].toLocaleString()}</td><td>${d}</td><td class="l">${potus(r[0])}</td><td class="l">${note(r[0])}</td></tr>`;
+    });
+    P.innerHTML=t+'</table>';
+  }
+  else if(p==='od'){
+    sideYears(1968,2026,1,'yr');
+    let t=`<h1>Drug overdose deaths — CDC every year</h1>
+    <div class="pic p-fent"></div>
+    <div class="note warn">Purple rows = ICD coding breaks (not a real overnight collapse/explosion).</div>
+    <table><tr><th>Year</th><th>Deaths</th><th>Rate</th><th>Synthetics (fent.)</th><th class="l">Wave / note</th></tr>`;
+    OD.forEach(r=>{
+      const cls=r[0]===1979||r[0]===1999?'br':r[1]>100000?'pk':r[0]>=2023?'lo':'';
+      const s=SYN[r[0]];
+      t+=`<tr class="${cls}"><td><a onclick="yr(${r[0]})">${r[0]}</a></td><td>${r[1].toLocaleString()}</td><td>${r[2]}</td><td>${s?s.toLocaleString():'—'}</td><td class="l">${note(r[0])||(r[0]>=2015&&r[0]<=2022?'Fentanyl-driven climb':'')}</td></tr>`;
+    });
+    P.innerHTML=t+`</table><p>2026 calendar YTD is not published (4-month lag). 12 months ending Feb 2026 = <b>68,641</b>. Prorate 1 Jan–18 Aug ≈ <b>43,000</b> if that pace held.</p>`;
+  }
+  else if(p==='five'){
+    sideYears(1900,2026,1,'yr');
+    let t=`<h1>Every year — full breakdown</h1>
+    <h2>Excess mortality vs U.S. expected, thousands · 2015–2026</h2><canvas id="cex15"></canvas>
+    <h2>Excess · 1918 flu (1917–21)</h2><canvas id="cex18"></canvas>
+    <div class="note">COVID = deaths <b>involving</b> COVID-19 on the certificate (0 before 2020). Excess = deaths above a <b>U.S. expected</b> baseline (CDC/OWID style) — <b>not</b> “U.S. vs Europe” papers. 1918–20 excess is flu-pandemic estimate (CDC 675k over the pandemic; yearly split is approximate). All-cause early 1900s = registration states only. Murder/OD series start later (—).</div>
+    <table><tr><th>Year</th><th>All-cause</th><th>COVID</th><th>Excess</th><th>Mur rate</th><th>Murders</th><th>OD deaths</th><th>Fent.</th><th>Viol.</th><th class="l">President</th><th class="l">Flag</th></tr>`;
+    for(let y=1900;y<=2026;y++){
+      const m=mOf(y),o=oOf(y),mp=mOf(y-1),op=oOf(y-1);
+      const cls=y===1918||y===2020||y===2021?'pk':y===1979||y===1999?'br':y===2026?'hi':(m&&m[1]>=10)||(o&&o[1]>100000)?'pk':y>=2023?'lo':'';
+      const mr=m&&m[1]!=null?m[1].toFixed(1):(y===2026?'n/a YTD':'—');
+      const mn=m&&m[2]!=null?m[2].toLocaleString():(y===2026?'no FBI year':'—');
+      const cv=y<2020?0:(COVID[y]==null?'—':COVID[y].toLocaleString());
+      const ex=EXCESS[y]!=null?EXCESS[y].toLocaleString():(y<1918||(y>1920&&y<2020)?'0':'—');
+      t+=`<tr class="${cls}"><td><a onclick="yr(${y})">${y}</a></td>
+        <td>${AC[y]?AC[y].toLocaleString():'—'}</td>
+        <td>${cv}</td><td>${ex}</td>
+        <td>${mr}</td><td>${mn}</td>
+        <td>${o?o[1].toLocaleString()+(y===2026?'*':''):'—'}</td>
+        <td>${SYN[y]?SYN[y].toLocaleString():'—'}</td>
+        <td>${VIO[y]??'—'}</td><td class="l">${potus(y)}</td><td class="l">${note(y)}</td></tr>`;
+    }
+    P.innerHTML=t+`</table>
+    <p>*2026 OD = CDC 12mo ending Feb 2026 (68,641). COVID yearly NCHS through 2023 only here. 2023–24 murder counts back-solved from FBI 2025 = 14,085 and published −18.1% / −14.9%. 2025 all-cause count not entered (rate-low only).</p>`;
+    requestAnimationFrame(paintAllCharts);
+  }
+  else if(p==='compare'){
+    sideYears(1970,2025,5,'yr');
+    P.innerHTML=`<h1>Murder vs overdose deaths</h1>
+    <table><tr><th>Year</th><th>Murders</th><th>ODs</th><th>OD / murder</th></tr>
+    <tr><td>1970</td><td>16,000</td><td>7,101</td><td>0.4×</td></tr>
+    <tr><td>1980</td><td>23,040</td><td>2,492*</td><td>*ICD-9</td></tr>
+    <tr><td>1990</td><td>23,440</td><td>4,506</td><td>0.2×</td></tr>
+    <tr><td>2000</td><td>15,586</td><td>17,415</td><td class="bad">OD overtakes</td></tr>
+    <tr><td>2010</td><td>14,722</td><td>38,329</td><td>2.6×</td></tr>
+    <tr><td>2015</td><td>15,883</td><td>52,404</td><td>3.3×</td></tr>
+    <tr><td>2020</td><td>21,570</td><td>91,799</td><td>4.3×</td></tr>
+    <tr><td>2022</td><td>~21,600</td><td>107,941</td><td>5.0×</td></tr>
+    <tr><td>2025</td><td>14,085</td><td>~69,973</td><td>5.0×</td></tr>
+    </table>
+    <div class="note">ODs are mostly American users + illicit supply. They are not “illegal immigrant murders.” Homicides by undocumented people run in the <b>hundreds/year</b> (Texas-tagged data), not tens of thousands.</div>`;
+  }
+  else if(p==='fent'){
+    document.getElementById('side').innerHTML='';
+    P.innerHTML=`<h1>Fentanyl / synthetics</h1>
+    <div class="pic p-fent"></div>
+    <p>CDC “synthetic opioids except methadone” ≈ illicit fentanyl + analogs.</p>
+    <table><tr><th>Year</th><th>Synthetic OD deaths</th><th>Share of all OD (approx)</th></tr>
+    <tr><td>2013</td><td>3,105</td><td>~7%</td></tr>
+    <tr><td>2015</td><td>9,580</td><td>~18%</td></tr>
+    <tr><td>2017</td><td>28,466</td><td>~41%</td></tr>
+    <tr><td>2020</td><td>56,516</td><td>~62%</td></tr>
+    <tr><td>2022</td><td>~73,800</td><td>~68%</td></tr>
+    <tr><td>2025</td><td>~38,084</td><td>~54%</td></tr>
+    </table>
+    <h2>How it enters (not the desert foot trail)</h2>
+    <ul>
+      <li>CBP: ~85–90% of fentanyl seized at <b>ports of entry</b> (vehicles).</li>
+      <li>Jan–Jun 2026: <b>5,200 lb</b> seized; <b>83.4%</b> at legal crossings. July 2026: +1,054 lb.</li>
+      <li>~4 in 5 port smugglers arrested are <b>U.S. citizens</b> (FOIA / CBP releases).</li>
+      <li>Precursors: China → Mexico cartels → POEs. Demand is domestic.</li>
+    </ul>`;
+  }
+  else if(p==='border'){
+    document.getElementById('side').innerHTML='';
+    P.innerHTML=`<h1>Southwest border (context, not a body count)</h1>
+    <table><tr><th>Period</th><th>Fact</th></tr>
+    <tr><td>Biden years</td><td>Record monthly encounters; catch-and-release / parole used at scale</td></tr>
+    <tr><td>Dec 2023</td><td>Peak SW encounters (Biden-era high)</td></tr>
+    <tr><td>Jul 2026</td><td>SW BP apprehensions ~9,295 — 94% below Biden monthly average; 96% below Dec 2023 peak</td></tr>
+    <tr><td>2025–26</td><td>15 consecutive months zero USBP parole releases (DHS/CBP Aug 2026)</td></tr>
+    </table>
+    <div class="note okbox">The crossing collapse is a real Trump-II result. It is not proof that “50–100k Americans were saved from illegal-immigrant crime this year.” Murder drop started 2022; OD drop started 2023.</div>`;
+  }
+  else if(p==='covid'){
+    sideYears(1918,2026,1,'yr');
+    P.innerHTML=`<h1>COVID-19 and excess deaths</h1>
+    <div class="note warn">Two different numbers. <b>COVID-involving</b> = U07.1 on the certificate (can be underlying or contributing). <b>Excess</b> = all-cause deaths minus a U.S. expected baseline (includes COVID + delayed care + overdoses + anything else above trend). Do <b>not</b> add them. Do <b>not</b> use JAMA “U.S. vs peer countries” excess (that series is high even in 2019).</div>
+    <h2>Certificate COVID (CDC NCHS)</h2>
+    <table><tr><th>Year</th><th>Involving COVID</th><th>All-cause</th><th>COVID share</th><th class="l">Note</th></tr>
+    <tr class="pk"><td>2020</td><td>350,831</td><td>3,383,729</td><td>~10%</td><td class="l">3rd leading cause. +19% all-cause vs 2019.</td></tr>
+    <tr class="pk"><td>2021</td><td>416,893</td><td>3,464,231</td><td>~12%</td><td class="l">Peak COVID year. Delta + unvaxxed + late Alpha.</td></tr>
+    <tr><td>2022</td><td>245,614</td><td>3,279,857</td><td>~7.5%</td><td class="l">MMWR. ~186,702 underlying. Omicron.</td></tr>
+    <tr><td>2023</td><td>~76,446</td><td>3,090,582</td><td>~2.5%</td><td class="l">10th leading cause.</td></tr>
+    <tr><td>2024</td><td>—</td><td>3,072,666</td><td>—</td><td class="l">Left top-10 causes. aa rate 722.1. No yearly COVID count stored.</td></tr>
+    <tr><td>2025</td><td>—</td><td>—</td><td>—</td><td class="l">NCHS: record-low aa death <i>rate</i>. Count not stored.</td></tr>
+    <tr class="hi"><td>2026 YTD</td><td>low tens/wk</td><td>—</td><td>—</td><td class="l">Cumulative ~1.205M reported since 2020 (Aug 14).</td></tr>
+    </table>
+    <p>Sum of yearly involving ≈ <b>1.16M+</b> through 2025 (counts revised). Wikipedia cumulative reported ~1.24M / CDC ~1.23M — different cutoffs (underlying vs involving, jurisdiction).</p>
+    <h2>Excess vs U.S. expected</h2>
+    <table><tr><th>Year</th><th>Excess (approx)</th><th class="l">Source style</th></tr>
+    <tr class="pk"><td>1918</td><td>~500,000</td><td class="l">Flu. CDC 675k over 1918–19 pandemic (yearly split approx).</td></tr>
+    <tr><td>1919</td><td>~150,000</td><td class="l">Flu third wave / residual.</td></tr>
+    <tr><td>1920</td><td>~25,000</td><td class="l">Tail.</td></tr>
+    <tr class="pk"><td>2020</td><td>~480,000</td><td class="l">OWID US baseline. Above certified COVID.</td></tr>
+    <tr class="pk"><td>2021</td><td>~460–586k</td><td class="l">Still above certified COVID.</td></tr>
+    <tr><td>2022</td><td>~250k</td><td class="l">Closer to involving-COVID.</td></tr>
+    <tr><td>2023</td><td>~50–80k</td><td class="l">Near baseline; leftover OD + delayed care debated.</td></tr>
+    <tr><td>2024–25</td><td>near 0 / small</td><td class="l">All-cause rates back to or below pre-COVID trend.</td></tr>
+    </table>
+    <h2>1918 flu vs COVID (scale)</h2>
+    <table><tr><th></th><th>1918–19 flu</th><th>COVID 2020–25</th></tr>
+    <tr><td class="l">U.S. pandemic deaths (CDC-type)</td><td>~675,000</td><td>~1.2 million certified</td></tr>
+    <tr><td class="l">U.S. population</td><td>~103 million</td><td>~331 million</td></tr>
+    <tr><td class="l">Deaths per 100k pop</td><td>~650</td><td>~360</td></tr>
+    <tr><td class="l">Age pattern</td><td>W: young adults</td><td>mostly 65+</td></tr>
+    </table>
+    <div class="note">Seasonal flu in a normal year is ~10–50k U.S. deaths — not entered as “excess” here except 1918–20. Hong Kong 1968 and 1957 Asian flu were real but far smaller than 1918/COVID.</div>
+    <h2>COVID-involving, thousands</h2><canvas id="ccov"></canvas>
+    <h2>Excess mortality vs U.S. expected · every year 2015–2026</h2><canvas id="cex15"></canvas>
+    <h2>Excess · 1918 flu 1917–21</h2><canvas id="cex18"></canvas>
+    <h2>2015–25: murder / OD / COVID (thousands)</h2><canvas id="c3"></canvas>
+    <h2>All-cause deaths, thousands</h2><canvas id="c4"></canvas>
+    <h2>Pandemic totals</h2><canvas id="cflu"></canvas>
+    <canvas id="cm" style="display:none"></canvas><canvas id="co" style="display:none"></canvas>`;
+    requestAnimationFrame(paintAllCharts);
+  }
+  else if(p==='ice'){
+    document.getElementById('side').innerHTML='';
+    P.innerHTML=`<h1>The “2 ICE deaths” talking point</h1>
+    <div class="note warn">DHS said self-defense. That is a press line, not a verdict. Minnesota still investigating. DOJ refused a civil-rights case on Good (looked at her widow); opened a look at Pretti.</div>
+    <table>
+    <tr><th class="l">Who</th><th class="l">When</th><th class="l">Agency</th><th class="l">Record</th></tr>
+    <tr><td class="l">Renée Good, 37, U.S. citizen</td><td>7 Jan 2026</td><td>ICE</td><td>Minneapolis. Video: reverse then drive. 3 shots. Agent Jonathan Ross.</td></tr>
+    <tr><td class="l">Alex Pretti, 37, U.S. citizen, nurse</td><td>24 Jan 2026</td><td>CBP</td><td>Licensed carry. Video analyses: phone in hand; ~10 rounds.</td></tr>
+    </table>
+    <h2>Scale (through 18 Aug 2026)</h2>
+    <table>
+    <tr><td class="l">Citizen on-duty ICE/CBP fatal GSW</td><td>2</td></tr>
+    <tr><td class="l">FBI murders 2025</td><td>14,085</td></tr>
+    <tr><td class="l">OD run-rate</td><td>~69,000 / yr</td></tr>
+    <tr><td class="l">2 ÷ murders</td><td>0.014%</td></tr>
+    <tr><td class="l">2 ÷ ODs</td><td>0.003%</td></tr>
+    <tr><td class="l">ICE detention deaths 2026 YTD</td><td>~24 (medical/suicide — different category)</td></tr>
+    </table>
+    <p>Named-victim TV is how both parties argue. It does not replace FBI or CDC series. It does not prove the shots were lawful. It does not erase a hard border or a falling murder/OD trend.</p>`;
+  }
+  else if(p==='method'){
+    document.getElementById('side').innerHTML='';
+    P.innerHTML=`<h1>How to read this file</h1>
+    <ul>
+      <li><b>FBI UCR murder</b> — crimes reported by police. National estimates 1936–. Coverage/methods changed (esp. 2021 NIBRS transition — treat 2021 counts as softer).</li>
+      <li><b>CDC homicide</b> — death certificates. Usually higher than FBI murder.</li>
+      <li><b>CDC overdose</b> — ICD codes X40–X44, X60–X64, X85, Y10–Y14. Breaks: <b>1979 ICD-9</b>, <b>1999 ICD-10</b>.</li>
+      <li><b>Synthetics</b> — T40.4, mostly illicit fentanyl. Deaths can list multiple drugs (row overlap).</li>
+      <li>Early 1960s counts reconstructed from rate × Census pop (rounded).</li>
+      <li>2023–24 murder counts rounded from FBI % changes + 2025 official 14,085.</li>
+      <li>2026 OD YTD is <b>prorated</b>, not counted. CDC lags ~4 months.</li>
+      <li><b>COVID-involving</b> ≠ underlying-only. 2022: 245,614 involving (MMWR). 2023: 76,446 involving / 49,928 underlying.</li>
+      <li><b>Excess (this file)</b> = vs U.S. expected deaths. JAMA “vs other rich countries” is a different series (already large in 2019).</li>
+      <li>1918–20 flu: CDC ~675k U.S. over the pandemic; yearly split is an estimate.</li>
+      <li>All-cause 1900–1930s: death-registration area, not all states.</li>
+    </ul>`;
+  }
+  else if(p==='src'){
+    document.getElementById('side').innerHTML='';
+    P.innerHTML=`<h1>Sources</h1>
+    <ul>
+      <li>FBI UCR / Crime in the United States; 2025 national tables (released Aug 2026) — murder 4.1, 14,085, −18.1%</li>
+      <li>CDC NCHS WONDER &amp; Data Briefs (OD 1968–2024 final; 2024 = 79,384, aa rate 23.1)</li>
+      <li>CDC provisional OD dashboard, data available 4 Aug 2026 (12mo ending Feb 2026 = 68,641)</li>
+      <li>Disaster Center / CRS UCR rate reconstructions 1960–2019</li>
+      <li>CBP nationwide drug seizures &amp; SW border releases, FY2026</li>
+      <li>NCHS NVSS all-cause &amp; COVID-19 mortality (2020–24 finals; 2025 provisional rate low)</li>
+      <li>CDC excess-deaths dashboard / OWID US excess (2020–22)</li>
+      <li>CDC 1918 pandemic history (~675,000 U.S.)</li>
+      <li>Texas DPS / Cato on homicide convictions by immigration status (rate, not this file’s main table)</li>
+    </ul>
+    <p>Self-contained. No network required. Graphs are canvas.</p>`;
+  }
+}
+function yr(y){
+  if(!y||y<1900||y>2026){go('home');return}
+  const m=mOf(y),o=oOf(y),mp=mOf(y-1),op=oOf(y-1);
+  sideYears(1900,2026,1,'yr');
+  document.getElementById('pane').innerHTML=`<h1>${y}</h1>
+    <p><b>${potus(y)}</b></p>
+    <div class="cards">
+      <div class="card"><small>All-cause deaths</small><em>${AC[y]?AC[y].toLocaleString():'—'}</em>NCHS (early years incomplete)</div>
+      <div class="card"><small>COVID-involving</small><em>${y<2020?0:(COVID[y]==null?'YTD':COVID[y].toLocaleString())}</em>certificate U07.1</div>
+      <div class="card"><small>Excess vs U.S. expected</small><em>${EXCESS[y]!=null?EXCESS[y].toLocaleString():(y<2020?0:'—')}</em>not vs Europe</div>
+      <div class="card"><small>FBI murder rate</small><em>${m&&m[1]!=null?m[1].toFixed(1):'—'}</em>${m&&m[2]!=null?m[2].toLocaleString():''}</div>
+      <div class="card"><small>CDC overdose</small><em>${o?o[1].toLocaleString()+(y===2026?'*':''):'—'}</em>${o&&o[2]!=null?'rate '+o[2]:''}</div>
+      <div class="card"><small>Synthetics / violent</small><em>${SYN[y]?SYN[y].toLocaleString():'—'}</em>viol. ${VIO[y]??'—'}</div>
+    </div>
+    <div class="note">${note(y)||'No special flag. Use Murder y/y and Overdose y/y for neighbors.'}</div>
+    <p><a onclick="go('murder')">All murder years</a> · <a onclick="go('od')">All OD years</a></p>`;
+}
+go('home');
+</script>
+</body>
+</html>
